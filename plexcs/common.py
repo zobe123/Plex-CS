@@ -23,13 +23,13 @@ import platform
 from plexcs import version
 
 # Identify Our Application
-USER_AGENT = 'Plex:CS/-' + version.PLEXPY_VERSION + ' v' + version.PLEXPY_RELEASE_VERSION + ' (' + platform.system() + \
+USER_AGENT = 'Plex:CS/-' + version.PLEXCS_VERSION + ' v' + version.PLEXCS_RELEASE_VERSION + ' (' + platform.system() + \
              ' ' + platform.release() + ')'
 
 PLATFORM = platform.system()
 PLATFORM_VERSION = platform.release()
-BRANCH = version.PLEXPY_VERSION
-VERSION_NUMBER = version.PLEXPY_RELEASE_VERSION
+BRANCH = version.PLEXCS_VERSION
+VERSION_NUMBER = version.PLEXCS_RELEASE_VERSION
 
 # Notification Types
 NOTIFY_STARTED = 1
