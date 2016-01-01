@@ -1,0 +1,277 @@
+#  This file is part of Plex:CS.
+#
+#  Plex:CS is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  Plex:CS is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with Plex:CS.  If not, see <http://www.gnu.org/licenses/>.
+
+import re
+import os
+import tarfile
+import platform
+import plexcs
+import subprocess
+
+from plexcs import logger, version, request
+
+
+def runGit(args):
+
+    if plexcs.CONFIG.GIT_PATH:
+        git_locations = ['"' + plexcs.CONFIG.GIT_PATH + '"']
+    else:
+        git_locations = ['git']
+
+    if platform.system().lower() == 'darwin':
+        git_locations.append('/usr/local/git/bin/git')
+
+    output = err = None
+
+    for cur_git in git_locations:
+        cmd = cur_git + ' ' + args
+
+        try:
+            logger.debug('Trying to execute: "' + cmd + '" with shell in ' + plexcs.PROG_DIR)
+            p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True, cwd=plexcs.PROG_DIR)
+            output, err = p.communicate()
+            output = output.strip()
+
+            logger.debug('Git output: ' + output)
+        except OSError:
+            logger.debug('Command failed: %s', cmd)
+            continue
+
+        if 'not found' in output or "not recognized as an internal or external command" in output:
+            logger.debug('Unable to find git with command ' + cmd)
+            output = None
+        elif 'fatal:' in output or err:
+            logger.error('Git returned bad info. Are you sure this is a git installation?')
+            output = None
+        elif output:
+            break
+
+    return (output, err)
+
+
+def getVersion():
+
+    if version.PLEXPY_VERSION.startswith('win32build'):
+        plexcs.INSTALL_TYPE = 'win'
+
+        # Don't have a way to update exe yet, but don't want to set VERSION to None
+        return 'Windows Install', 'master'
+
+    elif os.path.isdir(os.path.join(plexcs.PROG_DIR, '.git')):
+
+        plexcs.INSTALL_TYPE = 'git'
+        output, err = runGit('rev-parse HEAD')
+
+        if not output:
+            logger.error('Couldn\'t find latest installed version.')
+            cur_commit_hash = None
+
+        cur_commit_hash = str(output)
+
+        if not re.match('^[a-z0-9]+$', cur_commit_hash):
+            logger.error('Output doesn\'t look like a hash, not using it')
+            cur_commit_hash = None
+
+        if plexcs.CONFIG.DO_NOT_OVERRIDE_GIT_BRANCH and plexcs.CONFIG.GIT_BRANCH:
+            branch_name = plexcs.CONFIG.GIT_BRANCH
+
+        else:
+            branch_name, err = runGit('rev-parse --abbrev-ref HEAD')
+            branch_name = branch_name
+
+            if not branch_name and plexcs.CONFIG.GIT_BRANCH:
+                logger.error('Could not retrieve branch name from git. Falling back to %s' % plexcs.CONFIG.GIT_BRANCH)
+                branch_name = plexcs.CONFIG.GIT_BRANCH
+            if not branch_name:
+                logger.error('Could not retrieve branch name from git. Defaulting to master')
+                branch_name = 'master'
+
+        return cur_commit_hash, branch_name
+
+    else:
+
+        plexcs.INSTALL_TYPE = 'source'
+
+        version_file = os.path.join(plexcs.PROG_DIR, 'version.txt')
+
+        if not os.path.isfile(version_file):
+            return None, 'master'
+
+        with open(version_file, 'r') as f:
+            current_version = f.read().strip(' \n\r')
+
+        if current_version:
+            return current_version, plexcs.CONFIG.GIT_BRANCH
+        else:
+            return None, 'master'
+
+
+def checkGithub():
+    plexcs.COMMITS_BEHIND = 0
+
+    # Get the latest version available from github
+    logger.info('Retrieving latest version information from GitHub')
+    url = 'https://api.github.com/repos/%s/plexcs/commits/%s' % (plexcs.CONFIG.GIT_USER, plexcs.CONFIG.GIT_BRANCH)
+    version = request.request_json(url, timeout=20, validator=lambda x: type(x) == dict)
+
+    if version is None:
+        logger.warn('Could not get the latest version from GitHub. Are you running a local development version?')
+        return plexcs.CURRENT_VERSION
+
+    plexcs.LATEST_VERSION = version['sha']
+    logger.debug("Latest version is %s", plexcs.LATEST_VERSION)
+
+    # See how many commits behind we are
+    if not plexcs.CURRENT_VERSION:
+        logger.info('You are running an unknown version of Plex:CS. Run the updater to identify your version')
+        return plexcs.LATEST_VERSION
+
+    if plexcs.LATEST_VERSION == plexcs.CURRENT_VERSION:
+        logger.info('Plex:CS is up to date')
+        return plexcs.LATEST_VERSION
+
+    logger.info('Comparing currently installed version with latest GitHub version')
+    url = 'https://api.github.com/repos/%s/plexcs/compare/%s...%s' % (plexcs.CONFIG.GIT_USER, plexcs.LATEST_VERSION, plexcs.CURRENT_VERSION)
+    commits = request.request_json(url, timeout=20, whitelist_status_code=404, validator=lambda x: type(x) == dict)
+
+    if commits is None:
+        logger.warn('Could not get commits behind from GitHub.')
+        return plexcs.LATEST_VERSION
+
+    try:
+        plexcs.COMMITS_BEHIND = int(commits['behind_by'])
+        logger.debug("In total, %d commits behind", plexcs.COMMITS_BEHIND)
+    except KeyError:
+        logger.info('Cannot compare versions. Are you running a local development version?')
+        plexcs.COMMITS_BEHIND = 0
+
+    if plexcs.COMMITS_BEHIND > 0:
+        logger.info('New version is available. You are %s commits behind' % plexcs.COMMITS_BEHIND)
+    elif plexcs.COMMITS_BEHIND == 0:
+        logger.info('Plex:CS is up to date')
+
+    return plexcs.LATEST_VERSION
+
+
+def update():
+    if plexcs.INSTALL_TYPE == 'win':
+        logger.info('Windows .exe updating not supported yet.')
+
+    elif plexcs.INSTALL_TYPE == 'git':
+        output, err = runGit('pull origin ' + plexcs.CONFIG.GIT_BRANCH)
+
+        if not output:
+            logger.error('Couldn\'t download latest version')
+
+        for line in output.split('\n'):
+
+            if 'Already up-to-date.' in line:
+                logger.info('No update available, not updating')
+                logger.info('Output: ' + str(output))
+            elif line.endswith('Aborting.'):
+                logger.error('Unable to update from git: ' + line)
+                logger.info('Output: ' + str(output))
+
+    else:
+        tar_download_url = 'https://github.com/%s/plexcs/tarball/%s' % (plexcs.CONFIG.GIT_USER, plexcs.CONFIG.GIT_BRANCH)
+        update_dir = os.path.join(plexcs.PROG_DIR, 'update')
+        version_path = os.path.join(plexcs.PROG_DIR, 'version.txt')
+
+        logger.info('Downloading update from: ' + tar_download_url)
+        data = request.request_content(tar_download_url)
+
+        if not data:
+            logger.error("Unable to retrieve new version from '%s', can't update", tar_download_url)
+            return
+
+        download_name = plexcs.CONFIG.GIT_BRANCH + '-github'
+        tar_download_path = os.path.join(plexcs.PROG_DIR, download_name)
+
+        # Save tar to disk
+        with open(tar_download_path, 'wb') as f:
+            f.write(data)
+
+        # Extract the tar to update folder
+        logger.info('Extracting file: ' + tar_download_path)
+        tar = tarfile.open(tar_download_path)
+        tar.extractall(update_dir)
+        tar.close()
+
+        # Delete the tar.gz
+        logger.info('Deleting file: ' + tar_download_path)
+        os.remove(tar_download_path)
+
+        # Find update dir name
+        update_dir_contents = [x for x in os.listdir(update_dir) if os.path.isdir(os.path.join(update_dir, x))]
+        if len(update_dir_contents) != 1:
+            logger.error("Invalid update data, update failed: " + str(update_dir_contents))
+            return
+        content_dir = os.path.join(update_dir, update_dir_contents[0])
+
+        # walk temp folder and move files to main folder
+        for dirname, dirnames, filenames in os.walk(content_dir):
+            dirname = dirname[len(content_dir) + 1:]
+            for curfile in filenames:
+                old_path = os.path.join(content_dir, dirname, curfile)
+                new_path = os.path.join(plexcs.PROG_DIR, dirname, curfile)
+
+                if os.path.isfile(new_path):
+                    os.remove(new_path)
+                os.renames(old_path, new_path)
+
+        # Update version.txt
+        try:
+            with open(version_path, 'w') as f:
+                f.write(str(plexcs.LATEST_VERSION))
+        except IOError as e:
+            logger.error(
+                "Unable to write current version to version.txt, update not complete: %s",
+                e
+            )
+            return
+
+def read_changelog():
+
+    changelog_file = os.path.join(plexcs.PROG_DIR, 'CHANGELOG.md')
+
+    try:
+        logfile = open(changelog_file, "r")
+    except IOError, e:
+        logger.error('Plex:CS Version Checker :: Unable to open changelog file. %s' % e)
+        return None
+
+    if logfile:
+        output = ''
+        lines = logfile.readlines()
+        previous_line = ''
+        for line in lines:
+            if line[:2] == '# ':
+                output += '<h3>' + line[2:] + '</h3>'
+            elif line[:3] == '## ':
+                output += '<h4>' + line[3:] + '</h4>'
+            elif line[:2] == '* ' and previous_line.strip() == '':
+                output += '<ul><li>' + line[2:] + '</li>'
+            elif line[:2] == '* ':
+                output += '<li>' + line[2:] + '</li>'
+            elif line.strip() == '' and previous_line[:2] == '* ':
+                output += '</ul></br>'
+            else:
+                output += line + '</br>'
+
+            previous_line = line
+
+        return output
+    else:
+        return '<h4>No changelog data</h4>'
