@@ -63,7 +63,7 @@ def runGit(args):
 
 def getVersion():
 
-    if version.PLEXPY_VERSION.startswith('win32build'):
+    if version.PLEXCS_VERSION.startswith('win32build'):
         plexcs.INSTALL_TYPE = 'win'
 
         # Don't have a way to update exe yet, but don't want to set VERSION to None
