@@ -123,7 +123,7 @@ def checkGithub():
 
     # Get the latest version available from github
     logger.info('Retrieving latest version information from GitHub')
-    url = 'https://api.github.com/repos/%s/plexcs/commits/%s' % (plexcs.CONFIG.GIT_USER, plexcs.CONFIG.GIT_BRANCH)
+    url = 'https://api.github.com/repos/%s/plex-cs/commits/%s' % (plexcs.CONFIG.GIT_USER, plexcs.CONFIG.GIT_BRANCH)
     version = request.request_json(url, timeout=20, validator=lambda x: type(x) == dict)
 
     if version is None:
@@ -143,7 +143,7 @@ def checkGithub():
         return plexcs.LATEST_VERSION
 
     logger.info('Comparing currently installed version with latest GitHub version')
-    url = 'https://api.github.com/repos/%s/plexcs/compare/%s...%s' % (plexcs.CONFIG.GIT_USER, plexcs.LATEST_VERSION, plexcs.CURRENT_VERSION)
+    url = 'https://api.github.com/repos/%s/plex-cs/compare/%s...%s' % (plexcs.CONFIG.GIT_USER, plexcs.LATEST_VERSION, plexcs.CURRENT_VERSION)
     commits = request.request_json(url, timeout=20, whitelist_status_code=404, validator=lambda x: type(x) == dict)
 
     if commits is None:
