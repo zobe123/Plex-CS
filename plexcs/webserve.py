@@ -723,30 +723,30 @@ class WebInterface(object):
             logger.warn('Unable to retrieve data.')
             return False
 
-    @cherrypy.expose
-    def get_current_activity(self, **kwargs):
-
-        try:
-            pms_connect = pmsconnect.PmsConnect()
-            result = pms_connect.get_current_activity()
-
-            data_factory = datafactory.DataFactory()
-            for session in result['sessions']:
-                if not session['ip_address']:
-                    ip_address = data_factory.get_session_ip(session['session_key'])
-                    session['ip_address'] = ip_address
-
-        except:
-            return serve_template(templatename="current_activity.html", data=None)
-
-        if result:
-            return serve_template(templatename="current_activity.html", data=result)
-        else:
-            logger.warn('Unable to retrieve data.')
-            return serve_template(templatename="current_activity.html", data=None)
-
- # @cherrypy.expose
- #   def get_current_activity_header(self, **kwargs):
+#    @cherrypy.expose
+#   def get_current_activity(self, **kwargs):
+#
+#        try:
+#            pms_connect = pmsconnect.PmsConnect()
+#            result = pms_connect.get_current_activity()
+#
+#            data_factory = datafactory.DataFactory()
+#            for session in result['sessions']:
+#                if not session['ip_address']:
+#                    ip_address = data_factory.get_session_ip(session['session_key'])
+#                    session['ip_address'] = ip_address
+#
+#        except:
+#            return serve_template(templatename="current_activity.html", data=None)
+#
+#        if result:
+#            return serve_template(templatename="current_activity.html", data=result)
+#        else:
+#            logger.warn('Unable to retrieve data.')
+#            return serve_template(templatename="current_activity.html", data=None)
+#
+# @cherrypy.expose
+#   def get_current_activity_header(self, **kwargs):
 #
 #        try:
 #            pms_connect = pmsconnect.PmsConnect()
@@ -756,24 +756,24 @@ class WebInterface(object):
 #
 #        if result:
 #            return serve_template(templatename="current_activity_header.html", data=result['stream_count'])
- #       else:
-  #          logger.warn('Unable to retrieve data.')
-   #         return serve_template(templatename="current_activity_header.html", data=None)
+#       else:
+#          logger.warn('Unable to retrieve data.')
+#         return serve_template(templatename="current_activity_header.html", data=None)
 #
- #   @cherrypy.expose
-  #  def get_recently_added(self, count='0', **kwargs):
+#   @cherrypy.expose
+#  def get_recently_added(self, count='0', **kwargs):
 #
- #       try:
-  #          pms_connect = pmsconnect.PmsConnect()
-   #         result = pms_connect.get_recently_added_details(count)
-    #    except IOError, e:
+#       try:
+#          pms_connect = pmsconnect.PmsConnect()
+#         result = pms_connect.get_recently_added_details(count)
+#    except IOError, e:
 #            return serve_template(templatename="recently_added.html", data=None)
 #
- #       if result:
-  #          return serve_template(templatename="recently_added.html", data=result['recently_added'])
-   #     else:
-    #        logger.warn('Unable to retrieve data.')
-     #       return serve_template(templatename="recently_added.html", data=None)
+#       if result:
+#          return serve_template(templatename="recently_added.html", data=result['recently_added'])
+#     else:
+#        logger.warn('Unable to retrieve data.')
+#       return serve_template(templatename="recently_added.html", data=None)
 
     @cherrypy.expose
     def pms_image_proxy(self, img='', width='0', height='0', fallback=None, **kwargs):
