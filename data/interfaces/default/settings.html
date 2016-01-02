@@ -1,7 +1,7 @@
 <%inherit file="base.html"/>
 <%!
-import plexpy
-from plexpy import notifiers, common, versioncheck
+import plexcs
+from plexcs import notifiers, common, versioncheck
 
 available_notification_agents = sorted(notifiers.available_notification_agents(), key=lambda k: k['name'])
 %>
@@ -60,8 +60,8 @@ available_notification_agents = sorted(notifiers.available_notification_agents()
                             </label>
                             <p class="help-block">If you have Git installed, allow periodic checks for updates.</p>
                         </div>
-                        % if plexpy.CURRENT_VERSION:
-                        <p class="help-block">Git hash: ${plexpy.CURRENT_VERSION}</p>
+                        % if plexcs.CURRENT_VERSION:
+                        <p class="help-block">Git hash: ${plexcs.CURRENT_VERSION}</p>
                         % endif
                         <div class="padded-header">
                             <h3>Display Settings</h3>
@@ -190,7 +190,7 @@ available_notification_agents = sorted(notifiers.available_notification_agents()
                             <label>
                                 <input type="checkbox" name="launch_browser" value="1" ${config['launch_browser']}> Launch Browser on Startup
                             </label>
-                            <p class="help-block">Launch browser pointed to PlexPy, on startup.</p>
+                            <p class="help-block">Launch browser pointed to Plex:CS, on startup.</p>
                         </div>
                         <div class="checkbox">
                             <label>
@@ -244,7 +244,7 @@ available_notification_agents = sorted(notifiers.available_notification_agents()
                             <label>
                                 <input type="checkbox" id="api_enabled" name="api_enabled" value="1" ${config['api_enabled']}> Enable API
                             </label>
-                            <p class="help-block">Allow remote applications to interface with PlexPy.</p>
+                            <p class="help-block">Allow remote applications to interface with Plex:CS.</p>
                         </div>
                         <div id="apioptions" class="form-group">
                             <label for="api_key">API key</label>
@@ -268,7 +268,7 @@ available_notification_agents = sorted(notifiers.available_notification_agents()
                         <div class="padded-header">
                             <h3>Plex Media Server</h3>
                         </div>
-                        <p class="help-block">If you're using websocket monitoring, any server changes require a restart of PlexPy.</p>
+                        <p class="help-block">If you're using websocket monitoring, any server changes require a restart of Plex:CS.</p>
                         <div class="form-group has-feedback" id="pms-ip-group">
                             <label for="pms_ip">Plex IP or Hostname</label>
                             <div class="row">
@@ -294,13 +294,13 @@ available_notification_agents = sorted(notifiers.available_notification_agents()
                             <label>
                                 <input type="checkbox" id="pms_is_remote" name="pms_is_remote" value="1" ${config['pms_is_remote']}> Remote Server
                             </label>
-                            <p class="help-block">Check this is your Plex Server is not on the same local network as PlexPy.</p>
+                            <p class="help-block">Check this is your Plex Server is not on the same local network as Plex:CS.</p>
                         </div>
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" id="pms_ssl" name="pms_ssl" value="1" ${config['pms_ssl']}> Force SSL
                             </label>
-                            <p class="help-block">Force PlexPy to connect to your Plex Server via SSL. Your server needs to have remote access enabled.</p>
+                            <p class="help-block">Force Plex:CS to connect to your Plex Server via SSL. Your server needs to have remote access enabled.</p>
                         </div>
                         <div class="padded-header">
                             <h3>Plex Logs</h3>
@@ -354,13 +354,13 @@ available_notification_agents = sorted(notifiers.available_notification_agents()
                                 </div>
                                 <div id="refresh_users_interval_error" class="alert alert-danger settings-alert" role="alert"></div>
                             </div>
-                            <p class="help-block">The interval (in hours) PlexPy will request an updated friends list from Plex.tv. 1 minimum, 24 maximum.</p>
+                            <p class="help-block">The interval (in hours) Plex:CS will request an updated friends list from Plex.tv. 1 minimum, 24 maximum.</p>
                         </div>
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" id="refresh_users_on_startup" name="refresh_users_on_startup" value="1" ${config['refresh_users_on_startup']}> Refresh User List on Startup
                             </label>
-                            <p class="help-block">Refresh the user list when PlexPy starts.</p>
+                            <p class="help-block">Refresh the user list when Plex:CS starts.</p>
                         </div>
 
                         <p><input type="button" class="btn btn-bright save-button" value="Save" data-success="Changes saved successfully"></p>
@@ -397,7 +397,7 @@ available_notification_agents = sorted(notifiers.available_notification_agents()
                                 </div>
                                 <div id="monitoring_interval_error" class="alert alert-danger settings-alert" role="alert"></div>
                             </div>
-                            <p class="help-block">The interval (in seconds) PlexPy will ping your Plex Server. Min 30 seconds, recommended 60 seconds.</p>
+                            <p class="help-block">The interval (in seconds) Plex:CS will ping your Plex Server. Min 30 seconds, recommended 60 seconds.</p>
                         </div>
                         <div class="checkbox">
                             <label>
@@ -409,7 +409,7 @@ available_notification_agents = sorted(notifiers.available_notification_agents()
                             <label>
                                 <input type="checkbox" id="monitor_remote_access" name="monitor_remote_access" value="1" ${config['monitor_remote_access']}> Monitor Plex Remote Access
                             </label>
-                            <p class="help-block">Enable to have PlexPy check if remote access to the Plex Media Server goes down. Your server needs to have remote access enabled.</p>
+                            <p class="help-block">Enable to have Plex:CS check if remote access to the Plex Media Server goes down. Your server needs to have remote access enabled.</p>
                         </div>
 
                         <div class="padded-header">
@@ -473,7 +473,7 @@ available_notification_agents = sorted(notifiers.available_notification_agents()
                                 </div>
                                 <div id="buffer_wait_error" class="alert alert-danger settings-alert" role="alert"></div>
                             </div>
-                            <p class="help-block">The value (in seconds) PlexPy should wait before triggering the next buffer warning. 0 to always trigger.</p>
+                            <p class="help-block">The value (in seconds) Plex:CS should wait before triggering the next buffer warning. 0 to always trigger.</p>
                         </div>
 
                         <p><input type="button" class="btn btn-bright save-button" value="Save" data-success="Changes saved successfully"></p>
@@ -888,7 +888,7 @@ available_notification_agents = sorted(notifiers.available_notification_agents()
                     <div>
                         <p class="help-block">
                             This will attempt to fetch your token for you. This will not work on Internet Explorer 9 or lower.
-                            PlexPy does not store your username and password.
+                            Plex:CS does not store your username and password.
                         </p>
                         <div class="form-group">
                             <label for="pms_username">PMS Username</label>
@@ -1145,7 +1145,7 @@ available_notification_agents = sorted(notifiers.available_notification_agents()
                     <h4 class="modal-title">Restart</h4>
                 </div>
                 <div class="modal-body">
-                    You have changed settings that require PlexPy to restart. Hit the restart button below to restart now.
+                    You have changed settings that require Plex:CS to restart. Hit the restart button below to restart now.
                 </div>
                 <div class="modal-footer">
                     <button id="modal_link_restart" class="btn btn-bright"><i class="fa fa-refresh"></i> Restart</button>
@@ -1206,7 +1206,7 @@ $(document).ready(function() {
     });
 
     $("#menu_link_shutdown").click(function() {
-        var r = confirm("Are you sure you want to shutdown PlexPy?");
+        var r = confirm("Are you sure you want to shutdown Plex:CS?");
         if (r == true) {
             window.location.href = "shutdown";
         }
@@ -1340,8 +1340,8 @@ $(document).ready(function() {
                 dataType: 'xml',
                 async: true,
                 headers: {'Content-Type': 'application/xml; charset=utf-8',
-                          'X-Plex-Device-Name': 'PlexPy',
-                          'X-Plex-Product': 'PlexPy',
+                          'X-Plex-Device-Name': 'Plex:CS',
+                          'X-Plex-Product': 'Plex:CS',
                           'X-Plex-Version': '${common.VERSION_NUMBER}',
                           'X-Plex-Platform': '${common.PLATFORM}',
                           'X-Plex-Platform-Version': '${common.PLATFORM_VERSION}',
