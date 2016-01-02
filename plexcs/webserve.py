@@ -745,7 +745,7 @@ class WebInterface(object):
             logger.warn('Unable to retrieve data.')
             return serve_template(templatename="current_activity.html", data=None)
 
-    @cherrypy.expose
+   """ @cherrypy.expose
     def get_current_activity_header(self, **kwargs):
 
         try:
@@ -774,7 +774,7 @@ class WebInterface(object):
         else:
             logger.warn('Unable to retrieve data.')
             return serve_template(templatename="recently_added.html", data=None)
-
+"""
     @cherrypy.expose
     def pms_image_proxy(self, img='', width='0', height='0', fallback=None, **kwargs):
         try:
