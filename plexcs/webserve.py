@@ -745,36 +745,36 @@ class WebInterface(object):
             logger.warn('Unable to retrieve data.')
             return serve_template(templatename="current_activity.html", data=None)
 
-   """ @cherrypy.expose
-    def get_current_activity_header(self, **kwargs):
+ # @cherrypy.expose
+ #   def get_current_activity_header(self, **kwargs):
+#
+#        try:
+#            pms_connect = pmsconnect.PmsConnect()
+#            result = pms_connect.get_current_activity()
+#        except IOError, e:
+#            return serve_template(templatename="current_activity_header.html", data=None)
+#
+#        if result:
+#            return serve_template(templatename="current_activity_header.html", data=result['stream_count'])
+ #       else:
+  #          logger.warn('Unable to retrieve data.')
+   #         return serve_template(templatename="current_activity_header.html", data=None)
+#
+ #   @cherrypy.expose
+  #  def get_recently_added(self, count='0', **kwargs):
+#
+ #       try:
+  #          pms_connect = pmsconnect.PmsConnect()
+   #         result = pms_connect.get_recently_added_details(count)
+    #    except IOError, e:
+#            return serve_template(templatename="recently_added.html", data=None)
+#
+ #       if result:
+  #          return serve_template(templatename="recently_added.html", data=result['recently_added'])
+   #     else:
+    #        logger.warn('Unable to retrieve data.')
+     #       return serve_template(templatename="recently_added.html", data=None)
 
-        try:
-            pms_connect = pmsconnect.PmsConnect()
-            result = pms_connect.get_current_activity()
-        except IOError, e:
-            return serve_template(templatename="current_activity_header.html", data=None)
-
-        if result:
-            return serve_template(templatename="current_activity_header.html", data=result['stream_count'])
-        else:
-            logger.warn('Unable to retrieve data.')
-            return serve_template(templatename="current_activity_header.html", data=None)
-
-    @cherrypy.expose
-    def get_recently_added(self, count='0', **kwargs):
-
-        try:
-            pms_connect = pmsconnect.PmsConnect()
-            result = pms_connect.get_recently_added_details(count)
-        except IOError, e:
-            return serve_template(templatename="recently_added.html", data=None)
-
-        if result:
-            return serve_template(templatename="recently_added.html", data=result['recently_added'])
-        else:
-            logger.warn('Unable to retrieve data.')
-            return serve_template(templatename="recently_added.html", data=None)
-"""
     @cherrypy.expose
     def pms_image_proxy(self, img='', width='0', height='0', fallback=None, **kwargs):
         try:
