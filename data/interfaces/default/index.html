@@ -20,7 +20,9 @@
             </div>
         </div>
     </div>
-        <div class="row">
+    % endif
+    % if config['home_library_cards'] > 'library_statistics':
+    <div class="row">
         <div class="col-md-6">
             <div class="padded-header" id="library-statistics-header">
                 <h3>Library Statistics <small>${config['pms_name']}</small></h3>
@@ -32,7 +34,6 @@
         </div>
     </div>
     % endif
-
 </div>
 </%def>
 
