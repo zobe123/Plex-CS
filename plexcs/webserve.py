@@ -497,9 +497,8 @@ class WebInterface(object):
         for checked_config in checked_configs:
             if checked_config not in kwargs:
                 # checked items should be zero or one. if they were not sent then the item was not checked
-             #   kwargs[checked_config] = 0
-             #   test
-                kwargs[checked_config] = 1
+                kwargs[checked_config] = 0
+
                
 
         # If http password exists in config, do not overwrite when blank value received
