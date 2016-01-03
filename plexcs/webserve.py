@@ -484,20 +484,23 @@ class WebInterface(object):
         # Handle the variable config options. Note - keys with False values aren't getting passed
 
         checked_configs = [
-#            "launch_browser", "enable_https", "api_enabled", "freeze_db", "check_github",
-#            "grouping_global_history", "grouping_user_history", "grouping_charts", "pms_use_bif", "pms_ssl",
-#            "movie_notify_enable", "tv_notify_enable", "music_notify_enable", "monitoring_use_websocket",
-#            "tv_notify_on_start", "movie_notify_on_start", "music_notify_on_start",
-#            "tv_notify_on_stop", "movie_notify_on_stop", "music_notify_on_stop",
-#            "tv_notify_on_pause", "movie_notify_on_pause", "music_notify_on_pause", "refresh_users_on_startup",
-#            "ip_logging_enable", "movie_logging_enable", "tv_logging_enable", "music_logging_enable", 
-#            "pms_is_remote", "home_stats_type", "group_history_tables", "notify_consecutive", 
-#            "notify_recently_added", "notify_recently_added_grandparent", "monitor_remote_access"
+            "launch_browser", "enable_https", "api_enabled", "freeze_db", "check_github",
+            "grouping_global_history", "grouping_user_history", "grouping_charts", "pms_use_bif", "pms_ssl",
+            "movie_notify_enable", "tv_notify_enable", "music_notify_enable", "monitoring_use_websocket",
+            "tv_notify_on_start", "movie_notify_on_start", "music_notify_on_start",
+            "tv_notify_on_stop", "movie_notify_on_stop", "music_notify_on_stop",
+            "tv_notify_on_pause", "movie_notify_on_pause", "music_notify_on_pause", "refresh_users_on_startup",
+            "ip_logging_enable", "movie_logging_enable", "tv_logging_enable", "music_logging_enable", 
+            "pms_is_remote", "home_stats_type", "group_history_tables", "notify_consecutive", 
+            "notify_recently_added", "notify_recently_added_grandparent", "monitor_remote_access"
         ]
         for checked_config in checked_configs:
             if checked_config not in kwargs:
                 # checked items should be zero or one. if they were not sent then the item was not checked
-                kwargs[checked_config] = 0
+             #   kwargs[checked_config] = 0
+             #   test
+                kwargs[checked_config] = 1
+               
 
         # If http password exists in config, do not overwrite when blank value received
         if 'http_password' in kwargs:
