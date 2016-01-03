@@ -1323,19 +1323,19 @@ class WebInterface(object):
     @cherrypy.expose
     def random_arnold_quotes(self, **kwargs):
         from random import randint
-        quote_list = ['To crush your enemies, see them driven before you, and to hear the lamentation of their women!',
-                      'Your clothes, give them to me, now!',
-                      'Do it!',
-                      'If it bleeds, we can kill it',
+        quote_list = ['My Mama always said, \'Life was like a box of chocolates, you never know what you\'re gonna get.',
+                      'To Infinity and Beyond!',
+                      'The greatest trick the Devil ever pulled was convincing the world he didn\'t exist.',
+                      'I see dead people.',
                       'See you at the party Richter!',
-                      'Let off some steam, Bennett',
+                      'He turns to me, and he says: \'Why so serious?',
                       'I\'ll be back',
-                      'Get to the chopper!',
+                      '...Bond. James Bond.',
                       'Hasta La Vista, Baby!',
                       'It\'s not a tumor!',
                       'Dillon, you son of a bitch!',
-                      'Benny!! Screw you!!',
-                      'Stop whining! You kids are soft. You lack discipline.',
+                      'Get busy livin\' or get busy dyin\'. (That\'s goddamn right.)',
+                      'I just sharted...I tried to fart and a little shit came out. I just sharted.',
                       'Nice night for a walk.',
                       'Stick around!',
                       'I need your clothes, your boots and your motorcycle.',
@@ -1345,7 +1345,7 @@ class WebInterface(object):
                       'Are you Sarah Conner?',
                       'I\'m a cop you idiot!',
                       'Come with me if you want to live.',
-                      'Who is your daddy and what does he do?'
+                      'Boys Have A Penis, Girls Have a Vagina'
                       ]
 
         random_number = randint(0, len(quote_list) - 1)
