@@ -16,13 +16,13 @@ DOCUMENTATION :: END
 
 % if data != None:
 	% if data == '0':
-	<h3>no Activity</h3>
+	<h3><small>no Activity </small> ready for sync</h3>
 	% elif data == '1':
-		<h3>Activity <small>${data} stream</small></h3>
+		<h3><small>Activity ${data} stream </small> halfspeed Sync</h3>
 		% else:
-		<h3>Activity <small>${data} streams</small></h3>
+		<h3><small>Activity ${data} streams </small> no sync possible</h3>
 		% endif
 	% endif
 % else:
-<h3>no Activity</h3>
+<h3>no Activity </small> ready for sync</h3>
 % endif
