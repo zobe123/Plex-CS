@@ -1,0 +1,305 @@
+03-Jan-2016 23:46:26 - INFO    :: MainThread : Checking to see if the database has all tables....
+03-Jan-2016 23:46:26 - DEBUG   :: MainThread : User "Local" does not exist. Adding user.
+03-Jan-2016 23:46:26 - DEBUG   :: MainThread : Generating UUID...
+03-Jan-2016 23:46:26 - INFO    :: MainThread : Writing configuration to file
+03-Jan-2016 23:46:26 - DEBUG   :: MainThread : Trying to execute: "git rev-parse HEAD" with shell in /opt/Plex-CS
+03-Jan-2016 23:46:26 - DEBUG   :: MainThread : Git output: 955ca155d5de94644d1941e9c115ecb002f8ea25
+03-Jan-2016 23:46:26 - DEBUG   :: MainThread : Trying to execute: "git rev-parse --abbrev-ref HEAD" with shell in /opt/Plex-CS
+03-Jan-2016 23:46:26 - DEBUG   :: MainThread : Git output: master
+03-Jan-2016 23:46:26 - INFO    :: MainThread : Retrieving latest version information from GitHub
+03-Jan-2016 23:46:26 - DEBUG   :: MainThread : Requesting URL via GET method: https://api.github.com/repos/zobe123/plex-cs/commits/master
+03-Jan-2016 23:46:27 - DEBUG   :: MainThread : Latest version is 955ca155d5de94644d1941e9c115ecb002f8ea25
+03-Jan-2016 23:46:27 - INFO    :: MainThread : Plex:CS is up to date
+03-Jan-2016 23:46:27 - INFO    :: MainThread : Starting Plex:CS web server on http://0.0.0.0:8182/
+03-Jan-2016 23:46:27 - INFO    :: MainThread : Scheduled background task: Check GitHub for updates
+03-Jan-2016 23:46:45 - WARNING :: CP Server Thread-10 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+03-Jan-2016 23:46:45 - WARNING :: CP Server Thread-10 : Unable to parse XML for get_libraries_list.
+03-Jan-2016 23:46:59 - WARNING :: CP Server Thread-11 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+03-Jan-2016 23:46:59 - WARNING :: CP Server Thread-11 : Unable to parse XML for get_libraries_list.
+03-Jan-2016 23:47:01 - WARNING :: CP Server Thread-11 : Failed to access uri endpoint /:/prefs with error [Errno 111] Verbindungsaufbau abgelehnt
+03-Jan-2016 23:47:01 - WARNING :: CP Server Thread-11 : Unable to parse XML for get_local_server_name.
+03-Jan-2016 23:47:01 - WARNING :: CP Server Thread-11 : Unable to retrieve data.
+03-Jan-2016 23:47:01 - WARNING :: CP Server Thread-3 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+03-Jan-2016 23:47:01 - WARNING :: CP Server Thread-3 : Unable to parse XML for get_libraries_list.
+03-Jan-2016 23:47:01 - WARNING :: CP Server Thread-3 : Unable to retrieve data.
+03-Jan-2016 23:47:04 - WARNING :: CP Server Thread-3 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+03-Jan-2016 23:47:04 - WARNING :: CP Server Thread-3 : Unable to parse XML for get_libraries_list.
+03-Jan-2016 23:47:14 - INFO    :: CP Server Thread-3 : Retrieving latest version information from GitHub
+03-Jan-2016 23:47:14 - DEBUG   :: CP Server Thread-3 : Requesting URL via GET method: https://api.github.com/repos/zobe123/plex-cs/commits/master
+03-Jan-2016 23:47:14 - DEBUG   :: CP Server Thread-3 : Latest version is 955ca155d5de94644d1941e9c115ecb002f8ea25
+03-Jan-2016 23:47:14 - INFO    :: CP Server Thread-3 : Plex:CS is up to date
+03-Jan-2016 23:47:14 - WARNING :: CP Server Thread-3 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+03-Jan-2016 23:47:14 - WARNING :: CP Server Thread-3 : Unable to parse XML for get_libraries_list.
+03-Jan-2016 23:52:07 - WARNING :: CP Server Thread-5 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+03-Jan-2016 23:52:07 - WARNING :: CP Server Thread-5 : Unable to parse XML for get_libraries_list.
+03-Jan-2016 23:52:09 - WARNING :: CP Server Thread-7 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+03-Jan-2016 23:52:09 - WARNING :: CP Server Thread-7 : Unable to parse XML for get_libraries_list.
+04-Jan-2016 05:46:27 - INFO    :: Thread-12 : Retrieving latest version information from GitHub
+04-Jan-2016 05:46:27 - DEBUG   :: Thread-12 : Requesting URL via GET method: https://api.github.com/repos/zobe123/plex-cs/commits/master
+04-Jan-2016 05:46:27 - DEBUG   :: Thread-12 : Latest version is 955ca155d5de94644d1941e9c115ecb002f8ea25
+04-Jan-2016 05:46:27 - INFO    :: Thread-12 : Plex:CS is up to date
+04-Jan-2016 11:46:27 - INFO    :: Thread-12 : Retrieving latest version information from GitHub
+04-Jan-2016 11:46:27 - DEBUG   :: Thread-12 : Requesting URL via GET method: https://api.github.com/repos/zobe123/plex-cs/commits/master
+04-Jan-2016 11:46:27 - DEBUG   :: Thread-12 : Latest version is 955ca155d5de94644d1941e9c115ecb002f8ea25
+04-Jan-2016 11:46:27 - INFO    :: Thread-12 : Plex:CS is up to date
+04-Jan-2016 17:46:27 - INFO    :: Thread-13 : Retrieving latest version information from GitHub
+04-Jan-2016 17:46:27 - DEBUG   :: Thread-13 : Requesting URL via GET method: https://api.github.com/repos/zobe123/plex-cs/commits/master
+04-Jan-2016 17:46:28 - DEBUG   :: Thread-13 : Latest version is 955ca155d5de94644d1941e9c115ecb002f8ea25
+04-Jan-2016 17:46:28 - INFO    :: Thread-13 : Plex:CS is up to date
+04-Jan-2016 23:46:27 - INFO    :: Thread-12 : Retrieving latest version information from GitHub
+04-Jan-2016 23:46:27 - DEBUG   :: Thread-12 : Requesting URL via GET method: https://api.github.com/repos/zobe123/plex-cs/commits/master
+04-Jan-2016 23:46:27 - DEBUG   :: Thread-12 : Latest version is 955ca155d5de94644d1941e9c115ecb002f8ea25
+04-Jan-2016 23:46:27 - INFO    :: Thread-12 : Plex:CS is up to date
+04-Jan-2016 23:47:04 - WARNING :: CP Server Thread-8 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+04-Jan-2016 23:47:04 - WARNING :: CP Server Thread-8 : Unable to parse XML for get_libraries_list.
+04-Jan-2016 23:47:09 - WARNING :: CP Server Thread-10 : Failed to access uri endpoint /:/prefs with error [Errno 111] Verbindungsaufbau abgelehnt
+04-Jan-2016 23:47:09 - WARNING :: CP Server Thread-10 : Unable to parse XML for get_local_server_name.
+04-Jan-2016 23:47:09 - WARNING :: CP Server Thread-10 : Unable to retrieve data.
+04-Jan-2016 23:47:09 - WARNING :: CP Server Thread-9 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+04-Jan-2016 23:47:09 - WARNING :: CP Server Thread-9 : Unable to parse XML for get_libraries_list.
+04-Jan-2016 23:47:09 - WARNING :: CP Server Thread-9 : Unable to retrieve data.
+04-Jan-2016 23:47:11 - WARNING :: CP Server Thread-9 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+04-Jan-2016 23:47:11 - WARNING :: CP Server Thread-9 : Unable to parse XML for get_libraries_list.
+04-Jan-2016 23:54:00 - WARNING :: CP Server Thread-4 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+04-Jan-2016 23:54:00 - WARNING :: CP Server Thread-4 : Unable to parse XML for get_libraries_list.
+04-Jan-2016 23:59:53 - WARNING :: CP Server Thread-8 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+04-Jan-2016 23:59:53 - WARNING :: CP Server Thread-8 : Unable to parse XML for get_libraries_list.
+04-Jan-2016 23:59:56 - INFO    :: CP Server Thread-8 : Retrieving latest version information from GitHub
+04-Jan-2016 23:59:56 - DEBUG   :: CP Server Thread-8 : Requesting URL via GET method: https://api.github.com/repos/zobe123/plex-cs/commits/master
+04-Jan-2016 23:59:56 - DEBUG   :: CP Server Thread-8 : Latest version is 955ca155d5de94644d1941e9c115ecb002f8ea25
+04-Jan-2016 23:59:56 - INFO    :: CP Server Thread-8 : Plex:CS is up to date
+04-Jan-2016 23:59:56 - WARNING :: CP Server Thread-8 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+04-Jan-2016 23:59:56 - WARNING :: CP Server Thread-8 : Unable to parse XML for get_libraries_list.
+05-Jan-2016 00:00:00 - INFO    :: CP Server Thread-8 : Retrieving latest version information from GitHub
+05-Jan-2016 00:00:00 - DEBUG   :: CP Server Thread-8 : Requesting URL via GET method: https://api.github.com/repos/zobe123/plex-cs/commits/master
+05-Jan-2016 00:00:00 - DEBUG   :: CP Server Thread-8 : Latest version is 955ca155d5de94644d1941e9c115ecb002f8ea25
+05-Jan-2016 00:00:00 - INFO    :: CP Server Thread-8 : Plex:CS is up to date
+05-Jan-2016 00:00:00 - WARNING :: CP Server Thread-8 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+05-Jan-2016 00:00:00 - WARNING :: CP Server Thread-8 : Unable to parse XML for get_libraries_list.
+05-Jan-2016 00:00:06 - INFO    :: CP Server Thread-8 : Retrieving latest version information from GitHub
+05-Jan-2016 00:00:06 - DEBUG   :: CP Server Thread-8 : Requesting URL via GET method: https://api.github.com/repos/zobe123/plex-cs/commits/master
+05-Jan-2016 00:00:07 - DEBUG   :: CP Server Thread-8 : Latest version is 8f3f5bb1a397d861c99673201676a046201e2010
+05-Jan-2016 00:00:07 - INFO    :: CP Server Thread-8 : Comparing currently installed version with latest GitHub version
+05-Jan-2016 00:00:07 - DEBUG   :: CP Server Thread-8 : Requesting URL via GET method: https://api.github.com/repos/zobe123/plex-cs/compare/8f3f5bb1a397d861c99673201676a046201e2010...955ca155d5de94644d1941e9c115ecb002f8ea25
+05-Jan-2016 00:00:08 - DEBUG   :: CP Server Thread-8 : In total, 1 commits behind
+05-Jan-2016 00:00:08 - INFO    :: CP Server Thread-8 : New version is available. You are 1 commits behind
+05-Jan-2016 00:00:08 - WARNING :: CP Server Thread-8 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+05-Jan-2016 00:00:08 - WARNING :: CP Server Thread-8 : Unable to parse XML for get_libraries_list.
+05-Jan-2016 00:00:10 - INFO    :: MainThread : Received signal: update
+05-Jan-2016 00:00:15 - INFO    :: MainThread : Writing configuration to file
+05-Jan-2016 00:00:15 - INFO    :: MainThread : Plex:CS is updating...
+05-Jan-2016 00:00:15 - DEBUG   :: MainThread : Trying to execute: "git pull origin master" with shell in /opt/Plex-CS
+05-Jan-2016 00:00:17 - DEBUG   :: MainThread : Git output: Von https://github.com/zobe123/Plex-CS
+ * branch            master     -> FETCH_HEAD
+   955ca15..8f3f5bb  master     -> origin/master
+Aktualisiere 955ca15..8f3f5bb
+Fast-forward
+ data/interfaces/default/sync.html | 37 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
+05-Jan-2016 00:00:17 - INFO    :: MainThread : Plex:CS is restarting...
+05-Jan-2016 00:00:17 - INFO    :: MainThread : Restarting Plex:CS with ['/usr/bin/python', '/opt/Plex-CS/PlexCS.py', '--nolaunch']
+05-Jan-2016 00:00:18 - INFO    :: MainThread : Checking to see if the database has all tables....
+05-Jan-2016 00:00:18 - DEBUG   :: MainThread : Trying to execute: "git rev-parse HEAD" with shell in /opt/Plex-CS
+05-Jan-2016 00:00:18 - DEBUG   :: MainThread : Git output: 8f3f5bb1a397d861c99673201676a046201e2010
+05-Jan-2016 00:00:18 - DEBUG   :: MainThread : Trying to execute: "git rev-parse --abbrev-ref HEAD" with shell in /opt/Plex-CS
+05-Jan-2016 00:00:18 - DEBUG   :: MainThread : Git output: master
+05-Jan-2016 00:00:18 - INFO    :: MainThread : Retrieving latest version information from GitHub
+05-Jan-2016 00:00:18 - DEBUG   :: MainThread : Requesting URL via GET method: https://api.github.com/repos/zobe123/plex-cs/commits/master
+05-Jan-2016 00:00:19 - DEBUG   :: MainThread : Latest version is 8f3f5bb1a397d861c99673201676a046201e2010
+05-Jan-2016 00:00:19 - INFO    :: MainThread : Plex:CS is up to date
+05-Jan-2016 00:00:19 - INFO    :: MainThread : Starting Plex:CS web server on http://0.0.0.0:8182/
+05-Jan-2016 00:00:19 - INFO    :: MainThread : Scheduled background task: Check GitHub for updates
+05-Jan-2016 00:01:58 - INFO    :: MainThread : Received signal: update
+05-Jan-2016 00:02:03 - INFO    :: MainThread : Writing configuration to file
+05-Jan-2016 00:02:03 - INFO    :: MainThread : Plex:CS is updating...
+05-Jan-2016 00:02:03 - DEBUG   :: MainThread : Trying to execute: "git pull origin master" with shell in /opt/Plex-CS
+05-Jan-2016 00:02:05 - DEBUG   :: MainThread : Git output: Von https://github.com/zobe123/Plex-CS
+ * branch            master     -> FETCH_HEAD
+   8f3f5bb..a7b0653  master     -> origin/master
+Aktualisiere 8f3f5bb..a7b0653
+Fast-forward
+ data/interfaces/default/current_activity.html      | 291 +++++++++++++++++++++
+ .../default/current_activity_header.html           |  28 ++
+ 2 files changed, 319 insertions(+)
+ create mode 100644 data/interfaces/default/current_activity.html
+ create mode 100644 data/interfaces/default/current_activity_header.html
+05-Jan-2016 00:02:05 - INFO    :: MainThread : Plex:CS is restarting...
+05-Jan-2016 00:02:05 - INFO    :: MainThread : Restarting Plex:CS with ['/usr/bin/python', '/opt/Plex-CS/PlexCS.py', '--nolaunch']
+05-Jan-2016 00:02:05 - INFO    :: MainThread : Checking to see if the database has all tables....
+05-Jan-2016 00:02:05 - DEBUG   :: MainThread : Trying to execute: "git rev-parse HEAD" with shell in /opt/Plex-CS
+05-Jan-2016 00:02:05 - DEBUG   :: MainThread : Git output: a7b0653844f8bdefdb4618169e4949afab458e11
+05-Jan-2016 00:02:05 - DEBUG   :: MainThread : Trying to execute: "git rev-parse --abbrev-ref HEAD" with shell in /opt/Plex-CS
+05-Jan-2016 00:02:05 - DEBUG   :: MainThread : Git output: master
+05-Jan-2016 00:02:05 - INFO    :: MainThread : Retrieving latest version information from GitHub
+05-Jan-2016 00:02:05 - DEBUG   :: MainThread : Requesting URL via GET method: https://api.github.com/repos/zobe123/plex-cs/commits/master
+05-Jan-2016 00:02:06 - DEBUG   :: MainThread : Latest version is a7b0653844f8bdefdb4618169e4949afab458e11
+05-Jan-2016 00:02:06 - INFO    :: MainThread : Plex:CS is up to date
+05-Jan-2016 00:02:06 - INFO    :: MainThread : Starting Plex:CS web server on http://0.0.0.0:8182/
+05-Jan-2016 00:02:06 - INFO    :: MainThread : Scheduled background task: Check GitHub for updates
+05-Jan-2016 00:02:27 - WARNING :: CP Server Thread-6 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+05-Jan-2016 00:02:27 - WARNING :: CP Server Thread-6 : Unable to parse XML for get_libraries_list.
+05-Jan-2016 00:06:18 - INFO    :: CP Server Thread-7 : Retrieving latest version information from GitHub
+05-Jan-2016 00:06:18 - DEBUG   :: CP Server Thread-7 : Requesting URL via GET method: https://api.github.com/repos/zobe123/plex-cs/commits/master
+05-Jan-2016 00:06:18 - DEBUG   :: CP Server Thread-7 : Latest version is 840ab79dba197fba4c25b2144dda7512bdf45a62
+05-Jan-2016 00:06:18 - INFO    :: CP Server Thread-7 : Comparing currently installed version with latest GitHub version
+05-Jan-2016 00:06:18 - DEBUG   :: CP Server Thread-7 : Requesting URL via GET method: https://api.github.com/repos/zobe123/plex-cs/compare/840ab79dba197fba4c25b2144dda7512bdf45a62...a7b0653844f8bdefdb4618169e4949afab458e11
+05-Jan-2016 00:06:19 - DEBUG   :: CP Server Thread-7 : In total, 1 commits behind
+05-Jan-2016 00:06:19 - INFO    :: CP Server Thread-7 : New version is available. You are 1 commits behind
+05-Jan-2016 00:06:19 - WARNING :: CP Server Thread-7 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+05-Jan-2016 00:06:19 - WARNING :: CP Server Thread-7 : Unable to parse XML for get_libraries_list.
+05-Jan-2016 00:06:21 - INFO    :: MainThread : Received signal: update
+05-Jan-2016 00:06:26 - INFO    :: MainThread : Writing configuration to file
+05-Jan-2016 00:06:26 - INFO    :: MainThread : Plex:CS is updating...
+05-Jan-2016 00:06:26 - DEBUG   :: MainThread : Trying to execute: "git pull origin master" with shell in /opt/Plex-CS
+05-Jan-2016 00:06:28 - DEBUG   :: MainThread : Git output: Von https://github.com/zobe123/Plex-CS
+ * branch            master     -> FETCH_HEAD
+   a7b0653..840ab79  master     -> origin/master
+Aktualisiere a7b0653..840ab79
+Fast-forward
+ data/interfaces/default/current_activity_header.html | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+05-Jan-2016 00:06:28 - INFO    :: MainThread : Plex:CS is restarting...
+05-Jan-2016 00:06:28 - INFO    :: MainThread : Restarting Plex:CS with ['/usr/bin/python', '/opt/Plex-CS/PlexCS.py', '--nolaunch']
+05-Jan-2016 00:06:29 - INFO    :: MainThread : Checking to see if the database has all tables....
+05-Jan-2016 00:06:29 - DEBUG   :: MainThread : Trying to execute: "git rev-parse HEAD" with shell in /opt/Plex-CS
+05-Jan-2016 00:06:29 - DEBUG   :: MainThread : Git output: 840ab79dba197fba4c25b2144dda7512bdf45a62
+05-Jan-2016 00:06:29 - DEBUG   :: MainThread : Trying to execute: "git rev-parse --abbrev-ref HEAD" with shell in /opt/Plex-CS
+05-Jan-2016 00:06:29 - DEBUG   :: MainThread : Git output: master
+05-Jan-2016 00:06:29 - INFO    :: MainThread : Retrieving latest version information from GitHub
+05-Jan-2016 00:06:29 - DEBUG   :: MainThread : Requesting URL via GET method: https://api.github.com/repos/zobe123/plex-cs/commits/master
+05-Jan-2016 00:06:29 - DEBUG   :: MainThread : Latest version is 840ab79dba197fba4c25b2144dda7512bdf45a62
+05-Jan-2016 00:06:29 - INFO    :: MainThread : Plex:CS is up to date
+05-Jan-2016 00:06:29 - INFO    :: MainThread : Starting Plex:CS web server on http://0.0.0.0:8182/
+05-Jan-2016 00:06:30 - INFO    :: MainThread : Scheduled background task: Check GitHub for updates
+05-Jan-2016 00:06:30 - WARNING :: CP Server Thread-2 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+05-Jan-2016 00:06:30 - WARNING :: CP Server Thread-2 : Unable to parse XML for get_libraries_list.
+05-Jan-2016 00:32:03 - WARNING :: CP Server Thread-11 : Failed to access uri endpoint /library/sections with error [Errno 111] Verbindungsaufbau abgelehnt
+05-Jan-2016 00:32:03 - WARNING :: CP Server Thread-11 : Unable to parse XML for get_libraries_list.
+05-Jan-2016 06:06:30 - INFO    :: Thread-12 : Retrieving latest version information from GitHub
+05-Jan-2016 06:06:30 - DEBUG   :: Thread-12 : Requesting URL via GET method: https://api.github.com/repos/zobe123/plex-cs/commits/master
+05-Jan-2016 06:06:30 - DEBUG   :: Thread-12 : Latest version is 840ab79dba197fba4c25b2144dda7512bdf45a62
+05-Jan-2016 06:06:30 - INFO    :: Thread-12 : Plex:CS is up to date
+05-Jan-2016 12:06:30 - INFO    :: Thread-12 : Retrieving latest version information from GitHub
+05-Jan-2016 12:06:30 - DEBUG   :: Thread-12 : Requesting URL via GET method: https://api.github.com/repos/zobe123/plex-cs/commits/master
+05-Jan-2016 12:06:30 - DEBUG   :: Thread-12 : Latest version is 840ab79dba197fba4c25b2144dda7512bdf45a62
+05-Jan-2016 12:06:30 - INFO    :: Thread-12 : Plex:CS is up to date
+05-Jan-2016 18:06:30 - INFO    :: Thread-13 : Retrieving latest version information from GitHub
+05-Jan-2016 18:06:30 - DEBUG   :: Thread-13 : Requesting URL via GET method: https://api.github.com/repos/zobe123/plex-cs/commits/master
+05-Jan-2016 18:06:30 - DEBUG   :: Thread-13 : Latest version is 840ab79dba197fba4c25b2144dda7512bdf45a62
+05-Jan-2016 18:06:30 - INFO    :: Thread-13 : Plex:CS is up to date
+05-Jan-2016 20:31:55 - INFO    :: CP Server Thread-8 : Writing configuration to file
+05-Jan-2016 20:32:04 - INFO    :: CP Server Thread-8 : Writing configuration to file
+05-Jan-2016 20:32:04 - INFO    :: CP Server Thread-8 : Requesting URLs for server...
+05-Jan-2016 20:32:04 - INFO    :: CP Server Thread-8 : Writing configuration to file
+05-Jan-2016 20:32:04 - INFO    :: CP Server Thread-8 : Writing configuration to file
+05-Jan-2016 20:32:04 - INFO    :: Thread-15 : Requesting users list refresh...
+05-Jan-2016 20:32:08 - INFO    :: Thread-15 : Users list refreshed.
+05-Jan-2016 20:33:06 - INFO    :: CP Server Thread-4 : Writing configuration to file
+05-Jan-2016 20:33:09 - INFO    :: CP Server Thread-4 : Writing configuration to file
+05-Jan-2016 20:33:09 - INFO    :: CP Server Thread-4 : Requesting URLs for server...
+05-Jan-2016 20:33:09 - INFO    :: CP Server Thread-4 : Writing configuration to file
+05-Jan-2016 20:33:09 - INFO    :: CP Server Thread-4 : Writing configuration to file
+05-Jan-2016 20:38:06 - INFO    :: CP Server Thread-6 : Writing configuration to file
+05-Jan-2016 20:39:57 - INFO    :: MainThread : Received signal: restart
+05-Jan-2016 20:40:02 - INFO    :: MainThread : Writing configuration to file
+05-Jan-2016 20:40:02 - INFO    :: MainThread : Plex:CS is restarting...
+05-Jan-2016 20:40:02 - INFO    :: MainThread : Restarting Plex:CS with ['/usr/bin/python', '/opt/Plex-CS/PlexCS.py', '--nolaunch']
+05-Jan-2016 20:40:02 - INFO    :: MainThread : Checking to see if the database has all tables....
+05-Jan-2016 20:40:02 - DEBUG   :: MainThread : Trying to execute: "git rev-parse HEAD" with shell in /opt/Plex-CS
+05-Jan-2016 20:40:02 - DEBUG   :: MainThread : Git output: 840ab79dba197fba4c25b2144dda7512bdf45a62
+05-Jan-2016 20:40:02 - DEBUG   :: MainThread : Trying to execute: "git rev-parse --abbrev-ref HEAD" with shell in /opt/Plex-CS
+05-Jan-2016 20:40:02 - DEBUG   :: MainThread : Git output: master
+05-Jan-2016 20:40:02 - INFO    :: MainThread : Requesting URLs for server...
+05-Jan-2016 20:40:02 - INFO    :: MainThread : Writing configuration to file
+05-Jan-2016 20:40:02 - INFO    :: MainThread : Writing configuration to file
+05-Jan-2016 20:40:02 - INFO    :: MainThread : Requesting name from server...
+05-Jan-2016 20:40:02 - INFO    :: MainThread : Writing configuration to file
+05-Jan-2016 20:40:02 - INFO    :: MainThread : Starting Plex:CS web server on http://0.0.0.0:8182/
+05-Jan-2016 20:40:03 - INFO    :: MainThread : Scheduled background task: Refresh Plex Server URLs
+05-Jan-2016 20:40:03 - INFO    :: MainThread : Scheduled background task: Refresh Plex Server Name
+05-Jan-2016 20:40:03 - INFO    :: MainThread : Scheduled background task: Check for active sessions
+05-Jan-2016 20:40:03 - INFO    :: MainThread : Scheduled background task: Refresh users list
+05-Jan-2016 20:40:51 - INFO    :: CP Server Thread-10 : Writing configuration to file
+05-Jan-2016 20:40:52 - INFO    :: CP Server Thread-10 : Requesting URLs for server...
+05-Jan-2016 20:40:52 - INFO    :: CP Server Thread-10 : Writing configuration to file
+05-Jan-2016 20:40:52 - INFO    :: CP Server Thread-10 : Writing configuration to file
+05-Jan-2016 20:47:02 - INFO    :: CP Server Thread-5 : Writing configuration to file
+05-Jan-2016 20:47:02 - INFO    :: CP Server Thread-5 : Requesting URLs for server...
+05-Jan-2016 20:47:02 - INFO    :: CP Server Thread-5 : Writing configuration to file
+05-Jan-2016 20:47:02 - INFO    :: CP Server Thread-5 : Writing configuration to file
+05-Jan-2016 20:55:00 - INFO    :: MainThread : Received signal: restart
+05-Jan-2016 20:55:05 - INFO    :: MainThread : Writing configuration to file
+05-Jan-2016 20:55:05 - INFO    :: MainThread : Plex:CS is restarting...
+05-Jan-2016 20:55:05 - INFO    :: MainThread : Restarting Plex:CS with ['/usr/bin/python', '/opt/Plex-CS/PlexCS.py', '--nolaunch']
+05-Jan-2016 20:55:05 - INFO    :: MainThread : Checking to see if the database has all tables....
+05-Jan-2016 20:55:05 - DEBUG   :: MainThread : Trying to execute: "git rev-parse HEAD" with shell in /opt/Plex-CS
+05-Jan-2016 20:55:05 - DEBUG   :: MainThread : Git output: 840ab79dba197fba4c25b2144dda7512bdf45a62
+05-Jan-2016 20:55:05 - DEBUG   :: MainThread : Trying to execute: "git rev-parse --abbrev-ref HEAD" with shell in /opt/Plex-CS
+05-Jan-2016 20:55:05 - DEBUG   :: MainThread : Git output: master
+05-Jan-2016 20:55:05 - INFO    :: MainThread : Requesting URLs for server...
+05-Jan-2016 20:55:05 - INFO    :: MainThread : Writing configuration to file
+05-Jan-2016 20:55:05 - INFO    :: MainThread : Writing configuration to file
+05-Jan-2016 20:55:05 - INFO    :: MainThread : Requesting name from server...
+05-Jan-2016 20:55:05 - INFO    :: MainThread : Starting Plex:CS web server on http://0.0.0.0:8182/
+05-Jan-2016 20:55:05 - INFO    :: MainThread : Scheduled background task: Refresh Plex Server URLs
+05-Jan-2016 20:55:05 - INFO    :: MainThread : Scheduled background task: Refresh Plex Server Name
+05-Jan-2016 20:55:05 - INFO    :: MainThread : Scheduled background task: Check for active sessions
+05-Jan-2016 20:55:05 - INFO    :: MainThread : Scheduled background task: Refresh users list
+05-Jan-2016 20:55:22 - INFO    :: CP Server Thread-10 : Writing configuration to file
+05-Jan-2016 20:55:29 - INFO    :: CP Server Thread-10 : Writing configuration to file
+05-Jan-2016 20:55:29 - INFO    :: CP Server Thread-10 : Requesting URLs for server...
+05-Jan-2016 20:55:29 - INFO    :: CP Server Thread-10 : Writing configuration to file
+05-Jan-2016 20:55:29 - INFO    :: CP Server Thread-10 : Writing configuration to file
+05-Jan-2016 20:58:15 - INFO    :: CP Server Thread-9 : Writing configuration to file
+05-Jan-2016 20:58:19 - INFO    :: CP Server Thread-9 : Writing configuration to file
+05-Jan-2016 20:58:19 - INFO    :: CP Server Thread-9 : Requesting URLs for server...
+05-Jan-2016 20:58:19 - INFO    :: CP Server Thread-9 : Writing configuration to file
+05-Jan-2016 20:58:19 - INFO    :: CP Server Thread-9 : Writing configuration to file
+05-Jan-2016 20:59:05 - DEBUG   :: Thread-12 : Plex:CS Monitor :: Removing sessionKey 317 ratingKey 20037 from session queue
+05-Jan-2016 20:59:05 - DEBUG   :: Thread-12 : Plex:CS ActivityProcessor :: ratingKey 20037 not logged. Does not meet logging criteria. Media type is 'movie'
+05-Jan-2016 21:00:44 - INFO    :: MainThread : Received signal: restart
+05-Jan-2016 21:00:49 - INFO    :: MainThread : Writing configuration to file
+05-Jan-2016 21:00:49 - INFO    :: MainThread : Plex:CS is restarting...
+05-Jan-2016 21:00:49 - INFO    :: MainThread : Restarting Plex:CS with ['/usr/bin/python', '/opt/Plex-CS/PlexCS.py', '--nolaunch']
+05-Jan-2016 21:00:49 - INFO    :: MainThread : Checking to see if the database has all tables....
+05-Jan-2016 21:00:49 - DEBUG   :: MainThread : Trying to execute: "git rev-parse HEAD" with shell in /opt/Plex-CS
+05-Jan-2016 21:00:49 - DEBUG   :: MainThread : Git output: 840ab79dba197fba4c25b2144dda7512bdf45a62
+05-Jan-2016 21:00:49 - DEBUG   :: MainThread : Trying to execute: "git rev-parse --abbrev-ref HEAD" with shell in /opt/Plex-CS
+05-Jan-2016 21:00:49 - DEBUG   :: MainThread : Git output: master
+05-Jan-2016 21:00:49 - INFO    :: MainThread : Requesting URLs for server...
+05-Jan-2016 21:00:49 - INFO    :: MainThread : Writing configuration to file
+05-Jan-2016 21:00:49 - INFO    :: MainThread : Writing configuration to file
+05-Jan-2016 21:00:49 - INFO    :: MainThread : Requesting name from server...
+05-Jan-2016 21:00:49 - INFO    :: MainThread : Starting Plex:CS web server on http://0.0.0.0:8182/
+05-Jan-2016 21:00:49 - INFO    :: MainThread : Scheduled background task: Refresh Plex Server URLs
+05-Jan-2016 21:00:49 - INFO    :: MainThread : Scheduled background task: Refresh Plex Server Name
+05-Jan-2016 21:00:49 - INFO    :: MainThread : Scheduled background task: Check for active sessions
+05-Jan-2016 21:00:49 - INFO    :: MainThread : Scheduled background task: Refresh users list
+05-Jan-2016 21:01:09 - INFO    :: CP Server Thread-10 : Writing configuration to file
+05-Jan-2016 21:01:14 - INFO    :: CP Server Thread-10 : Writing configuration to file
+05-Jan-2016 21:01:14 - INFO    :: CP Server Thread-10 : Requesting URLs for server...
+05-Jan-2016 21:01:14 - INFO    :: CP Server Thread-10 : Writing configuration to file
+05-Jan-2016 21:01:14 - INFO    :: CP Server Thread-10 : Writing configuration to file
+05-Jan-2016 21:03:49 - DEBUG   :: Thread-13 : Plex:CS Monitor :: Removing sessionKey 323 ratingKey 20037 from session queue
+05-Jan-2016 21:03:49 - DEBUG   :: Thread-13 : Plex:CS ActivityProcessor :: ratingKey 20037 not logged. Does not meet logging criteria. Media type is 'movie'
+05-Jan-2016 21:03:49 - DEBUG   :: Thread-13 : Plex:CS ActivityProcessor :: Play duration for ratingKey 20037 is 60 secs which is less than 120 seconds, so we're not logging it.
+05-Jan-2016 21:15:47 - INFO    :: MainThread : Received signal: restart
+05-Jan-2016 21:15:52 - INFO    :: MainThread : Writing configuration to file
+05-Jan-2016 21:15:52 - INFO    :: MainThread : Plex:CS is restarting...
+05-Jan-2016 21:15:52 - INFO    :: MainThread : Restarting Plex:CS with ['/usr/bin/python', '/opt/Plex-CS/PlexCS.py', '--nolaunch']
+05-Jan-2016 21:15:53 - INFO    :: MainThread : Checking to see if the database has all tables....
+05-Jan-2016 21:15:53 - DEBUG   :: MainThread : Trying to execute: "git rev-parse HEAD" with shell in /opt/Plex-CS
+05-Jan-2016 21:15:53 - DEBUG   :: MainThread : Git output: 840ab79dba197fba4c25b2144dda7512bdf45a62
+05-Jan-2016 21:15:53 - DEBUG   :: MainThread : Trying to execute: "git rev-parse --abbrev-ref HEAD" with shell in /opt/Plex-CS
+05-Jan-2016 21:15:53 - DEBUG   :: MainThread : Git output: master
+05-Jan-2016 21:15:53 - INFO    :: MainThread : Requesting URLs for server...
+05-Jan-2016 21:15:53 - INFO    :: MainThread : Writing configuration to file
+05-Jan-2016 21:15:53 - INFO    :: MainThread : Writing configuration to file
+05-Jan-2016 21:15:53 - INFO    :: MainThread : Requesting name from server...
+05-Jan-2016 21:15:53 - INFO    :: MainThread : Starting Plex:CS web server on http://0.0.0.0:8182/
+05-Jan-2016 21:15:53 - INFO    :: MainThread : Scheduled background task: Refresh Plex Server URLs
+05-Jan-2016 21:15:53 - INFO    :: MainThread : Scheduled background task: Refresh Plex Server Name
+05-Jan-2016 21:15:53 - INFO    :: MainThread : Scheduled background task: Check for active sessions
+05-Jan-2016 21:15:53 - INFO    :: MainThread : Scheduled background task: Refresh users list
+05-Jan-2016 21:20:53 - DEBUG   :: Thread-14 : Plex:CS Monitor :: Removing sessionKey 321 ratingKey 5635 from session queue
+05-Jan-2016 21:20:53 - DEBUG   :: Thread-14 : Plex:CS ActivityProcessor :: ratingKey 5635 not logged. Does not meet logging criteria. Media type is 'episode'

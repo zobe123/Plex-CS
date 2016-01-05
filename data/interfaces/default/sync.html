@@ -1,4 +1,19 @@
-﻿<!doctype html>
+﻿<%inherit file="base.html"/>
+<%!
+from plexcs import helpers
+%>
+<%def name="headIncludes()">
+<link rel="stylesheet" href="interfaces/default/css/dataTables.bootstrap.css">
+<link rel="stylesheet" href="interfaces/default/css/plexcs-dataTables.css">
+<style>
+    td {word-break: break-all;}
+</style>
+</%def>
+
+<%def name="headerIncludes()">
+</%def>
+
+<!doctype html>
 
 <html lang="en">
 <head>

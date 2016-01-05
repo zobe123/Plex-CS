@@ -76,7 +76,7 @@ _CONFIG_DEFINITIONS = {
     'EMAIL_ON_EXTDOWN': (int, 'Email', 0),
     'EMAIL_ON_INTDOWN': (int, 'Email', 0),
     'ENABLE_HTTPS': (int, 'General', 0),
-    'FIRST_RUN_COMPLETE': (int, 'General', 0),
+    'FIRST_RUN_COMPLETE': (int, 'General', 1),
     'FREEZE_DB': (int, 'General', 0),
     'GIT_BRANCH': (str, 'General', 'master'),
     'GIT_PATH': (str, 'General', ''),

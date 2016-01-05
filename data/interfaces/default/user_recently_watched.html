@@ -1,0 +1,89 @@
+<%doc>
+USAGE DOCUMENTATION :: PLEASE LEAVE THIS AT THE TOP OF THIS FILE
+
+For Mako templating syntax documentation please visit: http://docs.makotemplates.org/en/latest/
+
+Filename:           user_recently_watched.html
+Version:            0.1
+Variable names:     data [array]
+
+data[array_index] :: Usable parameters
+
+== Global keys ==
+rating_key              Returns the unique identifier for the media item.
+row_id                  Returns the unique row id for the media item in the database.
+type                    Returns the type of media. Either 'movie' or 'episode'.
+thumb                   Returns the location of the item's thumbnail. Use with pms_image_proxy.
+time                    Returns the last watched time of the media.
+title                   Returns the name of the movie or episode.
+
+== Only if 'type' is 'episode ==
+parent_title            Returns the name of the TV Show a season belongs too.
+parent_index            Returns the season number.
+index                   Returns the episode number.
+
+== Only if 'type' is 'movie' ==
+year                    Returns the movie release year.
+
+DOCUMENTATION :: END
+</%doc>
+
+% if data != None:
+<div class="dashboard-recent-media-row">
+    <ul class="dashboard-recent-media list-unstyled">
+        % for item in data:
+        <li>
+            % if item['type'] == 'episode' or item['type'] == 'movie':
+			<a href="info?source=history&item_id=${item['row_id']}">
+				<div class="dashboard-recent-media-poster">
+					<div class="dashboard-recent-media-poster-face" style="background-image: url(pms_image_proxy?img=${item['thumb']}&width=300&height=450&fallback=poster);">
+                        <div class="dashboard-recent-media-overlay">
+                            <div class="dashboard-recent-media-overlay-text" id="time-${item['time']}">
+                                <script>
+                                    $('#time-${item['time']}').text('Watched ' + moment(${item['time']}, "X").fromNow())
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="dashboard-recent-media-metacontainer">
+					% if item['type'] == 'episode':
+					<h3 title="${item['grandparent_title']}">${item['grandparent_title']}</h3>
+					<h3 title="${item['title']}">${item['title']}</h3>
+					<h3 class="text-muted">S${item['parent_index']} &middot; E${item['index']}</h3>
+					% elif item['type'] == 'movie':
+					<h3 title="${item['title']}">${item['title']}</h3>
+					<h3 class="text-muted">${item['year']}</h3>
+					% endif
+					<div class="text-muted" id="time-${item['time']}">
+                    </div>
+				</div>
+			</a>
+            % elif item['type'] == 'track':
+            <a href="info?source=history&item_id=${item['row_id']}">
+                <div class="dashboard-recent-media-cover">
+                    <div class="dashboard-recent-media-cover-face" style="background-image: url(pms_image_proxy?img=${item['thumb']}&width=300&height=300&fallback=cover);">
+                        <div class="dashboard-recent-media-overlay">
+                            <div class="dashboard-recent-media-overlay-text" id="time-${item['time']}">
+                                <script>
+                                    $('#time-${item['time']}').text('Watched ' + moment(${item['time']}, "X").fromNow())
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-recent-media-metacontainer">
+                    <h3 title="${item['grandparent_title']}">${item['grandparent_title']}</h3>
+                    <h3 title="${item['title']}">${item['title']}</h3>
+                    <h3 class="text-muted">${item['parent_title']}</h3>
+                </div>
+            </a>
+            % endif
+        </li>
+        % endfor
+    </ul>
+</div>
+% else:
+<div class="text-muted">Unable to retrieve data from database. Please check your <a href="settings">settings</a>.
+</div><br>
+% endif
