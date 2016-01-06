@@ -35,6 +35,8 @@ from plexcs import common
                 <div>
                     Thanks for taking the time to try out Plex:CS. Hope you find it useful.
                     <br/><br/>
+                    Plex:CS requires a permanent internet connection to ensure a reliable experience.
+                    <br/><br/>
                     This wizard will help you get set up, to continue press Next.
                 </div>
             </div>
@@ -63,7 +65,7 @@ from plexcs import common
             <div class="wizard-card" data-cardname="card3">
                 <h3>Plex Media Server</h3>
                 <form>
-                    <p class="help-block">Enter your Plex Server details and then click the Verify button to make sure Plex:CS can reach the local server.</p>
+                    <p class="help-block">Enter your Plex Server details and then click the Verify button to make sure Plex:CS can reach the server.</p>
                 <div class="wizard-input-section">
                     <label for="pms_ip">Plex IP or Hostname</label>
                     <div class="row">
@@ -100,7 +102,7 @@ from plexcs import common
             </div>
 
 
- <!--           <div class="wizard-card" data-cardname="card4">
+          <!--  <div class="wizard-card" data-cardname="card4">
                 <h3>Monitoring</h3>
                 <p class="help-block">Keep records of all movie, TV show, or music items played from your Plex Media Server.</p>
                 <div class="wizard-input-section">
@@ -122,8 +124,9 @@ from plexcs import common
                     </div>
                     <p class="help-block">The interval (in seconds) Plex:CS will wait for a video item to be active before logging it. 0 to disable.</p>
                 </div>
-            </div>
-            <div class="wizard-card" data-cardname="card5" data-validate="validateNotifications">
+            </div> -->
+			
+       <!--     <div class="wizard-card" data-cardname="card5" data-validate="validateNotifications">
                 <h3>Notifications</h3>
                 <p class="help-block">Plex:CS supports a wide variety of notification options. To set up a notification agent conifgure this in <strong>Settings -> Notification Agents</strong>
                 after you have completed this setup wizard.</p><br/>
@@ -136,7 +139,7 @@ from plexcs import common
                 <div class="wizard-input-section">
                     <input type="checkbox" name="music_notify_enable" id="music_notify_enable" value="1" ${config['music_notify_enable']}> Enable notifications on Music playback
                 </div>
-            </div>
+            </div> -->
 
             <div class="wizard-card" data-cardname="card6">
                 <h3>PlexWatch Import</h3>
@@ -144,7 +147,7 @@ from plexcs import common
                 <p class="help-block">
                     When you complete this wizard navigate to the settings menu and to the Extra Settings tab. You will find an import tool there
                     which will convert your plexWatch database into a format that Plex:CS can read.
-                </p> -->
+                </p>
                 <!-- Figure out best way to get friends list refreshed before adding this back
                     You can skip this and do it later if you wish.</p>
                 <p class="help-block">Enter the path and file name where your
@@ -370,12 +373,15 @@ from plexcs import common
     $("#verify-plex-server").click(function() {
         var pms_ip = $("#pms_ip").val()
         var pms_port = $("#pms_port").val()
+        var pms_identifier = $("#pms_identifier").val()
+        var pms_ssl = $("#pms_ssl").val()
+        var pms_is_remote = $("#pms_is_remote").val()
         if (($("#pms_ip").val() !== '') || ($("#pms_port").val() !== '')) {
             $("#pms-verify-status").html('<i class="fa fa-refresh fa-spin"></i> Validating server...');
             $('#pms-verify-status').fadeIn('fast');
             $.ajax({
                 url: 'get_server_id',
-                data : { hostname: pms_ip, port: pms_port },
+                data : { hostname: pms_ip, port: pms_port, identifier: pms_identifier, ssl: pms_ssl, remote: pms_is_remote },
                 cache: true,
                 async: true,
                 timeout: 5000,
