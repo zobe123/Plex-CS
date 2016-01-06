@@ -44,10 +44,12 @@ def serve_template(templatename, **kwargs):
     _hplookup = TemplateLookup(directories=[template_dir], default_filters=['unicode', 'h'])
 
     server_name = plexcs.CONFIG.PMS_NAME
-
+    server2_name = plexcs.CONFIG.PMS2_NAME
+    
     try:
         template = _hplookup.get_template(templatename)
         return template.render(server_name=server_name, **kwargs)
+        return template.render(server2_name=server2_name, **kwargs)
     except:
         return exceptions.html_error_template().render()
 
@@ -71,7 +73,8 @@ class WebInterface(object):
             "home_stats_cards": plexcs.CONFIG.HOME_STATS_CARDS,
             "home_library_cards": plexcs.CONFIG.HOME_LIBRARY_CARDS,
             "pms_identifier": plexcs.CONFIG.PMS_IDENTIFIER,
-            "pms_name": plexcs.CONFIG.PMS_NAME
+            "pms_name": plexcs.CONFIG.PMS_NAME,
+            "pms2_name": plexcs.CONFIG.PMS2_NAME
         }
         return serve_template(templatename="index.html", title="Home", config=config)
 
