@@ -71,8 +71,8 @@ class WebInterface(object):
             "home_stats_cards": plexcs.CONFIG.HOME_STATS_CARDS,
             "home_library_cards": plexcs.CONFIG.HOME_LIBRARY_CARDS,
             "pms_identifier": plexcs.CONFIG.PMS_IDENTIFIER,
-            "pms_name": plexcs.CONFIG.PMS_NAME
-           
+            "pms_name": plexcs.CONFIG.PMS2_NAME,
+            "pms2_name": plexcs.CONFIG.PMS_NAME
         }
         return serve_template(templatename="index.html", title="Home", config=config)
 
@@ -98,8 +98,8 @@ class WebInterface(object):
             "tv_logging_enable": checked(plexcs.CONFIG.TV_LOGGING_ENABLE),
             "music_logging_enable": checked(plexcs.CONFIG.MUSIC_LOGGING_ENABLE),
             "logging_ignore_interval": plexcs.CONFIG.LOGGING_IGNORE_INTERVAL,
-            "check_github": checked(plexcs.CONFIG.CHECK_GITHUB),
-            "pms2_name": plexcs.CONFIG.PMS2_NAME
+            "check_github": checked(plexcs.CONFIG.CHECK_GITHUB)
+            
         }
 
         # The setup wizard just refreshes the page on submit so we must redirect to home if config set.
