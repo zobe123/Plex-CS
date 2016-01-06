@@ -1,0 +1,91 @@
+﻿<%inherit file="base.html"/>
+<%!
+from plexcs import helpers
+%>
+
+<%def name="headIncludes()">
+<link rel="stylesheet" href="interfaces/default/css/dataTables.bootstrap.css">
+<link rel="stylesheet" href="interfaces/default/css/plexcs-dataTables.css">
+<style>
+    td {word-break: break-all;}
+</style>
+</%def>
+
+<%def name="headerIncludes()">
+</%def>
+
+<%def name="body()">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="padded-header" id="current-activity-header">
+                <h3>Activity</h3>
+            </div>
+            <div id="currentActivity">
+                <div class="text-muted"><i class="fa fa-refresh fa-spin"></i> Checking for activity...</div>
+                <br>
+            </div>
+        </div>
+    </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="wizard" id="some-wizard" data-title="I'm sorry">
+            <div class="wizard-card" data-cardname="card1">
+             
+                <h3 style="line-height: 50px;">Welcome!</h3>
+                <br/>
+                <div>
+                    Not yet, but soon.
+                    <br/><br/>
+                    ...hold on there Cowboy, not so fast.
+                </div>
+            </div>
+            </div>
+            
+      <!--      <div class="wizard-success">
+                <h3>Setup Complete!</h3>
+                <br/>
+                <p>Setup is now complete. For more configuration options please visit the Settings menu on the home page.</p>
+                <br/>
+                <i class="fa fa-refresh fa-spin"></i>&nbspWaiting 5 seconds to ensure authentication token is registered...
+
+            </div> -->
+        </div>
+    </div>
+</div>
+</%def>
+
+<%def name="javascriptIncludes()">
+<script src="interfaces/default/js/jquery-2.1.4.min.js"></script>
+<script src="interfaces/default/js/bootstrap3/bootstrap.min.js"></script>
+<script src="interfaces/default/js/selectize.min.js"></script>
+<script src="interfaces/default/js/script.js"></script>
+<script src="interfaces/default/js/bootstrap-wizard.min.js"></script>
+ <script>
+ function currentActivityHeader() {
+        $.ajax({
+            url: 'get_current_activity_header',
+            cache: false,
+            async: true,
+            complete: function(xhr, status) {
+                $("#current-activity-header").html(xhr.responseText);
+            }
+        });
+    }   
+   currentActivityHeader();
+    setInterval(currentActivityHeader, 15000);
+
+    function currentActivity() {
+        $.ajax({
+            url: 'get_current_activity',
+            cache: false,
+            async: true,
+            complete: function(xhr, status) {
+                $("#currentActivity").html(xhr.responseText);
+            }
+        });
+    }
+	currentActivity();
+    setInterval(currentActivity, 15000);
+</script>
+
+</%def>

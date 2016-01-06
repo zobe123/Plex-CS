@@ -38,10 +38,6 @@ from plexcs import helpers
             <div class="padded-header" id="current-activity-header">
                 <h3>Activity</h3>
             </div>
-            <div id="currentActivity">
-                <div class="text-muted"><i class="fa fa-refresh fa-spin"></i> Checking for activity...</div>
-                <br>
-            </div>
         </div>
     </div>
 <div class="container-fluid">
@@ -92,18 +88,7 @@ from plexcs import helpers
    currentActivityHeader();
     setInterval(currentActivityHeader, 15000);
 
-    function currentActivity() {
-        $.ajax({
-            url: 'get_current_activity',
-            cache: false,
-            async: true,
-            complete: function(xhr, status) {
-                $("#currentActivity").html(xhr.responseText);
-            }
-        });
-    }
-	currentActivity();
-    setInterval(currentActivity, 15000);
+
 </script>
 </body>
 </html>

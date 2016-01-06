@@ -1,0 +1,71 @@
+﻿<%inherit file="base.html"/>
+<%!
+from plexcs import helpers
+%>
+
+<%def name="headIncludes()">
+<link rel="stylesheet" href="interfaces/default/css/dataTables.bootstrap.css">
+<link rel="stylesheet" href="interfaces/default/css/plexcs-dataTables.css">
+<style>
+    td {word-break: break-all;}
+</style>
+</%def>
+
+<%def name="headerIncludes()">
+</%def>
+
+<%def name="body()">
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="wizard-card" data-cardname="card1">
+             
+                <h3 style="line-height: 50px;">Welcome! Not yet, but soon.</h3>
+                <br/>
+                <div>
+                ...hold on there Cowboy, not so fast.
+                </div>
+            </div>
+            </div>
+            
+        </div>
+    </div>
+
+</%def>
+
+<%def name="javascriptIncludes()">
+<script src="interfaces/default/js/jquery-2.1.4.min.js"></script>
+<script src="interfaces/default/js/bootstrap3/bootstrap.min.js"></script>
+<script src="interfaces/default/js/selectize.min.js"></script>
+<script src="interfaces/default/js/script.js"></script>
+<script src="interfaces/default/js/bootstrap-wizard.min.js"></script>
+ <script>
+ function currentActivityHeader() {
+        $.ajax({
+            url: 'get_current_activity_header',
+            cache: false,
+            async: true,
+            complete: function(xhr, status) {
+                $("#current-activity-header").html(xhr.responseText);
+            }
+        });
+    }   
+   currentActivityHeader();
+    setInterval(currentActivityHeader, 15000);
+
+    function currentActivity() {
+        $.ajax({
+            url: 'get_current_activity',
+            cache: false,
+            async: true,
+            complete: function(xhr, status) {
+                $("#currentActivity").html(xhr.responseText);
+            }
+        });
+    }
+	currentActivity();
+    setInterval(currentActivity, 15000);
+</script>
+
+</%def>

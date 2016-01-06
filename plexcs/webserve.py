@@ -166,8 +166,8 @@ class WebInterface(object):
         return serve_template(templatename="library_stats.html", title="Library Stats", data=stats_data)
 
     @cherrypy.expose
-    def history(self):
-        return serve_template(templatename="history.html", title="History")
+    def compare(self):
+        return serve_template(templatename="compare.html", title="Compare")
 
     @cherrypy.expose
     def users(self):
@@ -187,7 +187,7 @@ class WebInterface(object):
 
     @cherrypy.expose
     def sync(self):
-        return serve_template(templatename="sync.html", title="Synced Items")
+        return serve_template(templatename="sync.html", title="Sync")
 
     @cherrypy.expose
     def user(self, user=None, user_id=None):
@@ -628,10 +628,10 @@ class WebInterface(object):
                custom_where.append(['session_history.media_type', media_type])
 
         data_factory = datafactory.DataFactory()
-        history = data_factory.get_history(kwargs=kwargs, custom_where=custom_where, grouping=grouping, watched_percent=watched_percent)
+        compare = data_factory.get_history(kwargs=kwargs, custom_where=custom_where, grouping=grouping, watched_percent=watched_percent)
 
         cherrypy.response.headers['Content-type'] = 'application/json'
-        return json.dumps(history)
+        return json.dumps(compare)
 
     @cherrypy.expose
     def history_table_modal(self, start_date=None, **kwargs):
@@ -828,7 +828,7 @@ class WebInterface(object):
             "pms_identifier": plexcs.CONFIG.PMS_IDENTIFIER
         }
 
-        if source == 'history':
+        if source == 'compare':
             data_factory = datafactory.DataFactory()
             metadata = data_factory.get_metadata_details(row_id=item_id)
         elif item_id == 'movie':
