@@ -44,8 +44,7 @@ def serve_template(templatename, **kwargs):
     _hplookup = TemplateLookup(directories=[template_dir], default_filters=['unicode', 'h'])
 
     server_name = plexcs.CONFIG.PMS_NAME
-    server2_name = plexcs.CONFIG.PMS2_NAME
-    
+
     try:
         template = _hplookup.get_template(templatename)
         return template.render(server_name=server_name, **kwargs)
