@@ -128,13 +128,15 @@ class WebInterface(object):
     def home_stats(self, **kwargs):
         data_factory = datafactory.DataFactory()
 
+        grouping = plexcs.CONFIG.GROUP_HISTORY_TABLES
         time_range = plexcs.CONFIG.HOME_STATS_LENGTH
         stats_type = plexcs.CONFIG.HOME_STATS_TYPE
         stats_count = plexcs.CONFIG.HOME_STATS_COUNT
         stats_cards = plexcs.CONFIG.HOME_STATS_CARDS.split(', ')
         notify_watched_percent = plexcs.CONFIG.NOTIFY_WATCHED_PERCENT
 
-        stats_data = data_factory.get_home_stats(time_range=time_range,
+        stats_data = data_factory.get_home_stats(grouping=grouping,
+                                                 time_range=time_range,
                                                  stats_type=stats_type,
                                                  stats_count=stats_count,
                                                  stats_cards=stats_cards,
@@ -175,6 +177,9 @@ class WebInterface(object):
     def graphs(self):
 
         config = {
+            "graph_type": plexcs.CONFIG.GRAPH_TYPE,
+            "graph_days": plexcs.CONFIG.GRAPH_DAYS,
+            "graph_tab": plexcs.CONFIG.GRAPH_TAB,
             "music_logging_enable": plexcs.CONFIG.MUSIC_LOGGING_ENABLE
         }
 
@@ -467,6 +472,10 @@ class WebInterface(object):
             "notify_on_extdown_body_text": plexcs.CONFIG.NOTIFY_ON_EXTDOWN_BODY_TEXT,
             "notify_on_intdown_subject_text": plexcs.CONFIG.NOTIFY_ON_INTDOWN_SUBJECT_TEXT,
             "notify_on_intdown_body_text": plexcs.CONFIG.NOTIFY_ON_INTDOWN_BODY_TEXT,
+            "notify_on_extup_subject_text": plexcs.CONFIG.NOTIFY_ON_EXTUP_SUBJECT_TEXT,
+            "notify_on_extup_body_text": plexcs.CONFIG.NOTIFY_ON_EXTUP_BODY_TEXT,
+            "notify_on_intup_subject_text": plexcs.CONFIG.NOTIFY_ON_INTUP_SUBJECT_TEXT,
+            "notify_on_intup_body_text": plexcs.CONFIG.NOTIFY_ON_INTUP_BODY_TEXT,
             "home_stats_length": plexcs.CONFIG.HOME_STATS_LENGTH,
             "home_stats_type": checked(plexcs.CONFIG.HOME_STATS_TYPE),
             "home_stats_count": plexcs.CONFIG.HOME_STATS_COUNT,
@@ -490,16 +499,14 @@ class WebInterface(object):
             "tv_notify_on_start", "movie_notify_on_start", "music_notify_on_start",
             "tv_notify_on_stop", "movie_notify_on_stop", "music_notify_on_stop",
             "tv_notify_on_pause", "movie_notify_on_pause", "music_notify_on_pause", "refresh_users_on_startup",
-            "ip_logging_enable", "movie_logging_enable", "tv_logging_enable", "music_logging_enable", 
-            "pms_is_remote", "home_stats_type", "group_history_tables", "notify_consecutive", 
+            "ip_logging_enable", "movie_logging_enable", "tv_logging_enable", "music_logging_enable",
+            "pms_is_remote", "home_stats_type", "group_history_tables", "notify_consecutive",
             "notify_recently_added", "notify_recently_added_grandparent", "monitor_remote_access"
         ]
         for checked_config in checked_configs:
             if checked_config not in kwargs:
                 # checked items should be zero or one. if they were not sent then the item was not checked
                 kwargs[checked_config] = 0
-
-               
 
         # If http password exists in config, do not overwrite when blank value received
         if 'http_password' in kwargs:
@@ -519,7 +526,7 @@ class WebInterface(object):
             if (kwargs['monitoring_interval'] != str(plexcs.CONFIG.MONITORING_INTERVAL)) or \
                     (kwargs['refresh_users_interval'] != str(plexcs.CONFIG.REFRESH_USERS_INTERVAL)):
                 reschedule = True
-        
+
         if 'notify_recently_added' in kwargs and \
             (kwargs['notify_recently_added'] != plexcs.CONFIG.NOTIFY_RECENTLY_ADDED):
             reschedule = True
@@ -547,6 +554,9 @@ class WebInterface(object):
 
         # Get new server URLs for SSL communications.
         plextv.get_real_pms_url()
+        
+        # Get new server friendly name
+        pmsconnect.get_server_friendly_name()
 
         # Reconfigure scheduler if intervals changed
         if reschedule:
@@ -608,14 +618,14 @@ class WebInterface(object):
             custom_where.append(['session_history.grandparent_rating_key', rating_key])
         if 'start_date' in kwargs:
             start_date = kwargs.get('start_date', "")
-            custom_where.append(['strftime("%Y-%m-%d", datetime(date, "unixepoch", "localtime"))', start_date])
+            custom_where.append(['strftime("%Y-%m-%d", datetime(started, "unixepoch", "localtime"))', start_date])
         if 'reference_id' in kwargs:
             reference_id = kwargs.get('reference_id', "")
             custom_where.append(['session_history.reference_id', reference_id])
         if 'media_type' in kwargs:
             media_type = kwargs.get('media_type', "")
             if media_type != 'all':
-               custom_where.append(['session_history_metadata.media_type', media_type])
+               custom_where.append(['session_history.media_type', media_type])
 
         data_factory = datafactory.DataFactory()
         history = data_factory.get_history(kwargs=kwargs, custom_where=custom_where, grouping=grouping, watched_percent=watched_percent)
@@ -650,6 +660,30 @@ class WebInterface(object):
         return a.fetchData()
 
     @cherrypy.expose
+    def test_notifier(self, config_id=None, subject='Plex:CS', body='Test notification', **kwargs):
+        cherrypy.response.headers['Cache-Control'] = "max-age=0,no-cache,no-store"
+
+        if config_id.isdigit():
+            agents = notifiers.available_notification_agents()
+            for agent in agents:
+                if int(config_id) == agent['id']:
+                    this_agent = agent
+                    break
+                else:
+                    this_agent = None
+            
+            if this_agent:
+                logger.debug("Sending test %s notification." % this_agent['name'])
+                notifiers.send_notification(this_agent['id'], subject, body)
+                return "Notification sent."
+            else:
+                logger.debug("Unable to send test notification, invalid notification agent ID %s." % config_id)
+                return "Invalid notification agent ID %s." % config_id
+        else:
+            logger.debug("Unable to send test notification, no notification agent ID received.")
+            return "No notification agent ID received."
+            
+    @cherrypy.expose
     def twitterStep1(self):
         cherrypy.response.headers['Cache-Control'] = "max-age=0,no-cache,no-store"
         tweet = notifiers.TwitterNotifier()
@@ -665,26 +699,6 @@ class WebInterface(object):
             return "Key verification successful"
         else:
             return "Unable to verify key"
-
-    @cherrypy.expose
-    def testTwitter(self):
-        cherrypy.response.headers['Cache-Control'] = "max-age=0,no-cache,no-store"
-        tweet = notifiers.TwitterNotifier()
-        result = tweet.test_notify()
-        if result:
-            return "Tweet successful, check your twitter to make sure it worked"
-        else:
-            return "Error sending tweet"
-
-    @cherrypy.expose
-    def test_ifttt(self):
-        cherrypy.response.headers['Cache-Control'] = "max-age=0,no-cache,no-store"
-        event = notifiers.IFTTT()
-        result = event.test()
-        if result:
-            return "Notification successful."
-        else:
-            return "Error sending event."
 
     @cherrypy.expose
     def osxnotifyregister(self, app):
@@ -725,57 +739,57 @@ class WebInterface(object):
             logger.warn('Unable to retrieve data.')
             return False
 
-#    @cherrypy.expose
-#   def get_current_activity(self, **kwargs):
-#
-#        try:
-#            pms_connect = pmsconnect.PmsConnect()
-#            result = pms_connect.get_current_activity()
-#
-#            data_factory = datafactory.DataFactory()
-#            for session in result['sessions']:
-#                if not session['ip_address']:
-#                    ip_address = data_factory.get_session_ip(session['session_key'])
-#                    session['ip_address'] = ip_address
-#
-#        except:
-#            return serve_template(templatename="current_activity.html", data=None)
-#
-#        if result:
-#            return serve_template(templatename="current_activity.html", data=result)
-#        else:
-#            logger.warn('Unable to retrieve data.')
-#            return serve_template(templatename="current_activity.html", data=None)
-#
-# @cherrypy.expose
-#   def get_current_activity_header(self, **kwargs):
-#
-#        try:
-#            pms_connect = pmsconnect.PmsConnect()
-#            result = pms_connect.get_current_activity()
-#        except IOError, e:
-#            return serve_template(templatename="current_activity_header.html", data=None)
-#
-#        if result:
-#            return serve_template(templatename="current_activity_header.html", data=result['stream_count'])
-#       else:
-#          logger.warn('Unable to retrieve data.')
-#         return serve_template(templatename="current_activity_header.html", data=None)
-#
-#   @cherrypy.expose
-#  def get_recently_added(self, count='0', **kwargs):
-#
-#       try:
-#          pms_connect = pmsconnect.PmsConnect()
-#         result = pms_connect.get_recently_added_details(count)
-#    except IOError, e:
-#            return serve_template(templatename="recently_added.html", data=None)
-#
-#       if result:
-#          return serve_template(templatename="recently_added.html", data=result['recently_added'])
-#     else:
-#        logger.warn('Unable to retrieve data.')
-#       return serve_template(templatename="recently_added.html", data=None)
+    @cherrypy.expose
+    def get_current_activity(self, **kwargs):
+
+        try:
+            pms_connect = pmsconnect.PmsConnect()
+            result = pms_connect.get_current_activity()
+
+            data_factory = datafactory.DataFactory()
+            for session in result['sessions']:
+                if not session['ip_address']:
+                    ip_address = data_factory.get_session_ip(session['session_key'])
+                    session['ip_address'] = ip_address
+
+        except:
+            return serve_template(templatename="current_activity.html", data=None)
+
+        if result:
+            return serve_template(templatename="current_activity.html", data=result)
+        else:
+            logger.warn('Unable to retrieve data.')
+            return serve_template(templatename="current_activity.html", data=None)
+
+    @cherrypy.expose
+    def get_current_activity_header(self, **kwargs):
+
+        try:
+            pms_connect = pmsconnect.PmsConnect()
+            result = pms_connect.get_current_activity()
+        except IOError, e:
+            return serve_template(templatename="current_activity_header.html", data=None)
+
+        if result:
+            return serve_template(templatename="current_activity_header.html", data=result['stream_count'])
+        else:
+            logger.warn('Unable to retrieve data.')
+            return serve_template(templatename="current_activity_header.html", data=None)
+
+    @cherrypy.expose
+    def get_recently_added(self, count='0', **kwargs):
+
+        try:
+            pms_connect = pmsconnect.PmsConnect()
+            result = pms_connect.get_recently_added_details(count)
+        except IOError, e:
+            return serve_template(templatename="recently_added.html", data=None)
+
+        if result:
+            return serve_template(templatename="recently_added.html", data=result['recently_added'])
+        else:
+            logger.warn('Unable to retrieve data.')
+            return serve_template(templatename="recently_added.html", data=None)
 
     @cherrypy.expose
     def pms_image_proxy(self, img='', width='0', height='0', fallback=None, **kwargs):
@@ -952,6 +966,20 @@ class WebInterface(object):
 
         cherrypy.response.headers['Content-type'] = 'application/json'
         return json.dumps(history)
+
+    @cherrypy.expose
+    def set_graph_config(self, graph_type=None, graph_days=None, graph_tab=None):
+        if graph_type:
+            plexcs.CONFIG.__setattr__('GRAPH_TYPE', graph_type)
+            plexcs.CONFIG.write()
+        if graph_days:
+            plexcs.CONFIG.__setattr__('GRAPH_DAYS', graph_days)
+            plexcs.CONFIG.write()
+        if graph_tab:
+            plexcs.CONFIG.__setattr__('GRAPH_TAB', graph_tab)
+            plexcs.CONFIG.write()
+
+        return "Updated graphs config values."
 
     @cherrypy.expose
     def get_plays_by_date(self, time_range='30', y_axis='plays', **kwargs):
@@ -1300,19 +1328,23 @@ class WebInterface(object):
         return serve_template(templatename="plexwatch_import.html", title="Import PlexWatch Database")
 
     @cherrypy.expose
-    def get_server_id(self, hostname=None, port=None, **kwargs):
+    def get_server_id(self, hostname=None, port=None, identifier=None, ssl=0, remote=0, **kwargs):
         from plexcs import http_handler
 
         if hostname and port:
-            request_handler = http_handler.HTTPHandler(host=hostname,
-                                                       port=port,
-                                                       token=None)
-            uri = '/identity'
-            request = request_handler.make_request(uri=uri,
-                                                   proto='http',
-                                                   request_type='GET',
-                                                   output_format='',
-                                                   no_token=True)
+            # Set PMS attributes to get the real PMS url
+            plexcs.CONFIG.__setattr__('PMS_IP', hostname)
+            plexcs.CONFIG.__setattr__('PMS_PORT', port)
+            plexcs.CONFIG.__setattr__('PMS_IDENTIFIER', identifier)
+            plexcs.CONFIG.__setattr__('PMS_SSL', ssl)
+            plexcs.CONFIG.__setattr__('PMS_IS_REMOTE', remote)
+            plexcs.CONFIG.write()
+            
+            plextv.get_real_pms_url()
+            
+            pms_connect = pmsconnect.PmsConnect()
+            request = pms_connect.get_local_server_identity()
+            
             if request:
                 cherrypy.response.headers['Content-type'] = 'application/xml'
                 return request
@@ -1325,19 +1357,19 @@ class WebInterface(object):
     @cherrypy.expose
     def random_arnold_quotes(self, **kwargs):
         from random import randint
-        quote_list = ['My Mama always said, \'Life was like a box of chocolates, you never know what you\'re gonna get.',
-                      'To Infinity and Beyond!',
-                      'The greatest trick the Devil ever pulled was convincing the world he didn\'t exist.',
-                      'I see dead people.',
+        quote_list = ['To crush your enemies, see them driven before you, and to hear the lamentation of their women!',
+                      'Your clothes, give them to me, now!',
+                      'Do it!',
+                      'If it bleeds, we can kill it',
                       'See you at the party Richter!',
-                      'He turns to me, and he says: \'Why so serious?',
+                      'Let off some steam, Bennett',
                       'I\'ll be back',
-                      '...Bond. James Bond.',
+                      'Get to the chopper!',
                       'Hasta La Vista, Baby!',
                       'It\'s not a tumor!',
                       'Dillon, you son of a bitch!',
-                      'Get busy livin\' or get busy dyin\'. (That\'s goddamn right.)',
-                      'I just sharted...I tried to fart and a little shit came out. I just sharted.',
+                      'Benny!! Screw you!!',
+                      'Stop whining! You kids are soft. You lack discipline.',
                       'Nice night for a walk.',
                       'Stick around!',
                       'I need your clothes, your boots and your motorcycle.',
@@ -1347,7 +1379,7 @@ class WebInterface(object):
                       'Are you Sarah Conner?',
                       'I\'m a cop you idiot!',
                       'Come with me if you want to live.',
-                      'Boys Have A Penis, Girls Have a Vagina'
+                      'Who is your daddy and what does he do?'
                       ]
 
         random_number = randint(0, len(quote_list) - 1)
@@ -1355,12 +1387,22 @@ class WebInterface(object):
 
     @cherrypy.expose
     def get_notification_agent_config(self, config_id, **kwargs):
-        config = notifiers.get_notification_agent_config(config_id=config_id)
+        if config_id.isdigit():
+            config = notifiers.get_notification_agent_config(config_id=config_id)
+            agents = notifiers.available_notification_agents()
+            for agent in agents:
+                if int(config_id) == agent['id']:
+                    this_agent = agent
+                    break
+                else:
+                    this_agent = None
+        else:
+            return None
 
         checkboxes = {'email_tls': checked(plexcs.CONFIG.EMAIL_TLS)}
 
         return serve_template(templatename="notification_config.html", title="Notification Configuration",
-                              config_id=config_id, data=config, checkboxes=checkboxes)
+                              agent=this_agent, data=config, checkboxes=checkboxes)
 
     @cherrypy.expose
     def get_notification_agent_triggers(self, config_id, **kwargs):
@@ -1423,7 +1465,7 @@ class WebInterface(object):
     @cherrypy.expose
     def undelete_user(self, user_id=None, username=None, **kwargs):
         data_factory = datafactory.DataFactory()
-        
+
         if user_id:
             delete_row = data_factory.undelete_user(user_id=user_id)
 
