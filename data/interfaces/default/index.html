@@ -19,9 +19,9 @@
    
         <div class="col-md-6">
             <div class="padded-header" id="library-statistics-header">
-                <h3>Fast Overview <small> remote Server: ${config['pms_name']}</small></h3>
+                <h3>Fast Overview <small> remote Server: ${config['pms2_name']}</small></h3>
             </div>
-            <div id="library-stats" class="library-platforms">
+            <div id="library-stats2" class="library-platforms">
                 <div class='text-muted'><i class="fa fa-refresh fa-spin"></i> Loading stats...</div>
                 <br>
             </div>
@@ -47,6 +47,17 @@
         });
     }
 
+    function getLibraryStats2() {
+        $.ajax({
+            url: 'library_stats',
+            cache: false,
+            async: true,
+            data: { },
+            complete: function(xhr, status) {
+                $("#library-stats2").html(xhr.responseText);
+            }
+        });
+    }
 
 
     var date_format = 'YYYY-MM-DD';
@@ -61,7 +72,7 @@
     });
 
     getLibraryStats();
-
+    getLibraryStats2();
 
 </script>
 

@@ -37,6 +37,24 @@ def get_server_friendly_name():
 
     return server_name
 
+def get_server2_friendly_name():
+    logger.info("Requesting name from server2...")
+    server2_name = PmsConnect().get_server_pref(pref='FriendlyName')
+    
+    # If friendly name is blank
+    if not server2_name:
+        servers_info = PmsConnect().get_servers_info()
+        for server in servers_info:
+            if server['machine_identifier'] == plexcs.CONFIG.PMS2_IDENTIFIER:
+                server2_name = server['name']
+                break
+    
+    if server2_name and server2_name != plexcs.CONFIG.PMS2_NAME:
+		plexcs.CONFIG.__setattr__('PMS2_NAME', server2_name)
+      #  plexcs.CONFIG.write()
+
+    return server2_name
+	
 class PmsConnect(object):
     """
     Retrieve data from Plex Server
