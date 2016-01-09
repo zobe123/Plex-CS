@@ -185,7 +185,7 @@ def update():
                 logger.info('Output: ' + str(output))
 
     else:
-        tar_download_url = 'https://github.com/%s/plexcs/tarball/%s' % (plexcs.CONFIG.GIT_USER, plexcs.CONFIG.GIT_BRANCH)
+        tar_download_url = 'https://github.com/%s/plex-cs/tarball/%s' % (plexcs.CONFIG.GIT_USER, plexcs.CONFIG.GIT_BRANCH)
         update_dir = os.path.join(plexcs.PROG_DIR, 'update')
         version_path = os.path.join(plexcs.PROG_DIR, 'version.txt')
 
