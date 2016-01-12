@@ -198,7 +198,7 @@ def daemonize():
         pid = os.fork()  # @UndefinedVariable - only available in UNIX
         if pid != 0:
             sys.exit(0)
-    except OSError, e:
+    except OSError as e:
         raise RuntimeError("1st fork failed: %s [%d]", e.strerror, e.errno)
 
     os.setsid()
@@ -212,7 +212,7 @@ def daemonize():
         pid = os.fork()  # @UndefinedVariable - only available in UNIX
         if pid != 0:
             sys.exit(0)
-    except OSError, e:
+    except OSError as e:
         raise RuntimeError("2nd fork failed: %s [%d]", e.strerror, e.errno)
 
     dev_null = file('/dev/null', 'r')
