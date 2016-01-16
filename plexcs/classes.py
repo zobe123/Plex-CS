@@ -23,11 +23,11 @@ import urllib
 from common import USER_AGENT
 
 
-class Plex:CSURLopener(urllib.FancyURLopener):
+class PlexCSURLopener(urllib.FancyURLopener):
     version = USER_AGENT
 
 
-class AuthURLOpener(Plex:CSURLopener):
+class AuthURLOpener(PlexCSURLopener):
     """
     URLOpener class that supports http auth without needing interactive password entry.
     If the provided username/password don't work it simply fails.
@@ -64,4 +64,4 @@ class AuthURLOpener(Plex:CSURLopener):
     # this is pretty much just a hack for convenience
     def openit(self, url):
         self.numTries = 0
-        return Plex:CSURLopener.open(self, url)
+        return PlexCSURLopener.open(self, url)

@@ -14,7 +14,7 @@
 #  along with Plex:CS.  If not, see <http://www.gnu.org/licenses/>.
 
 
-class Plex:CSException(Exception):
+class PlexCSException(Exception):
     """
     Generic Plex:CS Exception - should never be thrown, only subclassed
     """
