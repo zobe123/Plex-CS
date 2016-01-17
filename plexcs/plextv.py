@@ -212,7 +212,7 @@ class PlexTV(object):
 
         try:
             xml_parse = minidom.parseString(own_account)
-        except Exception, e:
+        except Exception as e:
             logger.warn("Error parsing XML for Plex account details: %s" % e)
             return []
         except:
@@ -237,7 +237,7 @@ class PlexTV(object):
 
         try:
             xml_parse = minidom.parseString(friends_list)
-        except Exception, e:
+        except Exception as e:
             logger.warn("Error parsing XML for Plex friends list: %s" % e)
         except:
             logger.warn("Error parsing XML for Plex friends list.")
@@ -268,7 +268,7 @@ class PlexTV(object):
 
         try:
             xml_parse = minidom.parseString(sync_list)
-        except Exception, e:
+        except Exception as e:
             logger.warn("Error parsing XML for Plex sync lists: %s" % e)
             return []
         except:
@@ -382,7 +382,7 @@ class PlexTV(object):
 
         try:
             xml_parse = minidom.parseString(plextv_resources)
-        except Exception, e:
+        except Exception as e:
             logger.warn("Error parsing XML for Plex resources: %s" % e)
             return []
         except:

@@ -57,7 +57,7 @@ def run():
             reconnects = 0
             ws_connected = True
             logger.info(u'Plex:CS WebSocket :: Ready')
-        except IOError, e:
+        except IOError as e:
             logger.error(u'Plex:CS WebSocket :: %s.' % e)
             reconnects += 1
             time.sleep(5)
@@ -79,7 +79,7 @@ def run():
                 logger.warn(u'Plex:CS WebSocket :: Connection has closed, reconnecting...')
                 try:
                     ws = create_connection(uri)
-                except IOError, e:
+                except IOError as e:
                     logger.info(u'Plex:CS WebSocket :: %s.' % e)
 
             else:

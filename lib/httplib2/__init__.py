@@ -660,7 +660,7 @@ class FileCache(object):
             f = file(cacheFullPath, "rb")
             retval = f.read()
             f.close()
-        except IOError, e:
+        except IOError as e:
             pass
         return retval
 
@@ -868,7 +868,7 @@ the same interface as FileCache."""
             except socket.gaierror:
                 conn.close()
                 raise ServerNotFoundError("Unable to find the server at %s" % conn.host)
-            except socket.error, e:
+            except socket.error as e:
                 if not hasattr(e, 'errno'): # I don't know what this is so lets raise it if it happens
                     raise
                 elif e.errno == errno.ECONNREFUSED: # Connection refused
@@ -1140,7 +1140,7 @@ a string that contains the response entity body.
                     content = ""
                 else:
                     (response, content) = self._request(conn, authority, uri, request_uri, method, body, headers, redirections, cachekey)
-        except Exception, e:
+        except Exception as e:
             if self.force_exception_to_status_code:
                 if isinstance(e, HttpLib2ErrorWithResponse):
                     response = e.response

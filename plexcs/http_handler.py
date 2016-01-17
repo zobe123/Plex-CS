@@ -79,10 +79,10 @@ class HTTPHandler(object):
                 request_status = response.status
                 request_content = response.read()
                 content_type = response.getheader('content-type')
-            except IOError, e:
+            except IOError as e:
                 logger.warn(u"Failed to access uri endpoint %s with error %s" % (uri, e))
                 return None
-            except Exception, e:
+            except Exception as e:
                 logger.warn(u"Failed to access uri endpoint %s. Is your server maybe accepting SSL connections only? %s" % (uri, e))
                 return None
             except:

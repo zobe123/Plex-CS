@@ -1352,7 +1352,7 @@ class Email(object):
             logger.info(u"Email notifications sent.")
             return True
 
-        except Exception, e:
+        except Exception as e:
             logger.warn('Error sending Email: %s' % e)
             return False
 
