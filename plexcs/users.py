@@ -218,7 +218,7 @@ class Users(object):
                               "keep_history": keep_history}
             try:
                 monitor_db.upsert('users', new_value_dict, control_value_dict)
-            except Exception, e:
+            except Exception as e:
                 logger.debug(u"Uncaught exception %s" % e)
         if user:
             if friendly_name.strip() == '':
@@ -232,7 +232,7 @@ class Users(object):
                               "keep_history": keep_history}
             try:
                 monitor_db.upsert('users', new_value_dict, control_value_dict)
-            except Exception, e:
+            except Exception as e:
                 logger.debug(u"Uncaught exception %s" % e)
 
     def set_user_profile_url(self, user=None, user_id=None, profile_url=None):
@@ -246,7 +246,7 @@ class Users(object):
             new_value_dict = {"custom_avatar_url": profile_url}
             try:
                 monitor_db.upsert('users', new_value_dict, control_value_dict)
-            except Exception, e:
+            except Exception as e:
                 logger.debug(u"Uncaught exception %s" % e)
         if user:
             if profile_url.strip() == '':
@@ -258,7 +258,7 @@ class Users(object):
             new_value_dict = {"custom_avatar_url": profile_url}
             try:
                 monitor_db.upsert('users', new_value_dict, control_value_dict)
-            except Exception, e:
+            except Exception as e:
                 logger.debug(u"Uncaught exception %s" % e)
 
     def get_user_friendly_name(self, user=None, user_id=None):

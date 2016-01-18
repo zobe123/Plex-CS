@@ -27,7 +27,7 @@ def get_log_tail(window=20, parsed=True):
 
     try:
         logfile = open(log_file, "r")
-    except IOError, e:
+    except IOError as e:
         logger.error('Unable to open Plex Log file. %s' % e)
         return []
 

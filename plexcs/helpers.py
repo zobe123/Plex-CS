@@ -399,7 +399,7 @@ def parse_xml(unparsed=None):
         try:
             xml_parse = minidom.parseString(unparsed)
             return xml_parse
-        except Exception, e:
+        except Exception as e:
             logger.warn("Error parsing XML. %s" % e)
             return []
         except:

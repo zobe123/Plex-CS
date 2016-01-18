@@ -85,7 +85,7 @@ class MonitorDatabase(object):
                     # Our transaction was successful, leave the loop
                     break
 
-                except sqlite3.OperationalError, e:
+                except sqlite3.OperationalError as e:
                     if "unable to open database file" in e.message or "database is locked" in e.message:
                         logger.warn('Database Error: %s', e)
                         attempts += 1
@@ -94,7 +94,7 @@ class MonitorDatabase(object):
                         logger.error('Database error: %s', e)
                         raise
 
-                except sqlite3.DatabaseError, e:
+                except sqlite3.DatabaseError as e:
                     logger.error('Fatal Error executing %s :: %s', query, e)
                     raise
 

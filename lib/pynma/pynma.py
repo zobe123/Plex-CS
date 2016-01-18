@@ -110,7 +110,7 @@ class PyNMA(object):
 
         try:
             res = self._parse_reponse(resp.read())
-        except Exception, e:
+        except Exception as e:
             res = {'type':    "pynmaerror",
                    'code':    600,
                    'message': str(e)

@@ -248,7 +248,7 @@ def read_changelog():
 
     try:
         logfile = open(changelog_file, "r")
-    except IOError, e:
+    except IOError as e:
         logger.error('Plex:CS Version Checker :: Unable to open changelog file. %s' % e)
         return None
 

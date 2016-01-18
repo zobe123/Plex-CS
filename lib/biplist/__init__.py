@@ -31,7 +31,7 @@ Plist generation example:
              }
     try:
         writePlist(plist, "example.plist")
-    except (InvalidPlistException, NotBinaryPlistException), e:
+    except (InvalidPlistException, NotBinaryPlistException) as e:
         print "Something bad happened:", e
 
 Plist parsing example:
@@ -40,7 +40,7 @@ Plist parsing example:
     try:
         plist = readPlist("example.plist")
         print plist
-    except (InvalidPlistException, NotBinaryPlistException), e:
+    except (InvalidPlistException, NotBinaryPlistException) as e:
         print "Not a plist:", e
 """
 

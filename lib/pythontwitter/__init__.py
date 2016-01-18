@@ -3425,7 +3425,7 @@ class Api(object):
     json = self._FetchUrl(url, parameters=parameters)
     try:
       data = self._ParseAndCheckTwitter(json)
-    except TwitterError, e:
+    except TwitterError as e:
         _, e, _ = sys.exc_info()
         t = e.args[0]
         if len(t) == 1 and ('code' in t[0]) and (t[0]['code'] == 34):
@@ -4551,7 +4551,7 @@ class Api(object):
           response = opener.open(url, encoded_post_data)
           url_data = self._DecompressGzippedResponse(response)
           self._cache.Set(key, url_data)
-        except urllib2.HTTPError, e:
+        except urllib2.HTTPError as e:
           print e
         opener.close()
       else:
@@ -4618,7 +4618,7 @@ class _FileCache(object):
              os.getenv('USERNAME') or \
              os.getlogin() or \
              'nobody'
-    except (AttributeError, IOError, OSError), e:
+    except (AttributeError, IOError, OSError) as e:
       return 'nobody'
 
   def _GetTmpCachePath(self):

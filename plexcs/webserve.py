@@ -769,7 +769,7 @@ class WebInterface(object):
         try:
             pms_connect = pmsconnect.PmsConnect()
             result = pms_connect.get_current_activity()
-        except IOError, e:
+        except IOError as e:
             return serve_template(templatename="current_activity_header.html", data=None)
 
         if result:
@@ -784,7 +784,7 @@ class WebInterface(object):
         try:
             pms_connect = pmsconnect.PmsConnect()
             result = pms_connect.get_recently_added_details(count)
-        except IOError, e:
+        except IOError as e:
             return serve_template(templatename="recently_added.html", data=None)
 
         if result:
@@ -808,7 +808,7 @@ class WebInterface(object):
                     fallback_image = open(self.interface_dir + common.DEFAULT_POSTER_THUMB, 'rb')
                     cherrypy.response.headers['Content-type'] = 'image/png'
                     return fallback_image
-                except IOError, e:
+                except IOError as e:
                     logger.error('Unable to read fallback image. %s' % e)
             elif fallback == 'cover':
                 logger.info('Trying fallback image...')
@@ -816,7 +816,7 @@ class WebInterface(object):
                     fallback_image = open(self.interface_dir + common.DEFAULT_COVER_THUMB, 'rb')
                     cherrypy.response.headers['Content-type'] = 'image/png'
                     return fallback_image
-                except IOError, e:
+                except IOError as e:
                     logger.error('Unable to read fallback image. %s' % e)
 
             return None

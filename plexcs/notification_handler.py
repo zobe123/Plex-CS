@@ -457,14 +457,14 @@ def build_notify_text(session=None, timeline=None, state=None):
         if on_start_subject and on_start_body:
             try:
                 subject_text = unicode(on_start_subject).format(**available_params)
-            except LookupError, e:
+            except LookupError as e:
                 logger.error(u"Plex:CS Notifier :: Unable to parse field %s in notification subject. Using fallback." % e)
             except:
                 logger.error(u"Plex:CS Notifier :: Unable to parse custom notification subject. Using fallback.")
 
             try:
                 body_text = unicode(on_start_body).format(**available_params)
-            except LookupError, e:
+            except LookupError as e:
                 logger.error(u"Plex:CS Notifier :: Unable to parse field %s in notification body. Using fallback." % e)
             except:
                 logger.error(u"Plex:CS Notifier :: Unable to parse custom notification body. Using fallback.")
@@ -481,14 +481,14 @@ def build_notify_text(session=None, timeline=None, state=None):
         if on_stop_subject and on_stop_body:
             try:
                 subject_text = unicode(on_stop_subject).format(**available_params)
-            except LookupError, e:
+            except LookupError as e:
                 logger.error(u"Plex:CS Notifier :: Unable to parse field %s in notification subject. Using fallback." % e)
             except:
                 logger.error(u"Plex:CS Notifier :: Unable to parse custom notification subject. Using fallback.")
 
             try:
                 body_text = unicode(on_stop_body).format(**available_params)
-            except LookupError, e:
+            except LookupError as e:
                 logger.error(u"Plex:CS Notifier :: Unable to parse field %s in notification body. Using fallback." % e)
             except:
                 logger.error(u"Plex:CS Notifier :: Unable to parse custom notification body. Using fallback.")
@@ -505,14 +505,14 @@ def build_notify_text(session=None, timeline=None, state=None):
         if on_pause_subject and on_pause_body:
             try:
                 subject_text = unicode(on_pause_subject).format(**available_params)
-            except LookupError, e:
+            except LookupError as e:
                 logger.error(u"Plex:CS Notifier :: Unable to parse field %s in notification subject. Using fallback." % e)
             except:
                 logger.error(u"Plex:CS Notifier :: Unable to parse custom notification subject. Using fallback.")
 
             try:
                 body_text = unicode(on_pause_body).format(**available_params)
-            except LookupError, e:
+            except LookupError as e:
                 logger.error(u"Plex:CS Notifier :: Unable to parse field %s in notification body. Using fallback." % e)
             except:
                 logger.error(u"Plex:CS Notifier :: Unable to parse custom notification body. Using fallback.")
@@ -529,14 +529,14 @@ def build_notify_text(session=None, timeline=None, state=None):
         if on_resume_subject and on_resume_body:
             try:
                 subject_text = unicode(on_resume_subject).format(**available_params)
-            except LookupError, e:
+            except LookupError as e:
                 logger.error(u"Plex:CS Notifier :: Unable to parse field %s in notification subject. Using fallback." % e)
             except:
                 logger.error(u"Plex:CS Notifier :: Unable to parse custom notification subject. Using fallback.")
 
             try:
                 body_text = unicode(on_resume_body).format(**available_params)
-            except LookupError, e:
+            except LookupError as e:
                 logger.error(u"Plex:CS Notifier :: Unable to parse field %s in notification body. Using fallback." % e)
             except:
                 logger.error(u"Plex:CS Notifier :: Unable to parse custom notification body. Using fallback.")
@@ -553,14 +553,14 @@ def build_notify_text(session=None, timeline=None, state=None):
         if on_buffer_subject and on_buffer_body:
             try:
                 subject_text = unicode(on_buffer_subject).format(**available_params)
-            except LookupError, e:
+            except LookupError as e:
                 logger.error(u"Plex:CS Notifier :: Unable to parse field %s in notification subject. Using fallback." % e)
             except:
                 logger.error(u"Plex:CS Notifier :: Unable to parse custom notification subject. Using fallback.")
 
             try:
                 body_text = unicode(on_buffer_body).format(**available_params)
-            except LookupError, e:
+            except LookupError as e:
                 logger.error(u"Plex:CS Notifier :: Unable to parse field %s in notification body. Using fallback." % e)
             except:
                 logger.error(u"Plex:CS Notifier :: Unable to parse custom notification body. Using fallback.")
@@ -577,14 +577,14 @@ def build_notify_text(session=None, timeline=None, state=None):
         if on_watched_subject and on_watched_body:
             try:
                 subject_text = unicode(on_watched_subject).format(**available_params)
-            except LookupError, e:
+            except LookupError as e:
                 logger.error(u"Plex:CS Notifier :: Unable to parse field %s in notification subject. Using fallback." % e)
             except:
                 logger.error(u"Plex:CS Notifier :: Unable to parse custom notification subject. Using fallback.")
 
             try:
                 body_text = unicode(on_watched_body).format(**available_params)
-            except LookupError, e:
+            except LookupError as e:
                 logger.error(u"Plex:CS Notifier :: Unable to parse field %s in notification body. Using fallback." % e)
             except:
                 logger.error(u"Plex:CS Notifier :: Unable to parse custom notification body. Using fallback.")
@@ -599,14 +599,14 @@ def build_notify_text(session=None, timeline=None, state=None):
         if on_created_subject and on_created_body:
             try:
                 subject_text = unicode(on_created_subject).format(**available_params)
-            except LookupError, e:
+            except LookupError as e:
                 logger.error(u"Plex:CS Notifier :: Unable to parse field %s in notification subject. Using fallback." % e)
             except:
                 logger.error(u"Plex:CS Notifier :: Unable to parse custom notification subject. Using fallback.")
 
             try:
                 body_text = unicode(on_created_body).format(**available_params)
-            except LookupError, e:
+            except LookupError as e:
                 logger.error(u"Plex:CS Notifier :: Unable to parse field %s in notification body. Using fallback." % e)
             except:
                 logger.error(u"Plex:CS Notifier :: Unable to parse custom notification body. Using fallback.")
@@ -650,14 +650,14 @@ def build_server_notify_text(state=None):
         if on_extdown_subject and on_extdown_body:
             try:
                 subject_text = unicode(on_extdown_subject).format(**available_params)
-            except LookupError, e:
+            except LookupError as e:
                 logger.error(u"Plex:CS Notifier :: Unable to parse field %s in notification subject. Using fallback." % e)
             except:
                 logger.error(u"Plex:CS Notifier :: Unable to parse custom notification subject. Using fallback.")
 
             try:
                 body_text = unicode(on_extdown_body).format(**available_params)
-            except LookupError, e:
+            except LookupError as e:
                 logger.error(u"Plex:CS Notifier :: Unable to parse field %s in notification body. Using fallback." % e)
             except:
                 logger.error(u"Plex:CS Notifier :: Unable to parse custom notification body. Using fallback.")
@@ -672,14 +672,14 @@ def build_server_notify_text(state=None):
         if on_intdown_subject and on_intdown_body:
             try:
                 subject_text = unicode(on_intdown_subject).format(**available_params)
-            except LookupError, e:
+            except LookupError as e:
                 logger.error(u"Plex:CS Notifier :: Unable to parse field %s in notification subject. Using fallback." % e)
             except:
                 logger.error(u"Plex:CS Notifier :: Unable to parse custom notification subject. Using fallback.")
 
             try:
                 body_text = unicode(on_intdown_body).format(**available_params)
-            except LookupError, e:
+            except LookupError as e:
                 logger.error(u"Plex:CS Notifier :: Unable to parse field %s in notification body. Using fallback." % e)
             except:
                 logger.error(u"Plex:CS Notifier :: Unable to parse custom notification body. Using fallback.")
