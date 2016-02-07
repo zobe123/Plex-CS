@@ -67,10 +67,18 @@ from plexcs import common
                 <form>
                     <p class="help-block">Enter your Plex Server details and then click the Verify button to make sure Plex:CS can reach the server.</p>
                 <div class="wizard-input-section">
-                    <label for="pms_ip">Plex IP or Hostname</label>
+                    <label for="pms_ip">Own Plex IP or Hostname</label>
                     <div class="row">
                         <div class="col-xs-8">
                             <select id="pms_ip" name="pms_ip"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="wizard-input-section">
+                    <label for="pms2_ip">Shared Plex IP or Hostname</label>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <select id="pms2_ip" name="pms2_ip"></select>
                         </div>
                     </div>
                 </div>
@@ -226,7 +234,11 @@ from plexcs import common
             })
         });
 
-        $select_pms = $('#pms_ip').selectize({
+        $select_pms = $('#pms_ip').selectize(selectize_settings);
+        $select_pms2 = $('#pms2_ip').selectize(selectize_settings);
+    });
+    
+        selectize_settings = {
             create: true,
             createOnBlur: true,
             openOnFocus: true,
@@ -292,8 +304,7 @@ from plexcs import common
                     $('#pms_ssl').prop('checked', false);
                 }
             }
-        });
-    });
+        };
 
 
     function validatePMSip(el) {
@@ -485,8 +496,11 @@ from plexcs import common
             url: "discover/" + token,
             success: function (result) {
                 $('#pms_ip').html("")
+                var own_servers = $.grep(result, function(e) {return e.owned == "1"});
+                var shared_servers = $.grep(result, function(e) {return e.owned == "0"});
                 // Add all servers to the "combobox"
-                $select_pms[0].selectize.addOption(result);
+                $select_pms[0].selectize.addOption(own_servers);
+                $select_pms2[0].selectize.addOption(shared_servers);
             }
         })
     }
