@@ -424,7 +424,7 @@ class PlexTV(object):
 
                 for server in servers['MediaContainer']['Device']:
                     # Only grab servers online and own
-                    if server.get('presence', None) == '1' and server.get('owned', None) == '1' and server.get('provides', None) == 'server':
+                    if server.get('presence', None) == '1' and server.get('provides', None) == 'server':
                         # If someone only has one connection..
                         if isinstance(server['Connection'], dict):
                             server['Connection'] = [server['Connection']]
