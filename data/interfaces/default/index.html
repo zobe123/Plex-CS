@@ -19,7 +19,19 @@
    
         <div class="col-md-6">
             <div class="padded-header" id="library-statistics-header">
-                <h3>Fast Overview <small> remote Server: ${config['pms2_name']}</small></h3>
+                <div class="btn-group"><h3>Fast Overview <small> remote Server: 
+    <button data-toggle="dropdown" class="btn btn-warning dropdown-toggle">Checked option <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><input type="radio" id="ID" name="NAME" value="VALUE"><label for="ID">dummy-server55</label></li>
+      <li><input type="radio" id="ID" name="NAME" value="VALUE"><label for="ID">dummy-server66</label></li>
+      <li><a href="#">dummy-Server2 </a></li>
+      <li><a href="#">dummy-Server3 </a></li>
+      <li><a href="#">dummy-Server4 </a></li>
+    </ul>
+  </div>
+
+
+</small></h3>
             </div>
             <div id="library-stats2" class="library-platforms">
                 <div class='text-muted'><i class="fa fa-refresh fa-spin"></i> Loading stats...</div>
@@ -27,6 +39,9 @@
             </div>
         </div>
     </div>
+   </div>
+<div class="col-md-12">
+<button type="button" class="btn btn-success disabled right" style="float:right;">select Library's, proceed to Compare</button>
    </div>
 </%def>
 
