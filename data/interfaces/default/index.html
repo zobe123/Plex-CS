@@ -5,22 +5,30 @@
 
 <%def name="body()">
 <div class="container-fluid">
-
-        <div class="row">
+    <div class='table-card-header'>
+        <div class="header-bar">
+            <span><i class="fa fa-random"></i> Fast Overview</span>
+  </div>
+<div class="button-bar">
+<button type="button" class="btn btn-success disabled right" style="float:right;">select Library's, proceed to Compare</button>
+   </div>
+   </div>
+        <div class='table-card-back'>
         <div class="col-md-6">
-            <div class="padded-header" id="library-statistics-header">
-                <h3>Fast Overview <small> local Server: ${config['pms_name']}</small></h3>
-            </div>
+           <!-- <div class="padded-header" id="library-statistics-header"> -->
+
+                <h3><small> local Server: ${config['pms_name']}</small></h3>
+           <!-- </div> -->
             <div id="library-stats" class="library-platforms">
                 <div class='text-muted'><i class="fa fa-refresh fa-spin"></i> Loading stats...</div>
                 <br>
             </div>
         </div>
-   
+
         <div class="col-md-6">
-            <div class="padded-header" id="library-statistics-header">
-                <div class="btn-group"><h3>Fast Overview <small> remote Server: 
-    <button data-toggle="dropdown" class="btn btn-warning dropdown-toggle">Checked option <span class="caret"></span></button>
+            <!--<div class="padded-header" id="library-statistics-header"> -->
+                <div class="btn-group"><h3><small> remote Server: 
+     <button data-toggle="dropdown" class="btn btn-warning btn-xs dropdown-toggle">Checked Option <span class="caret"></span></button>
     <ul class="dropdown-menu">
       <li><input type="radio" id="ID" name="NAME" value="VALUE"><label for="ID">dummy-server55</label></li>
       <li><input type="radio" id="ID" name="NAME" value="VALUE"><label for="ID">dummy-server66</label></li>
@@ -29,10 +37,9 @@
       <li><a href="#">dummy-Server4 </a></li>
     </ul>
   </div>
-
-
 </small></h3>
-            </div>
+      <!--    </div> -->
+  
             <div id="library-stats2" class="library-platforms">
                 <div class='text-muted'><i class="fa fa-refresh fa-spin"></i> Loading stats...</div>
                 <br>
@@ -40,9 +47,7 @@
         </div>
     </div>
    </div>
-<div class="col-md-12">
-<button type="button" class="btn btn-success disabled right" style="float:right;">select Library's, proceed to Compare</button>
-   </div>
+
 </%def>
 
 <%def name="javascriptIncludes()">
