@@ -1662,6 +1662,7 @@ a:hover .item-children-poster {
     list-style: none;
     margin: 0;
 }
+
 .home-platforms-instance {
     background-color: #282828;
     position: relative;
@@ -1677,6 +1678,15 @@ a:hover .item-children-poster {
     box-shadow: 0 0 4px rgba(0,0,0,.3),inset 0 0 0 1px rgba(255,255,255,.1);
     white-space: nowrap;
 }
+.home-platforms-instance:hover {
+    background-color: #13891b;
+background: -moz-linear-gradient(45deg, rgba(0,99,26,0.65) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(45deg, rgba(0,99,26,0.65) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(45deg, rgba(0,99,26,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a600631a', endColorstr='#00000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+
 .home-platforms-instance li {
     position: relative;
 }
@@ -1687,6 +1697,7 @@ a:hover .item-children-poster {
     width: 100%;
     height: 120px;
 }
+
 .home-platforms-instance-name {
     color: #fff;
     text-overflow: ellipsis;
@@ -1784,6 +1795,14 @@ a:hover .item-children-poster {
     height: 80px;
     width: 80px;
     margin-top: 20px;
+}
+.home-platforms-library-button {
+    background-position: right;
+    background-size: cover;
+    height: 8px;
+    width: 8px;
+    margin-right: -200px;
+    white-space: normal;
 }
 .home-platforms-instance-box {
     background-position: center;
