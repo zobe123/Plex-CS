@@ -1,88 +1,100 @@
-<%doc>
-USAGE DOCUMENTATION :: PLEASE LEAVE THIS AT THE TOP OF THIS FILE
+<%inherit file="base.html"/>
 
-For Mako templating syntax documentation please visit: http://docs.makotemplates.org/en/latest/
+<%def name="headIncludes()">
+</%def>
 
-Filename:           library_stats.html
-Version:            0.1
-Variable names:     data [array]
+<%def name="body()">
+<div class="container-fluid">
+    <div class='table-card-header'>
+        <div class="header-bar">
+            <span><i class="fa fa-random"></i> Fast Overview</span>
+  </div>
+<div class="button-bar">
+<button type="button" class="btn btn-success disabled right" style="float:right;">select Library's, proceed to Compare</button>
+   </div>
+   </div>
+        <div class='table-card-back'>
+        <div class="col-md-6">
+           <!-- <div class="padded-header" id="library-statistics-header"> -->
 
-data[array_index] :: Usable parameters
-
-data['type']            Returns the type of the library. Either 'movie', 'show', 'photo', or 'artist'.
-data['rows']            Returns an array containing stat data
-
-data[array_index]['rows'] :: Usable parameters
-
-title                   Returns the title of the library.
-thumb                   Returns the thumb of the library.
-count                   Returns the number of items in the library.
-count_type              Returns the sorting type for the library
-
-== Only if 'type' is 'show'
-episode_count           Return the number of episodes in the library.
-episode_count_type      Return the sorting type for the episodes.
-
-== Only if 'type' is 'artist'
-album_count             Return the number of episodes in the library.
-album_count_type        Return the sorting type for the episodes.
-
-DOCUMENTATION :: END
-</%doc>
-
-% if data:
-<ul class="list-unstyled">
-    % for library in data:
-    <div class="home-platforms-instance">
-        <li>
-            <div class="home-platforms-instance-info">
-            <div class="home-platforms-library-button" style="padding-left: 210px;"><button type="button" class="btn btn-success">
-            <span class="glyphicon glyphicon-ok"></span>
-            </button>
+                <h3><small> local Server: ${config['pms_name']}</small></h3>
+           <!-- </div> -->
+            <div id="library-stats" class="library-platforms">
+                <div class='text-muted'><i class="fa fa-refresh fa-spin"></i> Loading stats...</div>
+                <br>
             </div>
-                <div class="home-platforms-instance-name">
-                    % if library['type'] != 'photo':
-                    <h4>
-                        <a href="info?item_id=${library['type']}" title="${library['rows']['title']}">${library['rows']['title']}</a>
-                    </h4>
-                    % else:
-                    <h4>${library['rows']['title']}</h4>
-                    % endif
-                </div>
-                <div class="home-platforms-instance-playcount">
-                    <h5>${library['rows']['count_type']}</h5>
-                    <h3>${library['rows']['count']}</h3>
-                    <p> items</p>
-                </div>
-                % if library['type'] == 'show':
-                <div class="home-platforms-instance-playcount" style="padding-left: 10px;">
-                    <h5>${library['rows']['episode_count_type']}</h5>
-                    <h3>${library['rows']['episode_count']}</h3>
-                    <p> items</p>
-                </div>
-                % endif
-                % if library['type'] == 'artist':
-                <div class="home-platforms-instance-playcount" style="padding-left: 10px;">
-                    <h5>${library['rows']['album_count_type']}</h5>
-                    <h3>${library['rows']['album_count']}</h3>
-                    <p> items</p>
-                </div>
-                % endif
+        </div>
+
+        <div class="col-md-6">
+            <!--<div class="padded-header" id="library-statistics-header"> -->
+                <div class="btn-group"><h3><small> remote Server: 
+     <button data-toggle="dropdown" class="btn btn-warning btn-xs dropdown-toggle">Checked Option <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><input type="radio" id="ID" name="NAME" value="VALUE"><label for="ID">dummy-server55</label></li>
+      <li><input type="radio" id="ID" name="NAME" value="VALUE"><label for="ID">dummy-server66</label></li>
+      <li><a href="#">dummy-Server2 </a></li>
+      <li><a href="#">dummy-Server3 </a></li>
+      <li><a href="#">dummy-Server4 </a></li>
+    </ul>
+  </div>
+</small></h3>
+      <!--    </div> -->
+  
+            <div id="library-stats2" class="library-platforms">
+                <div class='text-muted'><i class="fa fa-refresh fa-spin"></i> Loading stats...</div>
+                <br>
             </div>
-            % if library['rows']['thumb']:
-            <div class="home-platforms-instance-poster">
-                <div class="home-platforms-library-thumb" style="background-image: url(pms_image_proxy?img=${library['rows']['thumb']}&width=300&height=300&fallback=poster);"></div>
-            </div>
-            % else:
-            <div class="home-platforms-instance-poster">
-                <div class="home-platforms-library-thumb" style="background-image: url(interfaces/default/images/poster.png);"></div>
-            </div>
-            % endif
-        </li>    
+        </div>
     </div>
-    % endfor
-</ul>
-% else:
-<div class="text-muted">Unable to retrieve data from server. Please check your <a href="settings">settings</a>.
-</div><br>
-% endif
+   </div>
+
+</%def>
+
+<%def name="javascriptIncludes()">
+<script src="interfaces/default/js/moment-with-locale.js"></script>
+<script src="interfaces/default/js/dropdown-enhancement.js"></script>
+<script>
+
+
+    function getLibraryStats() {
+        $.ajax({
+            url: 'library_stats',
+            cache: false,
+            async: true,
+            data: { },
+            complete: function(xhr, status) {
+                $("#library-stats").html(xhr.responseText);
+            }
+        });
+    }
+
+    function getLibraryStats2() {
+        $.ajax({
+            url: 'library_stats',
+            cache: false,
+            async: true,
+            data: { },
+            complete: function(xhr, status) {
+                $("#library-stats2").html(xhr.responseText);
+            }
+        });
+    }
+
+
+    var date_format = 'YYYY-MM-DD';
+    var time_format = 'hh:mm a';
+    $.ajax({
+        url: 'get_date_formats',
+        type: 'GET',
+        success: function(data) {
+            date_format = data.date_format;
+            time_format = data.time_format;
+        }
+    });
+
+    getLibraryStats();
+    getLibraryStats2();
+
+</script>
+
+</%def>
