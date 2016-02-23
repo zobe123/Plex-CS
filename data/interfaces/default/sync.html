@@ -1,80 +1,73 @@
-﻿<%inherit file="base.html"/>
-<%!
-from plexcs import helpers
-%>
+<%inherit file="base.html"/>
+
 <%def name="headIncludes()">
 <link rel="stylesheet" href="interfaces/default/css/dataTables.bootstrap.css">
-<link rel="stylesheet" href="interfaces/default/css/plexcs-dataTables.css">
+<link rel="stylesheet" href="interfaces/default/css/plexpy-dataTables.css">
+<link rel="stylesheet" href="interfaces/default/css/dataTables.colVis.css">
 <style>
-    td {word-break: break-all;}
+    td {word-wrap: break-word}
 </style>
 </%def>
 
 <%def name="headerIncludes()">
 </%def>
 
-<!doctype html>
+<%def name="body()">
+<div class='container-fluid'>
+    <div class='table-card-header'>
+        <div class="header-bar">
+            <span><i class="fa fa-cloud-download"></i> Sync, or whatever you want call it...</span>
+        </div>
 
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Plex:CS - ${title}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="interfaces/default/css/bootstrap3/bootstrap.css" rel="stylesheet">
-    <link href="interfaces/default/css/bootstrap-wizard.css" rel="stylesheet">
-    <link href="interfaces/default/css/plexcs.css" rel="stylesheet">
-    <link href="interfaces/default/css/selectize.bootstrap3.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
-    <link href="interfaces/default/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="interfaces/default/images/favicon.ico"/>
-    <link rel="shortcut icon" href="interfaces/default/images/favicon.ico">
-</head>
 
-<body>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="padded-header" id="current-activity-header">
+        <div class="colvis-button-bar hidden-phone">
+        </div></br>
+<div class="padded-header" id="current-activity-header">
                 <h3>Activity</h3>
             </div>
-        </div>
     </div>
-<div class="container-fluid">
-    <div class="row">
-        <div class="wizard" id="some-wizard" data-title="I'm sorry">
-            <div class="wizard-card" data-cardname="card1">
-                <div style="float: right;">
-                    <img src="interfaces/default/images/logo-plexcs.png"/>
-                </div>
-                <h3 style="line-height: 50px;">Welcome!</h3>
-                <br/>
-                <div>
-                    Not yet, but soon.
-                    <br/><br/>
-                    ...hold on there Cowboy, not so fast.
-                </div>
-            </div>
-            </div>
-            </form>
-      <!--      <div class="wizard-success">
-                <h3>Setup Complete!</h3>
-                <br/>
-                <p>Setup is now complete. For more configuration options please visit the Settings menu on the home page.</p>
-                <br/>
-                <i class="fa fa-refresh fa-spin"></i>&nbspWaiting 5 seconds to ensure authentication token is registered...
-
-            </div> -->
-        </div>
+    <div class='table-card-back'>
+        <table class="display" id="sync_table" width="100%">
+            <thead>
+            <tr>
+                <th align='left' id="state">State</th>
+                <th align='left' id="user">User</th>
+                <th align='left' id="title">Title</th>
+                <th align='left' id="type">Type</th>
+                <th align='left' id="platform">Platform</th>
+                <th align='left' id="device">Device</th>
+                <th align='left' id="size">Total Size</th>
+                <th align='left' id="items">Total Items</th>
+                <th align='left' id="converted">Converted</th>
+                <th align='left' id="downloaded">Downloaded</th>
+                <th align='left' id="percent_complete">Complete</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </div>
 </div>
+</%def>
 
-<script src="interfaces/default/js/jquery-2.1.4.min.js"></script>
-<script src="interfaces/default/js/bootstrap3/bootstrap.min.js"></script>
-<script src="interfaces/default/js/selectize.min.js"></script>
-<script src="interfaces/default/js/script.js"></script>
-<script src="interfaces/default/js/bootstrap-wizard.min.js"></script>
- <script>
+<%def name="javascriptIncludes()">
+<script src="interfaces/default/js/jquery.dataTables.min.js"></script>
+<script src="interfaces/default/js/dataTables.bootstrap.min.js"></script>
+<script src="interfaces/default/js/dataTables.bootstrap.pagination.js"></script>
+<script src="interfaces/default/js/dataTables.colVis.js"></script>
+<script src="interfaces/default/js/tables/sync_table.js"></script>
+<script>
+    $(document).ready(function() {
+        sync_table_options.ajax = {
+            url: 'get_sync'
+        }
+        sync_table = $('#sync_table').DataTable(sync_table_options);
+        var colvis = new $.fn.dataTable.ColVis( sync_table, { buttonText: '<i class="fa fa-columns"></i> Select columns', buttonClass: 'btn btn-dark' } );
+        $( colvis.button() ).appendTo('div.colvis-button-bar');
+
+        clearSearchButton('sync_table', sync_table);
+    });
+
  function currentActivityHeader() {
         $.ajax({
             url: 'get_current_activity_header',
@@ -90,5 +83,4 @@ from plexcs import helpers
 
 
 </script>
-</body>
-</html>
+</%def>
