@@ -35,9 +35,10 @@ available_notification_agents = sorted(notifiers.available_notification_agents()
             <ul class="nav-settings list-unstyled" role="tablist">
                 <li role="presentation" class="active"><a href="#tabs-1" aria-controls="tabs-1" role="tab" data-toggle="tab">General</a></li>
                 <li role="presentation"><a href="#tabs-2" aria-controls="tabs-2" role="tab" data-toggle="tab">Homepage Statistics</a></li>
-                <li role="presentation"><a href="#tabs-3" aria-controls="tabs-3" role="tab" data-toggle="tab">Web Interface</a></li>
+                <li role="presentation"><a href="#tabs-3" aria-controls="tabs-3" role="tab" data-toggle="tab">Web Int
+erface</a></li>
                 <li role="presentation"><a href="#tabs-4" aria-controls="tabs-4" role="tab" data-toggle="tab">Access Control</a></li>
-                <li role="presentation"><a href="#tabs-5" aria-controls="tabs-5" role="tab" data-toggle="tab">Plex Media Server</a></li>
+                <li role="presentation"><a href="#tabs-5" aria-controls="tabs-5" role="tab" data-toggle="tab">Local Plex Media Server</a></li>
                 <li role="presentation"><a href="#tabs-6" aria-controls="tabs-6" role="tab" data-toggle="tab">Plex.tv Account</a></li>
                 <li role="presentation"><a href="#tabs-7" aria-controls="tabs-7" role="tab" data-toggle="tab">Extra Settings</a></li>
                 <li role="presentation"><a href="#tabs-8" aria-controls="tabs-8" role="tab" data-toggle="tab">Monitoring</a></li>
@@ -90,6 +91,25 @@ available_notification_agents = sorted(notifiers.available_notification_agents()
                             </label>
                             <p class="help-block">Group successive play history by the same user as a single entry in tables.</p>
                         </div>
+
+
+
+<div class="padded-header"><h3>Elementary Folder Settings</h3>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="target_folder">Sync Target Folder</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" id="target_folder" name="target_folder" value="${config['target_folder']}" size="30" data-parsley-trigger="change">
+                                </div>
+                            </div>
+                            <p class="help-block">Set the complete folder path where you want to download into, shortcuts are not recognized.<br />
+                            <a href="https://support.plex.tv/hc/en-us/articles/200250417-Plex-Media-Server-Log-Files" target="_blank">Click here</a> for help. (This is required if you are not want syncing into your Libraries). </p>
+                        </div>
+
+
+
                         <p><input type="button" class="btn btn-bright save-button" value="Save" data-success="Changes saved successfully"></p>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="tabs-2">
@@ -266,7 +286,7 @@ available_notification_agents = sorted(notifiers.available_notification_agents()
                     <div role="tabpanel" class="tab-pane" id="tabs-5">
 
                         <div class="padded-header">
-                            <h3>Plex Media Server</h3>
+                            <h3>Local Plex Media Server</h3>
                         </div>
                         <p class="help-block">If you're using websocket monitoring, any server changes require a restart of Plex:CS.</p>
                         <div class="form-group has-feedback" id="pms-ip-group">
