@@ -418,6 +418,7 @@ class WebInterface(object):
             "pms_identifier": plexcs.CONFIG.PMS_IDENTIFIER,
             "pms_ip": plexcs.CONFIG.PMS_IP,
             "pms_logs_folder": plexcs.CONFIG.PMS_LOGS_FOLDER,
+            "target_folder": plexcs.CONFIG.TARGET_FOLDER,
             "pms_port": plexcs.CONFIG.PMS_PORT,
             "pms_token": plexcs.CONFIG.PMS_TOKEN,
             "pms_ssl": checked(plexcs.CONFIG.PMS_SSL),
