@@ -1,4 +1,4 @@
-﻿<%inherit file="base.html"/>
+<%inherit file="base.html"/>
 <%!
 from plexcs import helpers
 %>
@@ -16,10 +16,17 @@ from plexcs import helpers
 
 <%def name="body()">
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="wizard-card" data-cardname="card1">
+<div class='container-fluid'>
+    <div class='table-card-header'>
+        <div class="header-bar">
+            <span><i class="glyphicon glyphicon-duplicate"></i> Compare</span>
+        </div>
+        <div class="button-bar">
+            <button class="btn btn-dark" id="clear-logs"><i class="fa fa-trash-o"></i> Clear result</button>
+        </div>
+    </div>
+    <div class='table-card-back'>
+        <div>
              
                 <h3 style="line-height: 50px;">Welcome! Not yet, but soon.</h3>
                 <br/>
@@ -27,10 +34,6 @@ from plexcs import helpers
                 ...hold on there Cowboy, not so fast.
                 </div>
             </div>
-            </div>
-            
-        </div>
-    </div>
 
 </%def>
 
