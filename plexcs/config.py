@@ -1,4 +1,4 @@
-﻿import plexcs.logger
+import plexcs.logger
 import itertools
 import os
 import re
@@ -14,8 +14,6 @@ def bool_int(value):
             value = 0
     return int(bool(value))
 
-
-
 _CONFIG_DEFINITIONS = {
     'DATE_FORMAT': (str, 'General', 'YYYY-MM-DD'),
     'GROUPING_GLOBAL_HISTORY': (int, 'PlexWatch', 0),
@@ -30,7 +28,7 @@ _CONFIG_DEFINITIONS = {
     'PMS_NAME': (unicode, 'PMS', ''),
     'PMS_PORT': (int, 'PMS', 32400),
     'PMS_TOKEN': (str, 'PMS', ''),
-    'PMS_SSL': (int, 'General', 0),
+    'PMS_SSL': (int, 'PMS', 0),
     'PMS_URL': (str, 'PMS', ''),
     'PMS_USE_BIF': (int, 'PMS', 0),
     'PMS_UUID': (str, 'PMS', ''),
@@ -49,6 +47,7 @@ _CONFIG_DEFINITIONS = {
     'ANON_REDIRECT': (str, 'General', 'http://dereferer.org/?'),
     'API_ENABLED': (int, 'General', 0),
     'API_KEY': (str, 'General', ''),
+    'API_SQL': (int, 'General', 0),
     'BOXCAR_ENABLED': (int, 'Boxcar', 0),
     'BOXCAR_TOKEN': (str, 'Boxcar', ''),
     'BOXCAR_SOUND': (str, 'Boxcar', ''),
@@ -61,8 +60,11 @@ _CONFIG_DEFINITIONS = {
     'BOXCAR_ON_CREATED': (int, 'Boxcar', 0),
     'BOXCAR_ON_EXTDOWN': (int, 'Boxcar', 0),
     'BOXCAR_ON_INTDOWN': (int, 'Boxcar', 0),
+    'BOXCAR_ON_EXTUP': (int, 'Boxcar', 0),
+    'BOXCAR_ON_INTUP': (int, 'Boxcar', 0),
     'BUFFER_THRESHOLD': (int, 'Monitoring', 3),
     'BUFFER_WAIT': (int, 'Monitoring', 900),
+    'BACKUP_DIR': (str, 'General', ''),
     'CACHE_DIR': (str, 'General', ''),
     'CACHE_SIZEMB': (int, 'Advanced', 32),
     'CHECK_GITHUB': (int, 'General', 1),
@@ -265,6 +267,10 @@ _CONFIG_DEFINITIONS = {
     'PUSHOVER_ON_CREATED': (int, 'Pushover', 0),
     'PUSHOVER_ON_EXTDOWN': (int, 'Pushover', 0),
     'PUSHOVER_ON_INTDOWN': (int, 'Pushover', 0),
+    'PUSHOVER_ON_EXTUP': (int, 'Pushover', 0),
+    'PUSHOVER_ON_INTUP': (int, 'Pushover', 0),
+    'REFRESH_LIBRARIES_INTERVAL': (int, 'Monitoring', 12),
+    'REFRESH_LIBRARIES_ON_STARTUP': (int, 'Monitoring', 1),
     'REFRESH_USERS_INTERVAL': (int, 'Monitoring', 12),
     'REFRESH_USERS_ON_STARTUP': (int, 'Monitoring', 1),
     'TELEGRAM_BOT_TOKEN': (str, 'Telegram', ''),
@@ -298,6 +304,7 @@ _CONFIG_DEFINITIONS = {
     'TWITTER_ON_EXTDOWN': (int, 'Twitter', 0),
     'TWITTER_ON_INTDOWN': (int, 'Twitter', 0),
     'UPDATE_DB_INTERVAL': (int, 'General', 24),
+    'UPDATE_SECTION_IDS': (int, 'General', 1),
     'VERIFY_SSL_CERT': (bool_int, 'Advanced', 1),
     'VIDEO_LOGGING_ENABLE': (int, 'Monitoring', 1),
     'XBMC_ENABLED': (int, 'XBMC', 0),
