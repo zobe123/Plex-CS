@@ -1,7 +1,9 @@
 <%inherit file="base.html"/>
 <%!
+import sys
 import plexcs
 from plexcs import notifiers, common, versioncheck
+from plexcs.helpers import anon_url
 
 available_notification_agents = sorted(notifiers.available_notification_agents(), key=lambda k: k['name'])
 %>
@@ -33,12 +35,12 @@ available_notification_agents = sorted(notifiers.available_notification_agents()
         <!-- Nav tabs -->
         <div class="col-md-3">
             <ul class="nav-settings list-unstyled" role="tablist">
-                <li role="presentation" class="active"><a href="#tabs-1" aria-controls="tabs-1" role="tab" data-toggle="tab">General</a></li>
+                <li role="presentation" class="active"><a href="#tabs-0" aria-controls="tabs-0" role="tab" data-toggle="tab">Help & Info</a></li>
+                <li role="presentation"><a href="#tabs-1" aria-controls="tabs-1" role="tab" data-toggle="tab">General</a></li>
                 <li role="presentation"><a href="#tabs-2" aria-controls="tabs-2" role="tab" data-toggle="tab">Homepage Statistics</a></li>
-                <li role="presentation"><a href="#tabs-3" aria-controls="tabs-3" role="tab" data-toggle="tab">Web Int
-erface</a></li>
+                <li role="presentation"><a href="#tabs-3" aria-controls="tabs-3" role="tab" data-toggle="tab">Web Interface</a></li>
                 <li role="presentation"><a href="#tabs-4" aria-controls="tabs-4" role="tab" data-toggle="tab">Access Control</a></li>
-                <li role="presentation"><a href="#tabs-5" aria-controls="tabs-5" role="tab" data-toggle="tab">Local Plex Media Server</a></li>
+                <li role="presentation"><a href="#tabs-5" aria-controls="tabs-5" role="tab" data-toggle="tab">Plex Media Server</a></li>
                 <li role="presentation"><a href="#tabs-6" aria-controls="tabs-6" role="tab" data-toggle="tab">Plex.tv Account</a></li>
                 <li role="presentation"><a href="#tabs-7" aria-controls="tabs-7" role="tab" data-toggle="tab">Extra Settings</a></li>
                 <li role="presentation"><a href="#tabs-8" aria-controls="tabs-8" role="tab" data-toggle="tab">Monitoring</a></li>
@@ -49,21 +51,97 @@ erface</a></li>
         <div class="col-md-9">
             <form action="configUpdate" method="post" class="form" id="configUpdate" data-parsley-validate>
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="tabs-1">
+                    <div role="tabpanel" class="tab-pane active" id="tabs-0">
                         % if common.VERSION_NUMBER:
                         <div class="padded-header">
                             <h3>Version ${common.VERSION_NUMBER} <small><a href="#changelog-modal" data-toggle="modal"><i class="fa fa-info-circle"></i> Changelog</a></small></h3>
                         </div>
                         % endif
+                        <div class="padded-header">
+                            <h3>Plex:CS Configuration</h3>
+                        </div>
+                        <table class="config-info-table small-muted">
+                            <tbody>
+                                % if plexcs.CURRENT_VERSION:
+                                <tr>
+                                    <td>Git Branch:</td>
+                                    <td><a class="no-highlight" href="${anon_url('https://github.com/zobe123/Plex-CS/tree/%s' % plexcs.CONFIG.GIT_BRANCH)}">${plexcs.CONFIG.GIT_BRANCH}</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Git Commit Hash:</td>
+                                    <td><a class="no-highlight" href="${anon_url('https://github.com/zobe123/Plex-CS/commit/%s' % plexcs.CURRENT_VERSION)}">${plexcs.CURRENT_VERSION}</a></td>
+                                </tr>
+                                % endif
+                                <tr>
+                                    <td>Configuration File:</td>
+                                    <td>${plexcs.CONFIG_FILE}</td>
+                                </tr>
+                                <tr>
+                                    <td>Database File:</td>
+                                    <td>${plexcs.DB_FILE}</td>
+                                </tr>
+                                <tr>
+                                    <td>Backup Directory:</td>
+                                    <td>${plexcs.CONFIG.BACKUP_DIR}</td>
+                                </tr>
+                                <tr>
+                                    <td>Cache Directory:</td>
+                                    <td>${plexcs.CONFIG.CACHE_DIR}</td>
+                                </tr>
+                                <tr>
+                                    <td>Log Directory:</td>
+                                    <td>${plexcs.CONFIG.LOG_DIR}</td>
+                                </tr>
+                                % if plexcs.ARGS:
+                                <tr>
+                                    <td>Arguments:</td>
+                                    <td>${plexcs.ARGS}</td>
+                                </tr>
+                                % endif
+                                <tr>
+                                    <td>Platform:</td>
+                                    <td>${common.PLATFORM} ${common.PLATFORM_VERSION}</td>
+                                </tr>
+                                <tr>
+                                    <td>Python Version:</td>
+                                    <td>${sys.version}</td>
+                                </tr>
+                                <tr>
+                                    <td class="top-line">Plex Forums:</td>
+                                    <td class="top-line"><a class="no-highlight" href="${anon_url('https://forums.plex.tv/discussion/169591/plexcs-another-plex-monitoring-program')}" target="_blank">https://forums.plex.tv/discussion/169591/plexcs-another-plex-monitoring-program</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Wiki:</td>
+                                    <td><a class="no-highlight" href="${anon_url('https://github.com/zobe123/Plex-CS/wiki')}" target="_blank">https://github.com/zobe123/Plex-CS/wiki</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Source:</td>
+                                    <td><a class="no-highlight" href="${anon_url('https://github.com/zobe123/Plex-CS')}" target="_blank">https://github.com/zobe123/Plex-CS</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Gitter Chat:</td>
+                                    <td><a class="no-highlight" href="${anon_url('https://gitter.im/zobe123/Plex-CS')}" target="_blank">https://gitter.im/zobe123/Plex-CS</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="padded-header">
+                            <h3>Plex:CS Scheduler</h3>
+                        </div>
+                        <div id="plexcs-scheduler-table">
+                            <div class='text-muted'><i class="fa fa-refresh fa-spin"></i> Loading scheduler table...</div>
+                            <br>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="tabs-1">
+                        <div class="padded-header">
+                            <h3>Updates</h3>
+                        </div>
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" id="check_github" name="check_github" value="1" ${config['check_github']}> Enable Updates
                             </label>
                             <p class="help-block">If you have Git installed, allow periodic checks for updates.</p>
                         </div>
-                        % if plexcs.CURRENT_VERSION:
-                        <p class="help-block">Git hash: ${plexcs.CURRENT_VERSION}</p>
-                        % endif
                         <div class="padded-header">
                             <h3>Display Settings</h3>
                         </div>
@@ -87,14 +165,13 @@ erface</a></li>
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" id="group_history_tables" name="group_history_tables" value="1" ${config['group_history_tables']}> Group Table History
+                                <input type="checkbox" id="group_history_tables" name="group_history_tables" value="1" ${config['group_history_tables']}> Group Table and Watch Statistics History
                             </label>
-                            <p class="help-block">Group successive play history by the same user as a single entry in tables.</p>
+                            <p class="help-block">Group successive play history by the same user as a single entry in the tables and watch statistics.</p>
                         </div>
-
-
-
-<div class="padded-header"><h3>Elementary Folder Settings</h3>
+						
+						
+						<div class="padded-header"><h3>Elementary Folder Settings</h3>
                         </div>
 
                         <div class="form-group">
@@ -107,9 +184,9 @@ erface</a></li>
                             <p class="help-block">Set the complete folder path where you want to download into, shortcuts are not recognized.<br />
                             <a href="https://support.plex.tv/hc/en-us/articles/200250417-Plex-Media-Server-Log-Files" target="_blank">Click here</a> for help. (This is required if you are not want syncing into your Libraries). </p>
                         </div>
-
-
-
+						
+						
+						
                         <p><input type="button" class="btn btn-bright save-button" value="Save" data-success="Changes saved successfully"></p>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="tabs-2">
@@ -118,24 +195,78 @@ erface</a></li>
                         </div>
 
                         <div class="form-group">
-                            <label for="home_stats_cards">Cards</label>
+                            <label for="sortable_home_stats_cards">Cards</label>
+                            <p class="help-block">
+                                Select the cards to show in the watch statistics on the home page. Select none to disable.<br>
+                                Drag the items below to reorder your homepage content.
+                            </p>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <select multiple class="form-control" id="home_stats_cards" name="home_stats_cards" data-parsley-trigger="change">
-                                        <option id="card-watch_statistics" value="watch_statistics" class="hidden" selected>Watch Statistics</option>
-                                        <option id="card-top_tv" value="top_tv">Most Watched TV</option>
-                                        <option id="card-popular_tv" value="popular_tv">Most Popular TV</option>
-                                        <option id="card-top_movies" value="top_movies">Most Watched Movie</option>
-                                        <option id="card-popular_movies" value="popular_movies">Most Popular Movie</option>
-                                        <option id="card-top_music" value="top_music">Most Listened Music</option>
-                                        <option id="card-popular_music" value="popular_music">Most Popular Music</option>
-                                        <option id="card-top_users" value="top_users">Most Active User</option>
-                                        <option id="card-top_platforms" value="top_platforms">Most Active Platform</option>
-                                        <option id="card-last_watched" value="last_watched">Last Watched</option>
-                                    </select>
+                                    <ul class="list-unstyled" id="sortable_home_stats_cards" data-parsley-trigger="change">
+                                        <li class="card card-sortable">
+                                            <div class="card-handle"><i class="fa fa-bars"></i></div>
+                                            <label>
+                                                <input type="checkbox" id="hscard-top_tv" name="hscard-top_tv" value="top_tv"> Most Watched TV
+                                            </label>
+                                        </li>
+                                        <li class="card card-sortable">
+                                            <div class="card-handle"><i class="fa fa-bars"></i></div>
+                                            <label>
+                                                <input type="checkbox" id="hscard-popular_tv" name="hscard-popular_tv" value="popular_tv"> Most Popular TV
+                                            </label>
+                                        </li>
+                                        <li class="card card-sortable">
+                                            <div class="card-handle"><i class="fa fa-bars"></i></div>
+                                            <label>
+                                                <input type="checkbox" id="hscard-top_movies" name="hscard-top_movies" value="top_movies"> Most Watched Movie
+                                            </label>
+                                        </li>
+                                        <li class="card card-sortable">
+                                            <div class="card-handle"><i class="fa fa-bars"></i></div>
+                                            <label>
+                                                <input type="checkbox" id="hscard-popular_movies" name="hscard-popular_movies" value="popular_movies"> Most Popular Movie
+                                            </label>
+                                        </li>
+                                        <li class="card card-sortable">
+                                            <div class="card-handle"><i class="fa fa-bars"></i></div>
+                                            <label>
+                                                <input type="checkbox" id="hscard-top_music" name="hscard-top_music" value="top_music"> Most Listened Music
+                                            </label>
+                                        </li>
+                                        <li class="card card-sortable">
+                                            <div class="card-handle"><i class="fa fa-bars"></i></div>
+                                            <label>
+                                                <input type="checkbox" id="hscard-popular_music" name="hscard-popular_music" value="popular_music"> Most Popular Music
+                                            </label>
+                                        </li>
+                                        <li class="card card-sortable">
+                                            <div class="card-handle"><i class="fa fa-bars"></i></div>
+                                            <label>
+                                                <input type="checkbox" id="hscard-last_watched" name="hscard-last_watched" value="last_watched"> Last Watched
+                                            </label>
+                                        </li>
+                                        <li class="card card-sortable">
+                                            <div class="card-handle"><i class="fa fa-bars"></i></div>
+                                            <label>
+                                                <input type="checkbox" id="hscard-top_users" name="hscard-top_users" value="top_users"> Most Active User
+                                            </label>
+                                        </li>
+                                        <li class="card card-sortable">
+                                            <div class="card-handle"><i class="fa fa-bars"></i></div>
+                                            <label>
+                                                <input type="checkbox" id="hscard-top_platforms" name="hscard-top_platforms" value="top_platforms"> Most Active Platform
+                                            </label>
+                                        </li>
+                                        <li class="card card-sortable">
+                                            <div class="card-handle"><i class="fa fa-bars"></i></div>
+                                            <label>
+                                                <input type="checkbox" id="hscard-most_concurrent" name="hscard-most_concurrent" value="most_concurrent"> Most Concurrent Streams
+                                            </label>
+                                        </li>
+                                    </ul>
+                                    <input type="text" id="home_stats_cards" name="home_stats_cards" style="display: none;" />
                                 </div>
                             </div>
-                            <p class="help-block">Select the cards to show in the watch statistics on the home page. Select none to disable.</p>
                         </div>
                         <div class="form-group">
                             <label for="home_stats_length">Time Frame</label>
@@ -170,14 +301,17 @@ erface</a></li>
 
                         <div class="form-group">
                             <label for="home_library_cards">Cards</label>
+                            <p class="help-block">
+                                Select the cards to show in the library statistics on the home page. Select none to disable.<br>
+                                Drag the items below to reorder your homepage content.
+                            </p>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <select multiple class="form-control" id="home_library_cards" name="home_library_cards" data-parsley-trigger="change">
-                                        <option id="card-library_statistics" value="library_statistics" class="hidden" selected>Library Statistics</option>
-                                    </select>
+                                    <ul class="list-unstyled" id="sortable_home_library_cards" data-parsley-trigger="change">
+                                    </ul>
+                                    <input type="text" id="home_library_cards" name="home_library_cards" style="display: none;" />
                                 </div>
                             </div>
-                            <p class="help-block">Select the cards to show in the library statistics on the home page. Select none to disable.</p>
                         </div>
                         <p><input type="button" class="btn btn-bright save-button" value="Save" data-success="Changes saved successfully"></p>
 
@@ -219,16 +353,51 @@ erface</a></li>
                             <p class="help-block">Enable HTTPS for web server for encrypted communication.</p>
                         </div>
                         <div id="https_options">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="http-settings" name="https_create_cert" id="https_create_cert" value="1" ${config['https_create_cert']} /> Create Self-signed Certificate
+                                </label>
+                                <p class="help-block">Check to have Plex:CS create a self-signed SSL certificate. Uncheck if you want to use your own certificate.</p>
+                            </div>
+                            <div id="https_options_self-signed">
+                                <div class="form-group">
+                                    <label for="https_domain">HTTPS Domains</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control http-settings" id="https_domain" name="https_domain" value="${config['https_domain']}">
+                                        </div>
+                                    </div>
+                                    <p class="help-block">The domain names used to access Plex:CS, separated by commas (,).</p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="https_ip">HTTPS IPs</label>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="text" class="form-control http-settings" id="https_ip" name="https_ip" value="${config['https_ip']}">
+                                        </div>
+                                    </div>
+                                    <p class="help-block">The IP addresses used to access Plex:CS, separated by commas (,).</p>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="https_cert">HTTPS Cert</label>
-                                <input type="text" class="form-control http-settings" id="https_cert" name="https_cert" value="${config['https_cert']}">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control http-settings" id="https_cert" name="https_cert" value="${config['https_cert']}">
+                                    </div>
+                                </div>
+                                <p class="help-block">The location of the SSL certificate.</p>
                             </div>
                             <div class="form-group">
                                 <label for="https_key">HTTPS Key</label>
-                                <input type="text" class="form-control http-settings" id="https_key" name="https_key" value="${config['https_key']}">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" class="form-control http-settings" id="https_key" name="https_key" value="${config['https_key']}">
+                                    </div>
+                                </div>
+                                <p class="help-block">The location of the SSL key.</p>
                             </div>
                         </div>
-
                         <p><input type="button" class="btn btn-bright save-button" value="Save" data-success="Changes saved successfully"></p>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="tabs-4">
@@ -286,7 +455,7 @@ erface</a></li>
                     <div role="tabpanel" class="tab-pane" id="tabs-5">
 
                         <div class="padded-header">
-                            <h3>Local Plex Media Server</h3>
+                            <h3>Plex Media Server</h3>
                         </div>
                         <p class="help-block">If you're using websocket monitoring, any server changes require a restart of Plex:CS.</p>
                         <div class="form-group has-feedback" id="pms-ip-group">
@@ -314,14 +483,18 @@ erface</a></li>
                             <label>
                                 <input type="checkbox" id="pms_is_remote" name="pms_is_remote" value="1" ${config['pms_is_remote']}> Remote Server
                             </label>
-                            <p class="help-block">Check this is your Plex Server is not on the same local network as Plex:CS.</p>
+                            <p class="help-block">Check this if your Plex Server is not on the same local network as Plex:CS.</p>
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" id="pms_ssl" name="pms_ssl" value="1" ${config['pms_ssl']}> Force SSL
+                                <input type="checkbox" id="pms_ssl" name="pms_ssl" value="1" ${config['pms_ssl']}> Use SSL
                             </label>
-                            <p class="help-block">Force Plex:CS to connect to your Plex Server via SSL. Your server needs to have remote access enabled.</p>
+                            <p class="help-block">If you have secure connections enabled on your Plex Server, communicate with it securely.</p>
                         </div>
+
+                        <input type="hidden" id="pms_identifier" name="pms_identifier" value="${config['pms_identifier']}">
+                        <input type="checkbox" name="server_changed" id="server_changed" value="1" style="display: none;">
+
                         <div class="padded-header">
                             <h3>Plex Logs</h3>
                         </div>
@@ -334,10 +507,8 @@ erface</a></li>
                                 </div>
                             </div>
                             <p class="help-block">Set the complete folder path where your Plex Server logs are, shortcuts are not recognized.<br />
-                            <a href="https://support.plex.tv/hc/en-us/articles/200250417-Plex-Media-Server-Log-Files" target="_blank">Click here</a> for help. This is required if you enable IP logging (for PMS 0.9.12 and below). </p>
+                            <a href="${anon_url('https://support.plex.tv/hc/en-us/articles/200250417-Plex-Media-Server-Log-Files')}" target="_blank">Click here</a> for help. This is required if you enable IP logging (for PMS 0.9.12 and below). </p>
                         </div>
-
-                        <input type="hidden" id="pms_identifier" name="pms_identifier" value="${config['pms_identifier']}">
 
                         <input type="button" class="btn btn-bright save-button" value="Save" data-success="Changes saved successfully">
 
@@ -367,7 +538,7 @@ erface</a></li>
                             <h3>Friends List</h3>
                         </div>
                         <div class="form-group">
-                            <label for="refresh_users_interval">User List Refresh Interval</label>
+                            <label for="refresh_users_interval">Users List Refresh Interval</label>
                             <div class="row">
                                 <div class="col-md-2">
                                     <input type="text" class="form-control" data-parsley-type="integer" id="refresh_users_interval" name="refresh_users_interval" value="${config['refresh_users_interval']}" size="5" data-parsley-range="[1,24]" data-parsley-trigger="change" data-parsley-errors-container="#refresh_users_interval_error" required>
@@ -378,9 +549,29 @@ erface</a></li>
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" id="refresh_users_on_startup" name="refresh_users_on_startup" value="1" ${config['refresh_users_on_startup']}> Refresh User List on Startup
+                                <input type="checkbox" id="refresh_users_on_startup" name="refresh_users_on_startup" value="1" ${config['refresh_users_on_startup']}> Refresh Users List on Startup
                             </label>
-                            <p class="help-block">Refresh the user list when Plex:CS starts.</p>
+                            <p class="help-block">Refresh the users list when Plex:CS starts.</p>
+                        </div>
+
+                        <div class="padded-header">
+                            <h3>Libraries List</h3>
+                        </div>
+                        <div class="form-group">
+                            <label for="refresh_libraries_interval">Libraries List Refresh Interval</label>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="text" class="form-control" data-parsley-type="integer" id="refresh_libraries_interval" name="refresh_libraries_interval" value="${config['refresh_libraries_interval']}" size="5" data-parsley-range="[1,24]" data-parsley-trigger="change" data-parsley-errors-container="#refresh_libraries_interval_error" required>
+                                </div>
+                                <div id="refresh_libraries_interval_error" class="alert alert-danger settings-alert" role="alert"></div>
+                            </div>
+                            <p class="help-block">The interval (in hours) Plex:CS will request an updated libraries list from your Plex Media Server. 1 minimum, 24 maximum.</p>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="refresh_libraries_on_startup" name="refresh_libraries_on_startup" value="1" ${config['refresh_libraries_on_startup']}> Refresh Libraries List on Startup
+                            </label>
+                            <p class="help-block">Refresh the libraries list when Plex:CS starts.</p>
                         </div>
 
                         <p><input type="button" class="btn btn-bright save-button" value="Save" data-success="Changes saved successfully"></p>
@@ -395,6 +586,21 @@ erface</a></li>
                                 <input type="checkbox" id="pms_use_bif" name="pms_use_bif" value="1" ${config['pms_use_bif']}> Use Video Preview Thumbnails (BIF)
                             </label>
                             <p class="help-block">If you have media indexing enabled on your server, use these on the activity pane.</p>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="get_file_sizes" name="get_file_sizes" value="1" ${config['get_file_sizes']}> Calculate Total File Sizes <span style="color: #eb8600; padding-left: 10px;">[experimental]</span>
+                            </label>
+                            <p class="help-block">Enable if you want Plex:CS to calculate the total file size for TV Shows/Seasons and Artists/Albums on the media info tables.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="anon_redirect">Anonymous Redirect</label>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" id="anon_redirect" name="anon_redirect" value="${config['anon_redirect']}" size="30">
+                                </div>
+                            </div>
+                            <p class="help-block">Backlink protection via anonymizer service, must end in "?".</p>
                         </div>
 
                         <div class="padded-header">
@@ -421,15 +627,16 @@ erface</a></li>
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" class="monitor-settings" id="monitoring_use_websocket" name="monitoring_use_websocket" value="1" ${config['monitoring_use_websocket']}> Use Websocket (requires restart)
+                                <input type="checkbox" class="monitor-settings" id="monitoring_use_websocket" name="monitoring_use_websocket" value="1" ${config['monitoring_use_websocket']}> Use Websocket (requires restart) <span style="color: #eb8600; padding-left: 10px;">[experimental]</span>
                             </label>
-                            <p class="help-block">Instead of polling the server at regular intervals let the server tell us when something happens. This is currently experimental. Encrypted websocket is not currently supported.</p>
+                            <p class="help-block">Instead of polling the server at regular intervals let the server tell Plex:CS when something happens.</p>
                         </div>
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" id="monitor_remote_access" name="monitor_remote_access" value="1" ${config['monitor_remote_access']}> Monitor Plex Remote Access
                             </label>
-                            <p class="help-block">Enable to have Plex:CS check if remote access to the Plex Media Server goes down. Your server needs to have remote access enabled.</p>
+                            <span id="remoteAccessCheck" style="color: #eb8600; padding-left: 10px;"></span>
+                            <p class="help-block">Enable to have Plex:CS check if remote access to the Plex Media Server goes down.</p>
                         </div>
 
                         <div class="padded-header">
@@ -467,7 +674,7 @@ erface</a></li>
                             </label>
                             <span id="debugLogCheck" style="color: #eb8600; padding-left: 10px;"></span>
                             <p class="help-block">
-                                Enable this to attempt to log the IP address of the user (for PMS 0.9.12 and below, IP address is automatically logged for PMS 0.9.14 and above).
+                                Enable this to attempt to log the IP address of the user.
                             </p>
                         </div>
 
@@ -524,6 +731,13 @@ erface</a></li>
                             </label>
                         </div>
 
+                        <div class="checkbox" style="padding-top: 15px;">
+                            <label>
+                                <input type="checkbox" name="notify_upload_posters" id="notify_upload_posters" value="1" ${config['notify_upload_posters']}> Enable Posters in Notifications
+                            </label>
+                            <p class="help-block">Enable to upload Plex posters to Imgur for notifications. Disable if posters are not being used to save bandwidth.</p>
+                        </div>
+
                         <div class="padded-header">
                             <h3>Current Activity Notifications</h3>
                         </div>
@@ -553,7 +767,8 @@ erface</a></li>
                             <label>
                                 <input type="checkbox" name="notify_recently_added_grandparent" id="notify_recently_added_grandparent" value="1" ${config['notify_recently_added_grandparent']}> Group notifications for recently added TV Shows or Music
                             </label>
-                            <p class="help-block">Enable to only get one TV Show or Artist notification for recently added Episodes or Tracks. Movies are unaffected.</p>
+                            <p class="help-block">Enable to only get one TV Show or Artist notification for a batch of recently added Episodes or Tracks. Movies are unaffected.<br />
+                                Note: No Season/Episode or Album/Track metadata will be available.</p>
                         </div>
                         <div class="form-group">
                             <label for="notify_recently_added_delay">Notification Delay</label>
@@ -571,11 +786,11 @@ erface</a></li>
                         </div>
                         <p class="help-block">
                             You can set custom formatted text for each type of notification.
-                            Click <a href="#notify-text-sub-modal" data-toggle="modal">here</a> for a list of available parameters which can be used.
+                            <a href="#notify-text-sub-modal" data-toggle="modal">Click here</a> for a list of available parameters which can be used.
                         </p>
                         <p class="help-block">
-                            You can also add tags to exclude certain text depending on the media type. Click
-                            <a href="#notify-text-tags-modal" data-toggle="modal">here</a> to view usage information.
+                            You can also add tags to exclude certain text depending on the media type.
+                            <a href="#notify-text-tags-modal" data-toggle="modal">Click here</a> to view usage information.
                         </p>
                         <br/>
                         <ul id="accordion-session" class="accordion list-unstyled">
@@ -701,6 +916,40 @@ erface</a></li>
                                 </ul>
                             </li>
                             <li>
+                                <div class="link"><i class="fa fa-server fa-fw"></i>&nbsp;Plex Server Down<i class="fa fa-chevron-down"></i></div>
+                                <ul class="submenu">
+                                    <li>
+                                        <div class="form-group">
+                                            <label for="notify_on_intdown_subject_text">Subject Line</label>
+                                            <input class="form-control" type="text" id="notify_on_intdown_subject_text" name="notify_on_intdown_subject_text" value="${config['notify_on_intdown_subject_text']}" data-parsley-trigger="change" required>
+                                            <p class="help-block">Set a custom subject line.</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="notify_on_intdown_body_text">Message Body</label>
+                                            <textarea class="form-control" id="notify_on_intdown_body_text" name="notify_on_intdown_body_text" data-parsley-trigger="change" data-autoresize required>${config['notify_on_intdown_body_text']}</textarea>
+                                            <p class="help-block">Set a custom body.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div class="link"><i class="fa fa-server fa-fw"></i>&nbsp;Plex Server Back Up<i class="fa fa-chevron-down"></i></div>
+                                <ul class="submenu">
+                                    <li>
+                                        <div class="form-group">
+                                            <label for="notify_on_intup_subject_text">Subject Line</label>
+                                            <input class="form-control" type="text" id="notify_on_intup_subject_text" name="notify_on_intup_subject_text" value="${config['notify_on_intup_subject_text']}" data-parsley-trigger="change" required>
+                                            <p class="help-block">Set a custom subject line.</p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="notify_on_intup_body_text">Message Body</label>
+                                            <textarea class="form-control" id="notify_on_intup_body_text" name="notify_on_intup_body_text" data-parsley-trigger="change" data-autoresize required>${config['notify_on_intup_body_text']}</textarea>
+                                            <p class="help-block">Set a custom body.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
                                 <div class="link"><i class="fa fa-server fa-fw"></i>&nbsp;Plex Remote Access Down<i class="fa fa-chevron-down"></i></div>
                                 <ul class="submenu">
                                     <li>
@@ -718,24 +967,37 @@ erface</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <div class="link"><i class="fa fa-server fa-fw"></i>&nbsp;Plex Server Down<i class="fa fa-chevron-down"></i></div>
+                                <div class="link"><i class="fa fa-server fa-fw"></i>&nbsp;Plex Remote Access Back Up<i class="fa fa-chevron-down"></i></div>
                                 <ul class="submenu">
                                     <li>
                                         <div class="form-group">
-                                            <label for="notify_on_intdown_subject_text">Subject Line</label>
-                                            <input class="form-control" type="text" id="notify_on_intdown_subject_text" name="notify_on_intdown_subject_text" value="${config['notify_on_intdown_subject_text']}" data-parsley-trigger="change" required>
+                                            <label for="notify_on_extup_subject_text">Subject Line</label>
+                                            <input class="form-control" type="text" id="notify_on_extup_subject_text" name="notify_on_extup_subject_text" value="${config['notify_on_extup_subject_text']}" data-parsley-trigger="change" required>
                                             <p class="help-block">Set a custom subject line.</p>
                                         </div>
                                         <div class="form-group">
-                                            <label for="notify_on_intdown_body_text">Message Body</label>
-                                            <textarea class="form-control" id="notify_on_intdown_body_text" name="notify_on_intdown_body_text" data-parsley-trigger="change" data-autoresize required>${config['notify_on_intdown_body_text']}</textarea>
+                                            <label for="notify_on_extup_body_text">Message Body</label>
+                                            <textarea class="form-control" id="notify_on_extup_body_text" name="notify_on_extup_body_text" data-parsley-trigger="change" data-autoresize required>${config['notify_on_extup_body_text']}</textarea>
                                             <p class="help-block">Set a custom body.</p>
                                         </div>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
-
+                        <ul id="accordion-scripts" class="accordion list-unstyled">
+                            <li>
+                                <div class="link"><i class="glyphicon glyphicon-console"></i>&nbsp;Script <i class="fa fa-chevron-down"></i></div>
+                                <ul class="submenu">
+                                    <li>
+                                        <div class="form-group">
+                                            <label for="notify_scripts_args_text">Script Arguments</label>
+                                            <input class="form-control" type="text" id="notify_scripts_args_text" name="notify_scripts_args_text" value="${config['notify_scripts_args_text']}" data-parsley-trigger="change">
+                                            <p class="help-block">Set custom arguments passed to the scripts.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
                         <p><input type="button" class="btn btn-bright save-button" value="Save" data-success="Changes saved successfully"></p>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="tabs-10">
@@ -744,14 +1006,14 @@ erface</a></li>
                             <h3>Notification Agents</h3>
                         </div>
                         <p class="help-block">
-                            Toggle the desired notification options by clicking the bell icon and configure it by clicking the settings icon to the right.
+                            Toggle the desired notification options by clicking the <span class="help-bold">bell icon (<i class="fa fa-sm fa-bell"></i>)</span> and configure it by clicking the settings icon to the right.
                         </p>
                         <br/>
                         <ul class="stacked-configs list-unstyled">
                             % for agent in available_notification_agents:
                             <li>
                                 <span>
-                                    % if agent['on_play'] or agent['on_stop'] or agent['on_pause'] or agent['on_resume'] or agent['on_buffer'] or agent['on_watched'] or agent['on_created'] or agent['on_extdown'] or agent['on_intdown']:
+                                    % if any(k[:2] == 'on' and v == 1 for k, v in agent.iteritems()):
                                     <a href="javascript:void(0)" data-target="#notification-triggers-modal" data-id="${agent['id']}" class="toggle-notification-triggers-modal toggle-left active" data-toggle="modal"><i class="fa fa-lg fa-bell"></i></a>
                                     % else:
                                     <a href="javascript:void(0)" data-target="#notification-triggers-modal" data-id="${agent['id']}" class="toggle-notification-triggers-modal toggle-left" data-toggle="modal"><i class="fa fa-lg fa-bell"></i></a>
@@ -783,111 +1045,111 @@ erface</a></li>
                 <div class="modal-body">
                     <table>
                         <tbody>
-                        <tr>
-                            <td align="center" colspan="3"><h5>Day</h5></td>
-                        </tr>
-                        <tr>
-                            <td width="100"><strong>DD</strong></td>
-                            <td width="300">Numeric, with leading zeros</td>
-                            <td>01 to 31</td>
-                        </tr>
-                        <tr>
-                            <td><strong>D</strong></td>
-                            <td>Numeric, without leading zeros</td>
-                            <td>1 to 31</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Do</strong></td>
-                            <td>The English suffix for the day of the month</td>
-                            <td>st, nd or th in the 1st, 2nd or 15th.</td>
-                        </tr>
+                            <tr>
+                                <td align="center" colspan="3"><h5>Year</h5></td>
+                            </tr>
+                            <tr>
+                                <td><strong>YYYY</strong></td>
+                                <td>Numeric, 4 digits</td>
+                                <td>Eg., 1999, 2003</td>
+                            </tr>
+                            <tr>
+                                <td><strong>YY</strong></td>
+                                <td>Numeric, 2 digits</td>
+                                <td>Eg., 99, 03</td>
+                            </tr>
 
-                        <tr>
-                            <td align="center" colspan="3"><h5>Month</h5></td>
-                        </tr>
-                        <tr>
-                            <td><strong>MM</strong></td>
-                            <td>Numeric, with leading zeros</td>
-                            <td>01 to 31</td>
-                        </tr>
-                        <tr>
-                            <td><strong>M</strong></td>
-                            <td>Numeric, without leading zeros</td>
-                            <td>1 to 31</td>
-                        </tr>
-                        <tr>
-                            <td><strong>MMMM</strong></td>
-                            <td>Textual full</td>
-                            <td>January to December</td>
-                        </tr>
-                        <tr>
-                            <td><strong>MMM</strong></td>
-                            <td>Textual three letters</td>
-                            <td>Jan to Dec</td>
-                        </tr>
+                            <tr>
+                                <td align="center" colspan="3"><h5>Month</h5></td>
+                            </tr>
+                            <tr>
+                                <td><strong>MM</strong></td>
+                                <td>Numeric, with leading zeros</td>
+                                <td>01-12</td>
+                            </tr>
+                            <tr>
+                                <td><strong>M</strong></td>
+                                <td>Numeric, without leading zeros</td>
+                                <td>1-12</td>
+                            </tr>
+                            <tr>
+                                <td><strong>MMMM</strong></td>
+                                <td>Textual full</td>
+                                <td>January-December</td>
+                            </tr>
+                            <tr>
+                                <td><strong>MMM</strong></td>
+                                <td>Textual three letters</td>
+                                <td>Jan-Dec</td>
+                            </tr>
 
-                        <tr>
-                            <td align="center" colspan="3"><h5>Year</h5></td>
-                        </tr>
-                        <tr>
-                            <td><strong>YYYY</strong></td>
-                            <td>Numeric, 4 digits</td>
-                            <td>Eg., 1999, 2003</td>
-                        </tr>
-                        <tr>
-                            <td><strong>YY</strong></td>
-                            <td>Numeric, 2 digits</td>
-                            <td>Eg., 99, 03</td>
-                        </tr>
+                            <tr>
+                                <td align="center" colspan="3"><h5>Day</h5></td>
+                            </tr>
+                            <tr>
+                                <td width="100"><strong>DD</strong></td>
+                                <td width="300">Numeric, with leading zeros</td>
+                                <td>01-31</td>
+                            </tr>
+                            <tr>
+                                <td><strong>D</strong></td>
+                                <td>Numeric, without leading zeros</td>
+                                <td>1-31</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Do</strong></td>
+                                <td>The English suffix for the day of the month</td>
+                                <td>st, nd or th in the 1st, 2nd or 15th.</td>
+                            </tr>
 
-                        <tr>
-                            <td align="center" colspan="3"><h5>Time</h5></td>
-                        </tr>
-                        <tr>
-                            <td><strong>a</strong></td>
-                            <td width="300">am/pm Lowercase</td>
-                            <td>am, pm</td>
-                        </tr>
-                        <tr>
-                            <td><strong>A</strong></td>
-                            <td>AM/PM Uppercase</td>
-                            <td>AM, PM</td>
-                        </tr>
-                        <tr>
-                            <td><strong>h</strong></td>
-                            <td>Hour, 12-hour, without leading zeros</td>
-                            <td>1-12</td>
-                        </tr>
-                        <tr>
-                            <td><strong>hh</strong></td>
-                            <td>Hour, 12-hour, with leading zeros</td>
-                            <td>01-12</td>
-                        </tr>
-                        <tr>
-                            <td><strong>H</strong></td>
-                            <td>Hour, 24-hour, without leading zeros</td>
-                            <td>0-23</td>
-                        </tr>
-                        <tr>
-                            <td><strong>HH</strong></td>
-                            <td>Hour, 24-hour, with leading zeros</td>
-                            <td>00-23</td>
-                        </tr>
-                        <tr>
-                            <td><strong>mm</strong></td>
-                            <td>Minutes, with leading zeros</td>
-                            <td>00-59</td>
-                        </tr>
-                        <tr>
-                            <td><strong>ss</strong></td>
-                            <td>Seconds, with leading zeros</td>
-                            <td>00-59</td>
-                        </tr>
-                        <tr>
-                            <td><strong>zz</strong></td>
-                            <td>Timezone abbreviation</td>
-                            <td>Eg., EST, MDT ...</td>
-                        </tr>
+                            <tr>
+                                <td align="center" colspan="3"><h5>Time</h5></td>
+                            </tr>
+                            <tr>
+                                <td><strong>a</strong></td>
+                                <td width="300">am/pm Lowercase</td>
+                                <td>am, pm</td>
+                            </tr>
+                            <tr>
+                                <td><strong>A</strong></td>
+                                <td>AM/PM Uppercase</td>
+                                <td>AM, PM</td>
+                            </tr>
+                            <tr>
+                                <td><strong>h</strong></td>
+                                <td>Hour, 12-hour, without leading zeros</td>
+                                <td>1-12</td>
+                            </tr>
+                            <tr>
+                                <td><strong>hh</strong></td>
+                                <td>Hour, 12-hour, with leading zeros</td>
+                                <td>01-12</td>
+                            </tr>
+                            <tr>
+                                <td><strong>H</strong></td>
+                                <td>Hour, 24-hour, without leading zeros</td>
+                                <td>0-23</td>
+                            </tr>
+                            <tr>
+                                <td><strong>HH</strong></td>
+                                <td>Hour, 24-hour, with leading zeros</td>
+                                <td>00-23</td>
+                            </tr>
+                            <tr>
+                                <td><strong>mm</strong></td>
+                                <td>Minutes, with leading zeros</td>
+                                <td>00-59</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ss</strong></td>
+                                <td>Seconds, with leading zeros</td>
+                                <td>00-59</td>
+                            </tr>
+                            <tr>
+                                <td><strong>zz</strong></td>
+                                <td>Timezone abbreviation</td>
+                                <td>Eg., EST, MDT ...</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -900,8 +1162,7 @@ erface</a></li>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i
-                            class="fa fa-remove"></i></button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-remove"></i></button>
                     <h4 class="modal-title">Fetch Plex.tv Token</h4>
                 </div>
                 <div class="modal-body" id="modal-text">
@@ -948,154 +1209,358 @@ erface</a></li>
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i
                             class="fa fa-remove"></i></button>
-                    <h4 class="modal-title">Notification string substitutions</h4>
+                    <h4 class="modal-title">Notification String Substitutions</h4>
                 </div>
                 <div class="modal-body">
                     <div>
                         <p class="help-block">
-                            If a value for a selected parameter cannot be provided nothing will be outputted for it.
+                            If the value for a selected parameter cannot be provided, it will display as blank.
                         </p>
-                        <table>
+                        <table class="notification-params">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Global
+                                    </th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 <tr>
-                                    <td width="150"><strong>{server_name}</strong></td>
+                                    <td><strong>{server_name}</strong></td>
                                     <td>The name of your Plex Server.</td>
                                 </tr>
                                 <tr>
-                                    <td width="150"><strong>{server_uptime}</strong></td>
+                                    <td><strong>{server_uptime}</strong></td>
                                     <td>The uptime (in days, hours, mins, secs) of your Plex Server.</td>
                                 </tr>
                                 <tr>
-                                    <td width="150"><strong>{user}</strong></td>
+                                    <td><strong>{action}</strong></td>
+                                    <td>The action that triggered the notification.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{datestamp}</strong></td>
+                                    <td>The date (in date format) the notification was triggered.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{timestamp}</strong></td>
+                                    <td>The time (in time format) the notification was triggered.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="notification-params">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Stream Details
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>{streams}</strong></td>
+                                    <td>The number of concurrent streams.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{user}</strong></td>
                                     <td>The username of the person streaming.</td>
                                 </tr>
                                 <tr>
-                                    <td width="150"><strong>{platform}</strong></td>
+                                    <td><strong>{platform}</strong></td>
                                     <td>The type of client being used for playback.</td>
                                 </tr>
                                 <tr>
-                                    <td width="150"><strong>{player}</strong></td>
+                                    <td><strong>{player}</strong></td>
                                     <td>The name of the device being used for playback.</td>
                                 </tr>
                                 <tr>
-                                    <td width="150"><strong>{ip_address}</strong></td>
-                                    <td>The IP address of the device being used for playback. (PMS 0.9.14 and above)</td>
+                                    <td><strong>{ip_address}</strong></td>
+                                    <td>The IP address of the device being used for playback. <span class="small-muted">(PMS 0.9.14 and above)</span></td>
                                 </tr>
                                 <tr>
-                                    <td width="150"><strong>{media_type}</strong></td>
-                                    <td>The type of media being played (movie, episode, track).</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{title}</strong></td>
-                                    <td>The full title of the item being played.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{show_name}</strong></td>
-                                    <td>The title of the TV series being played.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{episode_name}</strong></td>
-                                    <td>The title of the episode being played.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{artist_name}</strong></td>
-                                    <td>The name of the artist being played.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{album_name}</strong></td>
-                                    <td>The title of the album being played.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{track_name}</strong></td>
-                                    <td>The title of the track being played.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{season_num}</strong></td>
-                                    <td>The season number for the media item if item is episode.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{season_num00}</strong></td>
-                                    <td>The two digit season number.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{episode_num}</strong></td>
-                                    <td>The episode number for the media item if item is episode.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{episode_num00}</strong></td>
-                                    <td>The two digit episode number.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{video_decision}</strong></td>
-                                    <td>The video transcode decisions for the media item.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{audio_decision}</strong></td>
-                                    <td>The audio transcode decisions for the media item.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{transcode_decision}</strong></td>
-                                    <td>The stream transcode decisions for the media item.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{year}</strong></td>
-                                    <td>The release year for the media item.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{studio}</strong></td>
-                                    <td>The studio for the media item.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{content_rating}</strong></td>
-                                    <td>The content rating for the media item. (e.g. TV-MA, TV-PG, etc.)</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{directors}</strong></td>
-                                    <td>A list of directors for the media item.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{writers}</strong></td>
-                                    <td>A list of writers for the media item.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{actors}</strong></td>
-                                    <td>A list of actors for the media item.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{genres}</strong></td>
-                                    <td>A list of genres for the media item.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{summary}</strong></td>
-                                    <td>A short plot summary for the media item.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{tagline}</strong></td>
-                                    <td>A tagline for the media item.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{rating}</strong></td>
-                                    <td>The rating (out of 10) for the item.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{duration}</strong></td>
-                                    <td>The duration (in minutes) for the item.</td>
-                                </tr>
-                                <tr>
-                                    <td width="150"><strong>{stream_duration}</strong></td>
+                                    <td><strong>{stream_duration}</strong></td>
                                     <td>The stream duration (in minutes) for the item.</td>
                                 </tr>
                                 <tr>
-                                    <td width="150"><strong>{remaining_duration}</strong></td>
+                                    <td><strong>{stream_time}</strong></td>
+                                    <td>The stream duration (in time format) for the item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{remaining_duration}</strong></td>
                                     <td>The remaining duration (in minutes) for the item.</td>
                                 </tr>
                                 <tr>
-                                    <td width="150"><strong>{progress}</strong></td>
+                                    <td><strong>{remaining_time}</strong></td>
+                                    <td>The remaining duration (in time format) for the item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{progress_duration}</strong></td>
                                     <td>The last reported offset (in minutes) for the item.</td>
                                 </tr>
                                 <tr>
-                                    <td width="150"><strong>{progress_percent}</strong></td>
+                                    <td><strong>{progress_time}</strong></td>
+                                    <td>The last reported offset (in time format) for the item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{progress_percent}</strong></td>
                                     <td>The last reported progress percent for the item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{container}</strong></td>
+                                    <td>The media container of the original media.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{video_codec}</strong></td>
+                                    <td>The video codec of the original media.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{video_bitrate}</strong></td>
+                                    <td>The video bitrate of the original media.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{video_width}</strong></td>
+                                    <td>The video width of the original media.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{video_height}</strong></td>
+                                    <td>The video height of the original media.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{video_resolution}</strong></td>
+                                    <td>The video resolution of the original media.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{video_framerate}</strong></td>
+                                    <td>The video framerate of the original media.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{aspect_ratio}</strong></td>
+                                    <td>The aspect ratio of the original media.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{audio_codec}</strong></td>
+                                    <td>The audio codec of the original media.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{audio_channels}</strong></td>
+                                    <td>The audio channels of the original media.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{transcode_decision}</strong></td>
+                                    <td>The stream transcode decisions for the media item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{video_decision}</strong></td>
+                                    <td>The video transcode decisions for the media item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{audio_decision}</strong></td>
+                                    <td>The audio transcode decisions for the media item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{transcode_container}</strong></td>
+                                    <td>The media container of the transcoded media.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{transcode_video_codec}</strong></td>
+                                    <td>The video codec of the transcoded media.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{transcode_video_width}</strong></td>
+                                    <td>The video width of the transcoded media.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{transcode_video_height}</strong></td>
+                                    <td>The video height of the transcoded media.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{transcode_audio_codec}</strong></td>
+                                    <td>The audio codec of the transcoded media.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{transcode_audio_channels}</strong></td>
+                                    <td>The audio channels of the transcoded media.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{session_key}</strong></td>
+                                    <td>The unique identifier for the session.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{user_id}</strong></td>
+                                    <td>The unique identifier for the user.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{machine_id}</strong></td>
+                                    <td>The unique identifier for the player.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="notification-params">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Metadata Details
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>{media_type}</strong></td>
+                                    <td>The type of media. <span class="small-muted">(movie, episode, track)</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{title}</strong></td>
+                                    <td>The full title of the item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{library_name}</strong></td>
+                                    <td>The library title of the media item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{show_name}</strong></td>
+                                    <td>The title of the TV series.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{episode_name}</strong></td>
+                                    <td>The title of the episode.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{artist_name}</strong></td>
+                                    <td>The name of the artistd.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{album_name}</strong></td>
+                                    <td>The title of the album.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{track_name}</strong></td>
+                                    <td>The title of the track.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{season_num}</strong></td>
+                                    <td>The season number for the episode.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{season_num00}</strong></td>
+                                    <td>The two digit season number.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{episode_num}</strong></td>
+                                    <td>The episode number for the episode.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{episode_num00}</strong></td>
+                                    <td>The two digit episode number.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{track_num}</strong></td>
+                                    <td>The track number for the track.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{track_num00}</strong></td>
+                                    <td>The two digit track number.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{year}</strong></td>
+                                    <td>The release year for the item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{studio}</strong></td>
+                                    <td>The studio for the item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{content_rating}</strong></td>
+                                    <td>The content rating for the item. <span class="small-muted">(e.g. TV-MA, TV-PG, etc.)</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{directors}</strong></td>
+                                    <td>A list of directors for the item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{writers}</strong></td>
+                                    <td>A list of writers for the item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{actors}</strong></td>
+                                    <td>A list of actors for the item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{genres}</strong></td>
+                                    <td>A list of genres for the item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{summary}</strong></td>
+                                    <td>A short plot summary for the item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{tagline}</strong></td>
+                                    <td>A tagline for the media item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{rating}</strong></td>
+                                    <td>The rating (out of 10) for the item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{duration}</strong></td>
+                                    <td>The duration (in minutes) for the item.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{poster_url}</strong></td>
+                                    <td>A URL for the movie, TV show, or album poster.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{imdb_id}</strong></td>
+                                    <td>The IMDB ID for the movie. <span class="small-muted">(e.g. tt2488496)</span>
+                                    <p class="small-muted">(PMS agent must be Freebase)</p></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{imdb_url}</strong></td>
+                                    <td>The IMDB URL for the movie.
+                                    <p class="small-muted">(PMS agent must be Freebase)</p></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{thetvdb_id}</strong></td>
+                                    <td>The TVDB ID for the TV show. <span class="small-muted">(e.g. 121361)</span>
+                                    <p class="small-muted">(PMS agent must be TheTVDB)</p></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{thetvdb_url}</strong></td>
+                                    <td>The TVDB URL for the TV show.
+                                    <p class="small-muted">(PMS agent must be TheTVDB)</p></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{themoviedb_id}</strong></td>
+                                    <td>The TMDb ID for the movie or TV show. <span class="small-muted">(e.g. 15260)</span>
+                                    <p class="small-muted">(PMS agent must be The Movie Database)</p></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{themoviedb_url}</strong></td>
+                                    <td>The TMDb URL for the movie or TV show.
+                                    <p class="small-muted">(PMS agent must be The Movie Database)</p></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{lastfm_url}</strong></td>
+                                    <td>The last.fm URL for the album.
+                                    <p class="small-muted">(PMS agent must be Last.fm)</p></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{trakt_url}</strong></td>
+                                    <td>The trakt.tv URL for the movie or TV show.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{section_id}</strong></td>
+                                    <td>The unique identifier for the library.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{rating_key}</strong></td>
+                                    <td>The unique identifier for the movie, episode, or track.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{parent_rating_key}</strong></td>
+                                    <td>The unique identifier for the season or album.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{grandparent_rating_key}</strong></td>
+                                    <td>The unique identifier for the TV show or artist.</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1110,7 +1575,7 @@ erface</a></li>
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-remove"></i></button>
-                    <h4 class="modal-title">Notification exclusion tags</h4>
+                    <h4 class="modal-title">Notification Exclusion Tags</h4>
                 </div>
                 <div class="modal-body">
                     <div>
@@ -1119,21 +1584,24 @@ erface</a></li>
                         </div>
                         <div>
                             <p class="help-block">All text inside a <strong>movie</strong> tag will only be sent when the media item being played back is a movie.</p>
-                            <pre>Example: {user} has started playing {title} &lt;movie&gt;({year})&lt;/movie&gt;</pre>
+                            <p><strong style="color: #fff;">Example:</strong></p>
+                            <pre>{user} has started playing {title} &lt;movie&gt;({year})&lt;/movie&gt;</pre>
                         </div>
                         <div class="wellheader">
                             <h4>TV Tag <strong>&lt;tv&gt;&lt;/tv&gt;</strong></h4>
                         </div>
                         <div>
                             <p class="help-block">All text inside a <strong>tv</strong> tag will only be sent when the media item being played back is an episode.</p>
-                            <pre>Example: {user} has started playing {title} &lt;tv&gt;(S{season_num}E{episode_num})&lt;/tv&gt;</pre>
+                            <p><strong style="color: #fff;">Example:</strong></p>
+                            <pre>{user} has started playing {title} &lt;tv&gt;(S{season_num}E{episode_num})&lt;/tv&gt;</pre>
                         </div>
                         <div class="wellheader">
                             <h4>Music Tag <strong>&lt;music&gt;&lt;/music&gt;</strong></h4>
                         </div>
                         <div>
                             <p class="help-block">All text inside a <strong>music</strong> tag will only be sent when the media item being played back is a music track.</p>
-                            <pre>Example: {user} has started playing {title} &lt;music&gt;(Track {episode_num})&lt;/music&gt;</pre>
+                            <p><strong style="color: #fff;">Example:</strong></p>
+                            <pre>{user} has started playing {title} &lt;music&gt;(Track {track_num})&lt;/music&gt;</pre>
                         </div>
                     </div>
                 </div>
@@ -1178,6 +1646,8 @@ erface</a></li>
 
 <%def name="javascriptIncludes()">
 <script src="interfaces/default/js/parsley.min.js"></script>
+<script src="interfaces/default/js/Sortable.min.js"></script>
+<script src="interfaces/default/js/moment-with-locale.js"></script>
 <script>
 $(document).ready(function() {
 
@@ -1209,7 +1679,7 @@ $(document).ready(function() {
     var configForm = $("#configUpdate");
     function saveSettings() {
         if (configForm.parsley().validate()) {
-            doAjaxCall('configUpdate', $(this), 'tabs', true);
+            doAjaxCall('configUpdate', $(this), 'tabs', true, getSchedulerTable);
             postSaveChecks();
             return false;
         } else {
@@ -1288,6 +1758,20 @@ $(document).ready(function() {
         }
     });
 
+    if ($("#https_create_cert").is(":checked")) {
+        $("#https_options_self-signed").show();
+    } else {
+        $("#https_options_self-signed").hide();
+    }
+
+    $("#https_create_cert").click(function(){
+        if ($("#https_create_cert").is(":checked")) {
+            $("#https_options_self-signed").slideDown();
+        } else {
+            $("#https_options_self-signed").slideUp();
+        }
+    });
+
     $( ".http-settings" ).change(function() {
         httpChanged = true;
     });
@@ -1304,29 +1788,34 @@ $(document).ready(function() {
         serverChanged = true;
         $("#pms_identifier").val("");
         $("#pms-verify-status").html("");
+        $("#server_changed").prop('checked', true);
         verifyServer();
     });
 
     function verifyServer(_callback) {
-        var pms_ip = $("#pms_ip").val()
-        var pms_port = $("#pms_port").val()
+        var pms_ip = $("#pms_ip").val();
+        var pms_port = $("#pms_port").val();
+        var pms_identifier = $("#pms_identifier").val();
+        var pms_ssl = $("#pms_ssl").is(':checked') ? 1 : 0;
+        var pms_is_remote = $("#pms_is_remote").is(':checked') ? 1 : 0;
         if (($("#pms_ip").val() !== '') || ($("#pms_port").val() !== '')) {
             $("#pms-verify").html('<i class="fa fa-refresh fa-spin"></i>');
             $('#pms-verify').fadeIn('fast');
             $.ajax({
                 url: 'get_server_id',
-                data : { hostname: pms_ip, port: pms_port },
+                data : { hostname: pms_ip, port: pms_port, identifier: pms_identifier, ssl: pms_ssl, remote: pms_is_remote },
                 cache: true,
                 async: true,
-                timeout: 5000,
+                timeout: 10000,
                 error: function(jqXHR, textStatus, errorThrown) {
                     $("#pms-verify").html('<i class="fa fa-close"></i>');
                     $('#pms-verify').fadeIn('fast');
                     $("#pms-ip-group").addClass("has-error");
                 },
-                success: function (xml) {
-                    if ($(xml).find('MediaContainer').attr('machineIdentifier')) {
-                        $("#pms_identifier").val($(xml).find('MediaContainer').attr('machineIdentifier'));
+                success: function (json) {
+                    var machine_identifier = json;
+                    if (machine_identifier) {
+                        $("#pms_identifier").val(machine_identifier);
                         $("#pms-verify").html('<i class="fa fa-check"></i>');
                         $('#pms-verify').fadeIn('fast');
                         $("#pms-ip-group").removeClass("has-error");
@@ -1397,10 +1886,10 @@ $(document).ready(function() {
 
     // Load notification agent config modal
     $(".toggle-notification-config-modal").click(function() {
-        var configId = $(this).data('id');
+        var agent_id = $(this).data('id');
         $.ajax({
             url: 'get_notification_agent_config',
-            data: { config_id: configId },
+            data: { agent_id: agent_id },
             cache: false,
             async: true,
             complete: function(xhr, status) {
@@ -1411,10 +1900,10 @@ $(document).ready(function() {
 
     // Load notification triggers config modal
     $(".toggle-notification-triggers-modal").click(function() {
-        var configId = $(this).data('id');
+        var agent_id = $(this).data('id');
         $.ajax({
             url: 'get_notification_agent_triggers',
-            data: { config_id: configId },
+            data: { agent_id: agent_id },
             cache: false,
             async: true,
             complete: function(xhr, status) {
@@ -1425,81 +1914,143 @@ $(document).ready(function() {
 
     $('#osxnotifyregister').click(function () {
         var osx_notify_app = $("#osx_notify_reg").val();
-        $.get("/osxnotifyregister", {'app': osx_notify_app}, function (data) { $('#ajaxMsg').html("<div class='msg'><span class='ui-icon ui-icon-check'></span>"+data+"</div>"); });
-        $('#ajaxMsg').addClass('success').fadeIn().delay(3000).fadeOut()
+        $.get("/osxnotifyregister", { 'app': osx_notify_app }, function (data) { showMsg("<div class='msg'><span class='ui-icon ui-icon-check'></span>" + data + "</div>", false, true, 3000); });
     })
 
     $.ajax({
-        url: 'get_server_pref',
-        data: { pref: 'logDebug' },
+        url: 'get_server_identity',
         async: true,
         success: function(data) {
-            if (data !== 'true') {
-                $("#debugLogCheck").html("Debug logging must be enabled on your Plex Server. <a target='_blank' href='https://support.plex.tv/hc/en-us/articles/201643703-Reporting-issues-with-Plex-Media-Server'> More..</a>");
+            var version = data.version.split('.')
+            if (parseInt(version[0]) >= 0 && parseInt(version[1]) >= 9 && parseInt(version[2]) >= 14) {
+                $("#debugLogCheck").html("IP address is automatically logged for PMS version 0.9.14 and above.");
                 $("#ip_logging_enable").attr("disabled", true);
+                $("#ip_logging_enable").attr("checked", true);
+            } else {
+                $.ajax({
+                    url: 'get_server_pref',
+                    data: { pref: 'logDebug' },
+                    async: true,
+                    success: function(data) {
+                        if (data !== 'true') {
+                            $("#debugLogCheck").html("Debug logging must be enabled on your Plex Server. <a target='_blank' href='${anon_url('https://support.plex.tv/hc/en-us/articles/201643703-Reporting-issues-with-Plex-Media-Server')}'>Click here</a> for help.");
+                            $("#ip_logging_enable").attr("disabled", true);
+                            $("#ip_logging_enable").attr("checked", false);
+                        }
+                    }
+                });
+
+                // Check to see if our logs folder is set before allowing IP logging to be enabled.
+                checkLogsPath();
+
+                $("#pms_logs_folder").change(function() {
+                    checkLogsPath();
+                });
+
+                function checkLogsPath() {
+                    if ($("#pms_logs_folder").val() == '') {
+                        $("#debugLogCheck").html("You must first define your Plex Server Logs folder path under the Plex Media Server tab.");
+                        $("#ip_logging_enable").attr("disabled", true);
+                        $("#ip_logging_enable").attr("checked", false);
+                    } else {
+                        $("#ip_logging_enable").attr("disabled", false);
+                        $("#debugLogCheck").html("");
+                    }
+                }
             }
         }
-    });
-
-    // Check to see if our logs folder is set before allowing IP logging to be enabled.
-    checkLogsPath();
-
-    $("#pms_logs_folder").change(function() {
-        checkLogsPath();
-    });
-
-    function checkLogsPath() {
-        if ($("#pms_logs_folder").val() == '') {
-            $("#debugLogCheck").html("You must first define your Plex Server Logs folder path under the Plex Media Server tab.");
-            $("#ip_logging_enable").attr("disabled", true);
-        } else {
-            $("#ip_logging_enable").attr("disabled", false);
-            $("#debugLogCheck").html("");
-        }
-    }
-
-    var accordion_session = new Accordion($('#accordion-session'), false);
-    var accordion_timeline = new Accordion($('#accordion-timeline'), false);
-
-    var cards = "${config['home_stats_cards']}".split(/[\s,]+/);
-    cards.forEach(function (item) {
-        $('#card-'+item).prop('selected', !$(this).prop('selected'));
-    });
-    $('#home_stats_cards').on('mousedown', function(e) {
-        e.preventDefault();
-        var scroll = this.scrollTop;
-        e.target.selected = !e.target.selected;
-        this.scrollTop = scroll;
-    }).on('mousemove', function(e) {
-        e.preventDefault()
     });
 
     $.ajax({
-        url: 'get_server_children',
-        data: { },
+        url: 'get_server_pref',
+        data: { pref: 'PublishServerOnPlexOnlineKey' },
         async: true,
-        complete: function (xhr, status) {
-            server_children_info = $.parseJSON(xhr.responseText);
-            libraries_list = server_children_info.libraries_list;
-            for (var i in libraries_list) {
-                title = libraries_list[i].title;
-                key = libraries_list[i].key;
-                $('#home_library_cards').append('<option id="card-' + key + '" value="' + key + '">' + title + '</option>')
+        success: function(data) {
+            if (data !== 'true') {
+                $("#remoteAccessCheck").html("Remote access must be enabled on your Plex Server. <a target='_blank' href='${anon_url('https://support.plex.tv/hc/en-us/articles/200484543-Enabling-Remote-Access-for-a-Server')}'>Click here</a> for help.");
+                $("#monitor_remote_access").attr("disabled", true);
+                $("#monitor_remote_access").attr("checked", false);
             }
-            var cards = "${config['home_library_cards']}".split(/[\s,]+/);
-            cards.forEach(function (item) {
-                $('#card-'+item).prop('selected', !$(this).prop('selected'));
-            });
         }
     });
-    $('#home_library_cards').on('mousedown', function(e) {
-        e.preventDefault();
-        var scroll = this.scrollTop;
-        e.target.selected = !e.target.selected;
-        this.scrollTop = scroll;
-    }).on('mousemove', function(e) {
-        e.preventDefault()
+
+    var accordion_session = new Accordion($('#accordion-session'), false);
+    var accordion_timeline = new Accordion($('#accordion-timeline'), false);
+    var accordion_scripts = new Accordion($('#accordion-scripts'), false);
+
+
+    // Sortable home_stats_cards
+    function set_home_stats_cards() {
+        var home_stats_cards = [];
+        var hscards = $('[id^=hscard-]').serializeArray();
+        $.each(hscards, function(i, card) {
+            home_stats_cards.push(card.value);
+        });
+        $('#home_stats_cards').val(home_stats_cards);
+    };
+
+    var config_cards = ${config['home_stats_cards'] | n};
+    config_cards.reverse().forEach(function (item) {
+        $('#hscard-' + item).prop('checked', !$(this).prop('checked'))
+        $('#hscard-' + item).closest('li.card').prependTo('#sortable_home_stats_cards');
     });
+
+    Sortable.create(sortable_home_stats_cards, {
+        animation: 250,
+        onSort: function(elem, ui) {
+            set_home_stats_cards();
+        }
+    });
+
+    $('[id^=hscard-]').change(function() { set_home_stats_cards(); });
+    set_home_stats_cards()
+
+
+    // Sortable home_library_cards
+    function set_home_library_cards() {
+        var home_library_cards = [];
+        var hlcards = $('[id^=hlcard-]').serializeArray();
+        $.each(hlcards, function(i, card) {
+            home_library_cards.push(card.value);
+        });
+        $('#home_library_cards').val(home_library_cards);
+    };
+
+    $.ajax({
+        url: 'get_library_sections',
+        data: { },
+        async: true,
+        complete: function (data) {
+            libraries_list = $.parseJSON(data.responseText);
+            for (var i in libraries_list) {
+                var title = libraries_list[i].section_name;
+                var key = libraries_list[i].section_id;
+                $('#sortable_home_library_cards').append(
+                    '<li class="card card-sortable">' + 
+                        '<div class="card-handle"><i class="fa fa-bars"></i></div>' + 
+                        '<label>' + 
+                            '<input type="checkbox" id="hlcard-' + key + '" name="hlcard-' + key + '" value="' + key + '"> ' + title + 
+                        '</label>' + 
+                    '</li>'
+                );
+            }
+            var config_cards = ${config['home_library_cards'] | n};
+            config_cards.reverse().forEach(function (item) {
+                $('#hlcard-' + item).prop('checked', !$(this).prop('checked'));
+                $('#hlcard-' + item).closest('li.card').prependTo('#sortable_home_library_cards');
+            });
+            $('[id^=hlcard-]').change(function() { set_home_library_cards(); });
+            set_home_library_cards()
+        }
+    });
+
+    Sortable.create(sortable_home_library_cards, {
+        animation: 250,
+        onSort: function(elem, ui) {
+            set_home_library_cards();
+        }
+    });
+
 
     // auto resizing textarea for custom notification message body
     $('textarea[data-autoresize]').each(function() {
@@ -1509,6 +2060,19 @@ $(document).ready(function() {
         };
         $(this).on('focus keyup input', function() { resizeTextarea(this); }).removeAttr('data-autoresize');
     });
+
+    function getSchedulerTable() {
+        $.ajax({
+            url: 'get_scheduler_table',
+            cache: false,
+            async: true,
+            complete: function(xhr, status) {
+                $("#plexcs-scheduler-table").html(xhr.responseText);
+            }
+        });
+    }
+    getSchedulerTable();
+
 });
 </script>
 </%def>
