@@ -46,6 +46,7 @@ _CONFIG_DEFINITIONS = {
     'PMS2_USE_BIF': (int, 'PMS2', 0),
     'PMS2_UUID': (str, 'PMS2', ''),
     'TIME_FORMAT': (str, 'General', 'HH:mm'),
+    'ANON_REDIRECT': (str, 'General', 'http://dereferer.org/?'),
     'API_ENABLED': (int, 'General', 0),
     'API_KEY': (str, 'General', ''),
     'BOXCAR_ENABLED': (int, 'Boxcar', 0),
