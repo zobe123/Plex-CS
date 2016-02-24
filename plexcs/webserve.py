@@ -406,7 +406,7 @@ class WebInterface(object):
             "enable_https": checked(plexcs.CONFIG.ENABLE_HTTPS),
             "https_cert": plexcs.CONFIG.HTTPS_CERT,
             "https_key": plexcs.CONFIG.HTTPS_KEY,
-            "anon_redirect": plexpy.CONFIG.ANON_REDIRECT,
+            "anon_redirect": plexcs.CONFIG.ANON_REDIRECT,
             "api_enabled": checked(plexcs.CONFIG.API_ENABLED),
             "api_key": plexcs.CONFIG.API_KEY,
             "update_db_interval": plexcs.CONFIG.UPDATE_DB_INTERVAL,
