@@ -34,14 +34,13 @@ available_notification_agents = sorted(notifiers.available_notification_agents()
         <div class="col-md-3">
             <ul class="nav-settings list-unstyled" role="tablist">
                 <li role="presentation" class="active"><a href="#tabs-1" aria-controls="tabs-1" role="tab" data-toggle="tab">General</a></li>
-                <li role="presentation"><a href="#tabs-2" aria-controls="tabs-2" role="tab" data-toggle="tab">Homepage Statistics</a></li>
-                <li role="presentation"><a href="#tabs-3" aria-controls="tabs-3" role="tab" data-toggle="tab">Web Int
-erface</a></li>
+           <!--      <li role="presentation"><a href="#tabs-2" aria-controls="tabs-2" role="tab" data-toggle="tab">Homepage Statistics</a></li> -->
+               <li role="presentation"><a href="#tabs-3" aria-controls="tabs-3" role="tab" data-toggle="tab">Web Interface</a></li>
                 <li role="presentation"><a href="#tabs-4" aria-controls="tabs-4" role="tab" data-toggle="tab">Access Control</a></li>
                 <li role="presentation"><a href="#tabs-5" aria-controls="tabs-5" role="tab" data-toggle="tab">Local Plex Media Server</a></li>
                 <li role="presentation"><a href="#tabs-6" aria-controls="tabs-6" role="tab" data-toggle="tab">Plex.tv Account</a></li>
-                <li role="presentation"><a href="#tabs-7" aria-controls="tabs-7" role="tab" data-toggle="tab">Extra Settings</a></li>
-                <li role="presentation"><a href="#tabs-8" aria-controls="tabs-8" role="tab" data-toggle="tab">Monitoring</a></li>
+            <!--    <li role="presentation"><a href="#tabs-7" aria-controls="tabs-7" role="tab" data-toggle="tab">Extra Settings</a></li> -->
+          <!--      <li role="presentation"><a href="#tabs-8" aria-controls="tabs-8" role="tab" data-toggle="tab">Monitoring</a></li> -->
                 <li role="presentation"><a href="#tabs-9" aria-controls="tabs-9" role="tab" data-toggle="tab">Notifications</a></li>
                 <li role="presentation"><a href="#tabs-10" aria-controls="tabs-10" role="tab" data-toggle="tab">Notification Agents</a></li>
             </ul>
@@ -85,12 +84,12 @@ erface</a></li>
                             </div>
                             <p class="help-block">Set your preferred time format. <a href="javascript:void(0)" data-target="#dateTimeOptionsModal" data-toggle="modal">Click here</a> to see the parameter list.</p>
                         </div>
-                        <div class="checkbox">
+                   <!--     <div class="checkbox">
                             <label>
                                 <input type="checkbox" id="group_history_tables" name="group_history_tables" value="1" ${config['group_history_tables']}> Group Table History
                             </label>
                             <p class="help-block">Group successive play history by the same user as a single entry in tables.</p>
-                        </div>
+                        </div> -->
 
 
 
@@ -257,7 +256,7 @@ erface</a></li>
                         </div>
 
 
-                        <div class="padded-header">
+<!--                        <div class="padded-header">
                             <h3>API</h3>
                         </div>
                         <div class="checkbox">
@@ -279,7 +278,7 @@ erface</a></li>
                                 </div>
                             </div>
                             <p class="help-block">Current API key: <strong><br/>${config['api_key']}</strong></p>
-                        </div>
+                        </div> -->
 
                         <p><input type="button" class="btn btn-bright save-button" value="Save" data-success="Changes saved successfully"></p>
                     </div>
@@ -523,7 +522,7 @@ erface</a></li>
                                 <input type="checkbox" name="notify_recently_added" id="notify_recently_added" value="1" ${config['notify_recently_added']}> Enable Recently Added Notifications
                             </label>
                         </div>
-
+<!--
                         <div class="padded-header">
                             <h3>Current Activity Notifications</h3>
                         </div>
@@ -564,7 +563,7 @@ erface</a></li>
                                 <div id="notify_recently_added_delay_error" class="alert alert-danger settings-alert" role="alert"></div>
                             </div>
                             <p class="help-block">Set the delay for recently added notifications to allow metadata to be processed. Minimum 60 seconds.</p>
-                        </div>
+                        </div> -->
 
                         <div class="padded-header">
                             <h3>Custom Notification Messages</h3>
@@ -580,7 +579,7 @@ erface</a></li>
                         <br/>
                         <ul id="accordion-session" class="accordion list-unstyled">
                             <li>
-                                <div class="link"><i class="fa fa-play fa-fw"></i>&nbsp;Playback Start<i class="fa fa-chevron-down"></i></div>
+                                <div class="link"><i class="fa fa-play fa-fw"></i>&nbsp;Download Start<i class="fa fa-chevron-down"></i></div>
                                 <ul class="submenu">
                                     <li>
                                         <div class="form-group">
@@ -597,7 +596,7 @@ erface</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <div class="link"><i class="fa fa-stop fa-fw"></i>&nbsp;Playback Stop<i class="fa fa-chevron-down"></i></div>
+                                <div class="link"><i class="fa fa-stop fa-fw"></i>&nbsp;Download finished<i class="fa fa-chevron-down"></i></div>
                                 <ul class="submenu">
                                     <li>
                                         <div class="form-group">
@@ -614,7 +613,7 @@ erface</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <div class="link"><i class="fa fa-pause fa-fw"></i>&nbsp;Playback Pause<i class="fa fa-chevron-down"></i></div>
+                                <div class="link"><i class="fa fa-pause fa-fw"></i>&nbsp;Download Pause<i class="fa fa-chevron-down"></i></div>
                                 <ul class="submenu">
                                     <li>
                                         <div class="form-group">
@@ -631,7 +630,7 @@ erface</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <div class="link"><i class="fa fa-play fa-fw"></i>&nbsp;Playback Resume<i class="fa fa-chevron-down"></i></div>
+                                <div class="link"><i class="fa fa-play fa-fw"></i>&nbsp;Download Resume<i class="fa fa-chevron-down"></i></div>
                                 <ul class="submenu">
                                     <li>
                                         <div class="form-group">
@@ -648,7 +647,7 @@ erface</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <div class="link"><i class="fa fa-eye fa-fw"></i>&nbsp;Watched<i class="fa fa-chevron-down"></i></div>
+<!--                                <div class="link"><i class="fa fa-eye fa-fw"></i>&nbsp;Watched<i class="fa fa-chevron-down"></i></div>
                                 <ul class="submenu">
                                     <li>
                                         <div class="form-group">
@@ -664,8 +663,8 @@ erface</a></li>
                                     </li>
                                 </ul>
                             </li>
-                            <li>
-                                <div class="link"><i class="fa fa-spinner fa-fw"></i>&nbsp;Buffer Warnings<i class="fa fa-chevron-down"></i></div>
+                            <li> -->
+<!--                                <div class="link"><i class="fa fa-spinner fa-fw"></i>&nbsp;Buffer Warnings<i class="fa fa-chevron-down"></i></div>
                                 <ul class="submenu">
                                     <li>
                                         <div class="form-group">
@@ -678,12 +677,13 @@ erface</a></li>
                                             <textarea class="form-control" id="notify_on_buffer_body_text" name="notify_on_buffer_body_text" data-parsley-trigger="change" data-autoresize required>${config['notify_on_buffer_body_text']}</textarea>
                                             <p class="help-block">Set a custom body.</p>
                                         </div>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </li>
-                        </ul>
+                        </ul> 
                         <ul id="accordion-timeline" class="accordion list-unstyled">
                             <li>
+
                                 <div class="link"><i class="fa fa-download fa-fw"></i>&nbsp;Recently Added<i class="fa fa-chevron-down"></i></div>
                                 <ul class="submenu">
                                     <li>
